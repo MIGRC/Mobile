@@ -1,0 +1,37 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient"
+    tools:context="br.edu.ucpel.MatriculaActivity" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp" >
+
+        <TextView
+            android:text="@string/matricula_txtEscolhaMatricula"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#ffd6d6d6"
+            android:textSize="20dp"
+            android:textStyle="bold"/>
+
+        <Button
+            android:id="@+id/login_btnMaticula"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:radius="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:background="@drawable/botaologin"
+            android:onClick="onClickEscolha"
+            android:text="@string/matricula_btnMatricula"
+            android:textColor="#FFF"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</ScrollView>

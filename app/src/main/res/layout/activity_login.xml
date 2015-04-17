@@ -1,0 +1,85 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient"
+    tools:context="br.edu.ucpel.LoginActivity" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp" >
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="250px"
+            android:layout_height="250px"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="60dp"
+            android:src="@drawable/logoucpel" />
+
+        <TextView
+            android:text="@string/login_txtUsuario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#ffd6d6d6"
+            android:textSize="18dp"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:id="@+id/login_edtUsuario"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginBottom="10dp"
+            android:textSize="18dp"
+            android:textColor="#ff6e6e6e"
+            android:text="CPF"
+            android:padding="8dp"
+            android:background="@drawable/edittextstyle" />
+
+        <TextView
+            android:text="@string/login_txtSenha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#ffd6d6d6"
+            android:textSize="18dp"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:id="@+id/login_edtSenha"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="#ff6e6e6e"
+            android:padding="8dp"
+            android:text="senha"
+            android:textSize="25dp"
+            android:inputType="textPassword"
+            android:background="@drawable/edittextstyle" />
+
+        <CheckBox
+            android:id="@+id/login_ckbConectado"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dip"
+            android:textColor="#ffd6d6d6"
+            android:textSize="18dp"
+            android:text="@string/login_ckbConectado" />
+
+        <Button
+            android:id="@+id/login_btnEntrar"
+            android:layout_width="200dp"
+            android:layout_height="45dp"
+            android:layout_margin="10dp"
+            android:radius="10dp"
+            android:layout_gravity="center"
+            android:background="@drawable/botaologin"
+            android:onClick="onClickLogar"
+            android:text="@string/login_btnEntrar"
+            android:textColor="#FFF"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</ScrollView>

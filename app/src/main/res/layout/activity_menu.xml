@@ -1,0 +1,89 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient"
+    tools:context="br.edu.ucpel.MenuActivity" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp" >
+
+        <Button
+            android:id="@+id/menu_matricula"
+            android:layout_width="240dp"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:radius="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:background="@drawable/botaologin"
+            android:onClick="onClickEscolha"
+            android:text="@string/menu_btnMatricula"
+            android:textColor="#FFF"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/menu_avaliacoes"
+            android:layout_width="240dp"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:radius="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:background="@drawable/botaologin"
+            android:onClick="onClickNotas"
+            android:text="@string/menu_btnAvaliacoes"
+            android:textColor="#FFF"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/menu_data_avaliacoes"
+            android:layout_width="240dp"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:radius="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:background="@drawable/botaologin"
+            android:onClick="onClickEscolha"
+            android:text="@string/menu_btnDataAvaliacoes"
+            android:textColor="#FFF"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/menu_frequencia"
+            android:layout_width="240dp"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:radius="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:background="@drawable/botaologin"
+            android:onClick="onClickEscolha"
+            android:text="@string/menu_btnFrequencia"
+            android:textColor="#FFF"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/menu_horario"
+            android:layout_width="240dp"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:radius="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:background="@drawable/botaologin"
+            android:onClick="onClickHorarios"
+            android:text="@string/menu_btnHorario"
+            android:textColor="#FFF"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</ScrollView>
