@@ -11,30 +11,35 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.List;
+
 import br.edu.ucpel.adapter.HorarioAdapter;
 import br.edu.ucpel.bean.Horario;
+import br.edu.ucpel.dao.HorarioDAO;
 
 public class HorariosActivity extends ActionBarActivity {
 
-    public Horario[] dados = new Horario[]{
-            new Horario("Estrutura de Dados", "Sala 233C", "Terça 19:15"),
-            new Horario("DOO III", "Sala 232C", "Terça 20:30"),
-            new Horario("DOO II", "Sala 232C", "Quarta 19:15")};
+    private ListView lista;
+    private List<Horario> horarioList;
+    private HorarioAdapter horarioAdapter;
+    private HorarioDAO horarioDAO;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_horarios);
 
-        ListView lista = (ListView) findViewById(R.id.view1234);
+        horarioDAO = new HorarioDAO(this);
+        horarioList = horarioDAO.listarHorarios();
+        horarioAdapter = new HorarioAdapter(this, horarioList);
 
-        TituloAdapter adapter = new TituloAdapter(this);
-
-        lista.setAdapter(adapter);
+        lista = (ListView) findViewById(R.id.lvHorarios);
+        lista.setAdapter(horarioAdapter);
 
     }
 
-    public class TituloAdapter extends ArrayAdapter<Horario> {
+   /* public class TituloAdapter extends ArrayAdapter<Horario> {
 
         private final Activity context;
 
@@ -60,5 +65,5 @@ public class HorariosActivity extends ActionBarActivity {
 
             return item;
         }
-    }
+    }*/
 }

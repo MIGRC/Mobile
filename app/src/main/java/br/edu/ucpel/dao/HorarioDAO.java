@@ -19,9 +19,11 @@ public class HorarioDAO {
     private SQLiteDatabase database;
     private DatabaseHelper dbHelper;
 
-    private String[] colunas = {dbHelper.HORARIO_ID, dbHelper.HORARIO_DISCIPLINA,
-            dbHelper.HORARIO_SALA, dbHelper.HORARIO_HORARIO};
-
+  /*  private String[] colunas = {dbHelper.HORARIO_ID,
+                                dbHelper.HORARIO_DISCIPLINA,
+                                dbHelper.HORARIO_SALA,
+                                dbHelper.HORARIO_HORARIO};
+*/
     public HorarioDAO(Context context) {
         dbHelper = new DatabaseHelper(context);
     }
@@ -40,6 +42,30 @@ public class HorarioDAO {
 
     public void close() {
         dbHelper.close();
+    }
+
+    private Horario criarHorario(Cursor cursor){
+        Horario horarioBean = new Horario(
+                cursor.getInt(cursor.getColumnIndex(DatabaseHelper.Horarios.HORARIO_ID)),
+                cursor.getString(cursor.getColumnIndex(DatabaseHelper.Horarios.HORARIO_DISCIPLINA)),
+                cursor.getString(cursor.getColumnIndex(DatabaseHelper.Horarios.HORARIO_SALA)),
+                cursor.getString(cursor.getColumnIndex(DatabaseHelper.Horarios.HORARIO_HORARIO))
+        );
+
+        return horarioBean;
+    }
+
+    public List<Horario> listarHorarios(){
+        Cursor cursor = getDatabase().query(DatabaseHelper.Horarios.TBL_HORARIO,
+                DatabaseHelper.Horarios.COLUNAS, null, null, null, null, null);
+
+        List<Horario> horarios = new ArrayList<Horario>();
+        while(cursor.moveToNext()){
+            Horario horarioBean = criarHorario(cursor);
+            horarios.add(horarioBean);
+        }
+        cursor.close();
+        return horarios;
     }
 
     /*public long Inserir(Contato contato) {
@@ -68,7 +94,7 @@ public class HorarioDAO {
         database.delete(dbHelper.TBL_AGENDA, dbHelper.AGENDA_ID + " = " + id, null);
     }*/
 
-    public List<Horario> Consultar() {
+   /* public List<Horario> Consultar() {
         List<Horario> lstHorarios = new ArrayList<Horario>();
 
         Cursor cursor = database.query(dbHelper.TBL_HORARIO, colunas, null, null,
@@ -82,7 +108,7 @@ public class HorarioDAO {
 
         cursor.close();
         return lstHorarios;
-    }
+    }*/
 
     private Horario cursorToHorario(Cursor cursor) {
         Horario lHorarioVO = new Horario();

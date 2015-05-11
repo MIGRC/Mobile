@@ -9,14 +9,8 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class DatabaseHelper  extends SQLiteOpenHelper {
     //Tabela Usuários
-    public static final String TBL_USUARIO = "usuarios";
+    //public static final String TBL_USUARIO = "usuarios";
 
-    //Tabela Horarios
-    public static final String TBL_HORARIO = "horarios";
-    public static final String HORARIO_ID = "_id";
-    public static final String HORARIO_DISCIPLINA = "disciplina";
-    public static final String HORARIO_SALA = "sala";
-    public static final String HORARIO_HORARIO = "horario";
 
     private static final String BANCO_DADOS = "unimobile";
     private static final int VERSAO = 1;
@@ -32,10 +26,8 @@ public class DatabaseHelper  extends SQLiteOpenHelper {
                 +"nome text not null, login text not null, senha text not null, created_at text)");
 
         //Tabela de Horario
-        db.execSQL("create table " + TBL_HORARIO + "( "
-                + HORARIO_ID + " integer primary key autoincrement, "
-                + HORARIO_DISCIPLINA + " text not null, "
-                + HORARIO_SALA + " text not null, " + HORARIO_HORARIO + " text not null);");
+        db.execSQL("create table horarios(_id integer primary key autoincrement, "
+                + "disciplina text not null, sala text not null, horario text not null);");
 
         //Cadastrar um usuário
         db.execSQL("insert into usuarios(nome, login, senha) values('Admin', 'admin', '123');");
@@ -75,6 +67,19 @@ public class DatabaseHelper  extends SQLiteOpenHelper {
 
         public static final String[] COLUNAS = new String[]{
                 _ID, TAREFA, DT_CRIACAO, DT_COMPLETADO
+        };
+    }
+
+    //Tabela Horarios
+    public static class Horarios{
+        public static final String TBL_HORARIO = "horarios";
+        public static final String HORARIO_ID = "_id";
+        public static final String HORARIO_DISCIPLINA = "disciplina";
+        public static final String HORARIO_SALA = "sala";
+        public static final String HORARIO_HORARIO = "horario";
+
+        public static final String[] COLUNAS = new String[]{
+                HORARIO_ID, HORARIO_DISCIPLINA, HORARIO_SALA, HORARIO_HORARIO
         };
     }
 }

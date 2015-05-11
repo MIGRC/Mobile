@@ -10,25 +10,26 @@ import java.io.Serializable;
 //interface(tela) e Banco de Dados
 public class Horario implements Serializable {
     private static final long serialVersionUID = 1L;
-    private long id;
+    private Integer _id;
     private String disciplina;
     private String sala;
     private String horario;
 
     public Horario() {    }
 
-    public Horario(String disciplina, String sala, String horario) {
+    public Horario(Integer id, String disciplina, String sala, String horario) {
+        this._id = id;
         this.disciplina = disciplina;
         this.sala = sala;
         this.horario = horario;
     }
 
     public long getId() {
-        return id;
+        return _id;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setId(Integer id) {
+        this._id = id;
     }
 
     public String getDisciplina() {
