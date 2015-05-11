@@ -49,6 +49,10 @@
             android:name=".MatriculaActivity"
             android:label="@string/title_activity_matricula" >
         </activity>
+        <activity
+            android:name=".AvaliacaoActivity"
+            android:label="@string/title_activity_avaliacao" >
+        </activity>
     </application>
 
 </manifest>

@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 /**
  * Created by Miguel Aguiar Barbosa on 09/04/15.
  */
-public class DatabaseHelper  extends SQLiteOpenHelper {
+public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String BANCO_DADOS = "unimobile";
     private static final int VERSAO = 1;
@@ -30,6 +30,10 @@ public class DatabaseHelper  extends SQLiteOpenHelper {
         db.execSQL("create table matriculas(_id integer primary key autoincrement, "
                 + "disciplina text not null, situacao text not null, turma text not null);");
 
+        //Tabela de Avaliações
+        db.execSQL("create table avalicoes(_id integer primary key autoincrement,"
+                + "disciplina text not null, avaliacao text not null, data text not null);");
+
         //Cadastro um usuário
         db.execSQL("insert into usuarios(nome, login, senha) values('Admin', 'admin', '123');");
 
@@ -38,10 +42,15 @@ public class DatabaseHelper  extends SQLiteOpenHelper {
         db.execSQL("insert into horarios(disciplina, sala, horario) values('DOO III', 'Sala 232C', 'Terça 20:30');");
         db.execSQL("insert into horarios(disciplina, sala, horario) values('DOO II', 'Sala 232C', 'Quarta 19:15');");
 
-        //Cadastro Horarios
+        //Cadastro Matricula
         db.execSQL("insert into matriculas(disciplina, situacao, turma) values('Estrutura de Dados', 'Matriculado', '133');");
         db.execSQL("insert into matriculas(disciplina, situacao, turma) values('DOO III', 'Matriculado', '135');");
         db.execSQL("insert into matriculas(disciplina, situacao, turma) values('DOO II', 'Matriculado', '200');");
+
+        //Cadastro Matricula
+        db.execSQL("insert into avalicoes(disciplina, avaliacao, data) values('Estrutura de Dados', '1 avaliação', '12/06/2015');");
+        db.execSQL("insert into avalicoes(disciplina, avaliacao, data) values('Estrutura de Dados', '2 avaliação', '22/08/2015');");
+        db.execSQL("insert into avalicoes(disciplina, avaliacao, data) values('Estrutura de Dados', 'Trabalho 1', '22/06/2015');");
     }
 
     @Override
@@ -87,6 +96,19 @@ public class DatabaseHelper  extends SQLiteOpenHelper {
 
         public static final String[] COLUNAS = new String[]{
                 HORARIO_ID, HORARIO_DISCIPLINA, HORARIO_SALA, HORARIO_HORARIO
+        };
+    }
+
+    //Tabela Avalição
+    public static class Avaliacoes{
+        public static final String TBL_AVALIACOES = "avalicoes";
+        public static final String AVALIACOES_ID = "_id";
+        public static final String AVALIACOES_DISCIPLINA = "disciplina";
+        public static final String AVALIACOES_AVALIACAO = "avaliacao";
+        public static final String AVALIACOES_DATA = "data";
+
+        public static final String[] COLUNAS = new String[]{
+                AVALIACOES_ID, AVALIACOES_DISCIPLINA, AVALIACOES_AVALIACAO, AVALIACOES_DATA
         };
     }
 }

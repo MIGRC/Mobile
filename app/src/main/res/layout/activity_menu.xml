@@ -35,7 +35,7 @@
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
             android:background="@drawable/botaologin"
-            android:onClick="onClickNotas"
+            android:onClick="onClickAvaliacoes"
             android:text="@string/menu_btnAvaliacoes"
             android:textColor="#FFF"
             android:textSize="15sp"

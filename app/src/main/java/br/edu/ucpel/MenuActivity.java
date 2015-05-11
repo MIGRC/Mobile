@@ -31,4 +31,9 @@ public class MenuActivity extends Activity {
             startActivity(new Intent(this, MatriculaActivity.class));
             finish();
         }
+
+        public void onClickAvaliacoes(View view){
+            startActivity(new Intent(this, AvaliacaoActivity.class));
+            finish();
+        }
     }

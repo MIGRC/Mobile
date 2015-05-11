@@ -53,6 +53,7 @@
 
     <!-- Horários -->
     <string name="title_activity_horarios">Horários</string>
+    <string name="title_activity_avaliacao">AvaliacaoActivity</string>
 
 
     </resources>
