@@ -24,7 +24,7 @@ public class Matricula {
         return _id;
     }
 
-    public void set_id(Integer _id) {
+    public void setId(Integer _id) {
         this._id = _id;
     }
 
@@ -50,5 +50,10 @@ public class Matricula {
 
     public void setTurma(String turma) {
         this.turma = turma;
+    }
+
+    @Override
+    public String toString() {
+        return disciplina;
     }
 }

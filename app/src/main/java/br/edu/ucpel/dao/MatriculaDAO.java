@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.edu.ucpel.bean.Horario;
 import br.edu.ucpel.bean.Matricula;
 import br.edu.ucpel.db.DatabaseHelper;
 
@@ -53,7 +52,7 @@ public class MatriculaDAO {
 
     public List<Matricula> listarMatriculas(){
         Cursor cursor = getDatabase().query(DatabaseHelper.Matriculas.TBL_MATRICULA,
-                DatabaseHelper.Horarios.COLUNAS, null, null, null, null, null);
+                DatabaseHelper.Matriculas.COLUNAS, null, null, null, null, null);
 
         List<Matricula> matriculas = new ArrayList<Matricula>();
         while(cursor.moveToNext()){
@@ -62,5 +61,14 @@ public class MatriculaDAO {
         }
         cursor.close();
         return matriculas;
+    }
+
+    private Matricula cursorToMatricula(Cursor cursor) {
+        Matricula lMatriculaVO = new Matricula();
+        lMatriculaVO.setId(cursor.getInt(0));
+        lMatriculaVO.setDisciplina(cursor.getString(1));
+        lMatriculaVO.setSituacao(cursor.getString(2));
+        lMatriculaVO.setTurma(cursor.getString(3));
+        return lMatriculaVO;
     }
 }

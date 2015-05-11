@@ -39,16 +39,16 @@ public class DatabaseHelper  extends SQLiteOpenHelper {
         db.execSQL("insert into horarios(disciplina, sala, horario) values('DOO II', 'Sala 232C', 'Quarta 19:15');");
 
         //Cadastro Horarios
-        db.execSQL("insert into horarios(disciplina, situacao, turma) values('Estrutura de Dados', 'Matriculado', '133');");
-        db.execSQL("insert into horarios(disciplina, situacao, turma) values('DOO III', 'Matriculado', '135');");
-        db.execSQL("insert into horarios(disciplina, situacao, turma) values('DOO II', 'Matriculado', '200');");
+        db.execSQL("insert into matriculas(disciplina, situacao, turma) values('Estrutura de Dados', 'Matriculado', '133');");
+        db.execSQL("insert into matriculas(disciplina, situacao, turma) values('DOO III', 'Matriculado', '135');");
+        db.execSQL("insert into matriculas(disciplina, situacao, turma) values('DOO II', 'Matriculado', '200');");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-      //  db.execSQL("DROP TABLE IF EXISTS " + TBL_USUARIO);
+       // db.execSQL("DROP TABLE IF EXISTS matriculas");
       //  db.execSQL("DROP TABLE IF EXISTS " + TBL_HORARIO);
-      //  onCreate(db);
+        //onCreate(db);
     }
 
     public static class Usuarios{

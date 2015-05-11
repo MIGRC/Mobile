@@ -20,7 +20,7 @@
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
             android:background="@drawable/botaologin"
-            android:onClick="onClickEscolha"
+            android:onClick="onClickMatricula"
             android:text="@string/menu_btnMatricula"
             android:textColor="#FFF"
             android:textSize="15sp"

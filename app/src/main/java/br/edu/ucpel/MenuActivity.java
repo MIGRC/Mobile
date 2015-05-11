@@ -26,4 +26,9 @@ public class MenuActivity extends Activity {
             startActivity(new Intent(this, HorariosActivity.class));
             finish();
         }
+
+        public void onClickMatricula(View view){
+            startActivity(new Intent(this, MatriculaActivity.class));
+            finish();
+        }
     }

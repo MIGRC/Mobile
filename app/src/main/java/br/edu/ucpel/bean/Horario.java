@@ -33,8 +33,8 @@ public class Horario {
         return disciplina;
     }
 
-    public void setDisciplina(String value) {
-        this.disciplina = value;
+    public void setDisciplina(String disciplina) {
+        this.disciplina = disciplina;
     }
 
     public String getSala() {
