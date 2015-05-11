@@ -3,13 +3,10 @@ package br.edu.ucpel.bean;
 import java.io.Serializable;
 
 /**
- * Created by sti on 16/04/15.
+ * Created by Miguel Aguiar Barbosa on 16/04/15.
  */
 
-//Classe responsável pelo transporte dos dados entre a
-//interface(tela) e Banco de Dados
-public class Horario implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class Horario {
     private Integer _id;
     private String disciplina;
     private String sala;

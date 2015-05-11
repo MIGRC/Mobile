@@ -8,9 +8,6 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Created by Miguel Aguiar Barbosa on 09/04/15.
  */
 public class DatabaseHelper  extends SQLiteOpenHelper {
-    //Tabela Usuários
-    //public static final String TBL_USUARIO = "usuarios";
-
 
     private static final String BANCO_DADOS = "unimobile";
     private static final int VERSAO = 1;
@@ -29,13 +26,22 @@ public class DatabaseHelper  extends SQLiteOpenHelper {
         db.execSQL("create table horarios(_id integer primary key autoincrement, "
                 + "disciplina text not null, sala text not null, horario text not null);");
 
-        //Cadastrar um usuário
+        //Tabela de Matricula
+        db.execSQL("create table matriculas(_id integer primary key autoincrement, "
+                + "disciplina text not null, situacao text not null, turma text not null);");
+
+        //Cadastro um usuário
         db.execSQL("insert into usuarios(nome, login, senha) values('Admin', 'admin', '123');");
 
         //Cadastro Horarios
         db.execSQL("insert into horarios(disciplina, sala, horario) values('Estrutura de Dados', 'Sala 233C', 'Terça 19:15');");
         db.execSQL("insert into horarios(disciplina, sala, horario) values('DOO III', 'Sala 232C', 'Terça 20:30');");
         db.execSQL("insert into horarios(disciplina, sala, horario) values('DOO II', 'Sala 232C', 'Quarta 19:15');");
+
+        //Cadastro Horarios
+        db.execSQL("insert into horarios(disciplina, situacao, turma) values('Estrutura de Dados', 'Matriculado', '133');");
+        db.execSQL("insert into horarios(disciplina, situacao, turma) values('DOO III', 'Matriculado', '135');");
+        db.execSQL("insert into horarios(disciplina, situacao, turma) values('DOO II', 'Matriculado', '200');");
     }
 
     @Override
@@ -58,15 +64,16 @@ public class DatabaseHelper  extends SQLiteOpenHelper {
         };
     }
 
-    public static class Tarefas{
-        public static final String TABELA = "tarefas";
-        public static final String _ID = "_id";
-        public static final String TAREFA = "tarefa";
-        public static final String DT_CRIACAO = "dt_criacao";
-        public static final String DT_COMPLETADO = "dt_completado";
+    //Tabela Matricula
+    public static class Matriculas{
+        public static final String TBL_MATRICULA = "matriculas";
+        public static final String MATRICULA_ID = "_id";
+        public static final String MATRICULA_DISCIPLINA = "disciplina";
+        public static final String MATRICULA_SITUACAO = "situacao";
+        public static final String MATRICULA_TURMA = "turma";
 
         public static final String[] COLUNAS = new String[]{
-                _ID, TAREFA, DT_CRIACAO, DT_COMPLETADO
+                MATRICULA_ID, MATRICULA_DISCIPLINA, MATRICULA_SITUACAO, MATRICULA_TURMA
         };
     }
 

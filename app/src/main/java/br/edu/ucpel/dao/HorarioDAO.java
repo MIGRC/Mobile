@@ -19,12 +19,7 @@ public class HorarioDAO {
     private SQLiteDatabase database;
     private DatabaseHelper dbHelper;
 
-  /*  private String[] colunas = {dbHelper.HORARIO_ID,
-                                dbHelper.HORARIO_DISCIPLINA,
-                                dbHelper.HORARIO_SALA,
-                                dbHelper.HORARIO_HORARIO};
-*/
-    public HorarioDAO(Context context) {
+   public HorarioDAO(Context context) {
         dbHelper = new DatabaseHelper(context);
     }
 

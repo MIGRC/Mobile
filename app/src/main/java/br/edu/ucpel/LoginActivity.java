@@ -77,7 +77,7 @@ public class LoginActivity extends ActionBarActivity {
     }
 
     private void ChamarMatricula(){
-        startActivity(new Intent(this, MatriculaActivity.class));
+        startActivity(new Intent(this, EscolhaMatriculaActivity.class));
         finish();
     }
 
