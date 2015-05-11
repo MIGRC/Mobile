@@ -105,12 +105,12 @@ public class HorarioDAO {
         return lstHorarios;
     }*/
 
-    private Horario cursorToHorario(Cursor cursor) {
+   /* private Horario cursorToHorario(Cursor cursor) {
         Horario lHorarioVO = new Horario();
         lHorarioVO.setId(cursor.getInt(0));
         lHorarioVO.setDisciplina(cursor.getString(1));
         lHorarioVO.setSala(cursor.getString(2));
         lHorarioVO.setHorario(cursor.getString(3));
         return lHorarioVO;
-    }
+    }*/
 }
