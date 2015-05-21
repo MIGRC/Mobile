@@ -4,6 +4,11 @@
     android:background="@drawable/gradient"
     android:orientation="vertical" >
 
+    <TextView android:id="@+id/curso_aluno_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+
     <ListView
         android:id="@+id/lvMatriculas"
         android:layout_width="wrap_content"

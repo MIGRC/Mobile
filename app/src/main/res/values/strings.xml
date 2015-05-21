@@ -10,6 +10,7 @@
     <string name="sair">Sair</string>
     <string name="usuarios">Usuários</string>
     <string name="cadastrar">Cadastrar</string>
+    <string name="sincronizar">Sincronizar</string>
 
     <!-- Login -->
     <string name="login_txtUsuario">Usuário</string>

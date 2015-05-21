@@ -1,16 +1,23 @@
 package br.edu.ucpel;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.List;
 
 import br.edu.ucpel.adapter.MatriculaAdapter;
 import br.edu.ucpel.bean.Matricula;
 import br.edu.ucpel.dao.MatriculaDAO;
+import br.edu.ucpel.ws.ClienteGSON;
 
 
 public class MatriculaActivity extends ActionBarActivity {
@@ -19,6 +26,7 @@ public class MatriculaActivity extends ActionBarActivity {
     private List<Matricula> matriculaList;
     private MatriculaAdapter matriculaAdapter;
     private MatriculaDAO matriculaDAO;
+    private ProgressDialog dialog;
 
 
     @Override
@@ -34,25 +42,47 @@ public class MatriculaActivity extends ActionBarActivity {
         lista.setAdapter(matriculaAdapter);
     }
 
-    /*@Override
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_escolha_matricula, menu);
+        getMenuInflater().inflate(R.menu.menu_matricula, menu);
+
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id){
+            case R.id.action_menu_sincronizar:
+                this.dialog = ProgressDialog.show(this, "Sincronizando", "Por favor, aguarde...". false, true);
+               // Sincronismo();
+                break;
+            case R.id.action_menu_sair:
+                finish();
+                startActivity(new Intent(this, MenuActivity.class));
+                break;
         }
-
         return super.onOptionsItemSelected(item);
-    }*/
+    }
+
+    private class Sincronismo() {
+
+        int etCursoAlunoId = 1;//(EditText) findViewById(R.id.curso_aluno_id);
+
+        ClienteGSON cliente = new ClienteGSON();
+
+        try {
+           // Matricula matriculaGet = cliente.matriculaGet(etCursoAlunoId.intValue());
+
+           /* if(testeGet.isLogado()){
+                Toast.makeText(this, "autorizdo", Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(this, "sai fora!", Toast.LENGTH_SHORT).show();
+            }*/
+
+        } catch (Exception ex) {
+            Log.w("Principal", "Erro", ex);
+        }
+    }
 }
