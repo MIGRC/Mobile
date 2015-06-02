@@ -12,12 +12,13 @@ import android.widget.EditText;
 
 import br.edu.ucpel.dao.UsuarioDAO;
 import br.edu.ucpel.util.Mensagem;
+import br.edu.ucpel.ws.ClienteGSON;
 
 
 public class LoginActivity extends ActionBarActivity {
 
     private EditText edtUsuario, edtSenha;
-    private UsuarioDAO helper;
+    private UsuarioDAO usuarioDAO;
     private CheckBox ckbConectado;
 
     private static final String MANTER_CONECTADO = "manter_conectado";
@@ -32,7 +33,7 @@ public class LoginActivity extends ActionBarActivity {
         edtSenha     = (EditText) findViewById(R.id.login_edtSenha);
         ckbConectado = (CheckBox) findViewById(R.id.login_ckbConectado);
 
-        helper = new UsuarioDAO(this);
+        usuarioDAO = new UsuarioDAO(this);
 
         SharedPreferences preferences = getSharedPreferences(PREFERENCE_NAME, MODE_PRIVATE);
         boolean conectado             = preferences.getBoolean(MANTER_CONECTADO, false);
@@ -43,24 +44,24 @@ public class LoginActivity extends ActionBarActivity {
     }
 
     public void onClickLogar(View view){
-        String usuario = edtUsuario.getText().toString();
-        String senha   = edtSenha.getText().toString();
+        EditText etLogin = (EditText) edtUsuario;
+        EditText etSenha = (EditText) edtSenha;
 
         boolean validacao = true;
 
-        if(usuario == null || usuario.equals("")){
+        if(etLogin == null || etLogin.equals("")){
             validacao = false;
-                edtUsuario.setError(getString(R.string.login_valUsuario));
+            edtUsuario.setError(getString(R.string.login_valUsuario));
         }
 
-        if(senha == null || senha.equals("")){
+        if(edtSenha == null || edtSenha.equals("")){
             validacao = false;
-               edtSenha.setError(getString(R.string.login_valSenha));
+            edtSenha.setError(getString(R.string.login_valSenha));
         }
 
         if(validacao){
             //logar
-            if(helper.logar(usuario,senha)){
+            if(usuarioDAO.logar(etLogin,etSenha)){
                 if(ckbConectado.isChecked()){
                     SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCE_NAME, MODE_PRIVATE);
                     SharedPreferences.Editor editor     = sharedPreferences.edit();

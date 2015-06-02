@@ -1,28 +1,37 @@
 package br.edu.ucpel.bean;
 
-public class Usuario {
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
+
+public class Usuario implements Serializable{
+
     private Integer _id;
     private String nome;
+    @Expose
+    @SerializedName("login")
     private String login;
+    @Expose
+    @SerializedName("senha")
     private String senha;
-    private String created_at;
+    //private String created_at;
 
     public Usuario(){}
 
-    public Usuario(Integer id, String nome, String login, String senha, String created_at){
-        this._id = id;
+    public Usuario(Integer _id, String nome, String login, String senha) {
+        this._id = _id;
         this.nome = nome;
         this.login = login;
         this.senha = senha;
-        this.created_at = created_at;
     }
 
-    public String getSenha() {
-        return senha;
+    public Integer get_id() {
+        return _id;
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public void set_id(Integer _id) {
+        this._id = _id;
     }
 
     public String getNome() {
@@ -41,19 +50,19 @@ public class Usuario {
         this.login = login;
     }
 
-    public Integer get_id() {
-        return _id;
+    public String getSenha() {
+        return senha;
     }
 
-    public void set_id(Integer _id) {
-        this._id = _id;
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
-    public String getCreated_at() {
-        return created_at;
-    }
-
-    public void setCreated_at(String created_at) {
-        this.created_at = created_at;
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "login='" + login + '\'' +
+                ", senha='" + senha + '\'' +
+                '}';
     }
 }

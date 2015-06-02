@@ -98,10 +98,10 @@ public class MatriculaDAO {
         v.put(Matricula.MATRICULA_DISCIPLINA_NOME, m.getDisciplinaNome());
         v.put(Matricula.MATRICULA_SITUACAO, m.getSituacao());
         v.put(Matricula.MATRICULA_TURMA, m.getTurma());
-        insert(values);
+        //insert(values);
     }
 
-    public void insert(ContentValues valores) {
+    /*public void insert(ContentValues valores) {
         dbHelper.inserir(TBL_MATRICULA, "", valores);
         Log.i(TBL_MATRICULA, "Inseriu o registro");
     }
@@ -116,5 +116,5 @@ public class MatriculaDAO {
     public int delete(String where, Integer whereArg) {
         int count = dbHelper.delete(TBL_MATRICULA, where, whereArg);
         Log.i(TBL_MATRICULA, "Deletou (" + count + ") registros;");
-    }
+    }*/
 }

@@ -52,7 +52,7 @@ public class MatriculaAdapter extends BaseAdapter {
         }
 
         TextView txtTitulo = (TextView) view.findViewById(R.id.txtTitulo);
-        txtTitulo.setText(matricula.getDisciplina());
+        txtTitulo.setText(matricula.getDisciplinaNome());
 
         TextView txtSubTitulo1 = (TextView) view.findViewById(R.id.txtSubTitulo1);
         txtSubTitulo1.setText(matricula.getSituacao());

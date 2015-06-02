@@ -15,26 +15,29 @@ import java.io.Reader;
 import java.net.URI;
 import java.util.List;
 
+import br.edu.ucpel.bean.Login;
 import br.edu.ucpel.bean.Matricula;
+import br.edu.ucpel.bean.Usuario;
 
 /**
  * Created by Miguel Aguiar Barbosa on 21/05/15.
  */
 public class ClienteGSON {
 
-    private static final String BASE_URI = "http://10.20.5.14:8080/TCI-war/meuservico/testeservico";
+    private static final String BASE_URI = "http://10.10.100.9:8080/UnimobileWS/webresources/usuario/usuario/get";
 
 
-    public Matricula matriculaGet(Integer curso_aluno_id) throws Exception {
+    public Login UsuarioGet(String login, String senha) throws Exception {
         try {
             HttpClient httpclient = new DefaultHttpClient();
             HttpGet request = new HttpGet();
-            request.setURI(new URI(String.format("%s/%s/%s",BASE_URI,curso_aluno_id.intValue())));
+            request.setURI(new URI(String.format("%s/%s/%s",BASE_URI,login.trim(), senha.trim())));
             HttpResponse response = httpclient.execute(request);
             InputStream content = response.getEntity().getContent();
             Reader reader = new InputStreamReader(content);
             Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").create();
-            return gson.fromJson(reader, new TypeToken<List<Matricula>>(){}.getType());
+
+            return gson.fromJson(reader, Login.class);
 
         } catch (Exception ex) {
             ex.printStackTrace();

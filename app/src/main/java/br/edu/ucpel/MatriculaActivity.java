@@ -35,7 +35,7 @@ public class MatriculaActivity extends ActionBarActivity {
         setContentView(R.layout.activity_matricula);
 
         matriculaDAO = new MatriculaDAO(this);
-        matriculaList = matriculaDAO.listarMatriculas();
+       // matriculaList = matriculaDAO.listarMatriculas();
         matriculaAdapter = new MatriculaAdapter(this, matriculaList);
 
         lista = (ListView) findViewById(R.id.lvMatriculas);
@@ -49,7 +49,7 @@ public class MatriculaActivity extends ActionBarActivity {
         return true;
     }
 
-    @Override
+   /* @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
@@ -81,8 +81,8 @@ public class MatriculaActivity extends ActionBarActivity {
                 Toast.makeText(this, "sai fora!", Toast.LENGTH_SHORT).show();
             }*/
 
-        } catch (Exception ex) {
+      /*  } catch (Exception ex) {
             Log.w("Principal", "Erro", ex);
         }
-    }
+    }*/
 }

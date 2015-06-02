@@ -1,15 +1,21 @@
 package br.edu.ucpel.dao;
 
+
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+import android.widget.EditText;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import br.edu.ucpel.bean.Login;
 import br.edu.ucpel.bean.Usuario;
 import br.edu.ucpel.db.DatabaseHelper;
+import br.edu.ucpel.ws.ClienteGSON;
 
 public class UsuarioDAO {
 
@@ -33,8 +39,8 @@ public class UsuarioDAO {
                 cursor.getInt(cursor.getColumnIndex(DatabaseHelper.Usuarios._ID)),
                 cursor.getString(cursor.getColumnIndex(DatabaseHelper.Usuarios.NOME)),
                 cursor.getString(cursor.getColumnIndex(DatabaseHelper.Usuarios.LOGIN)),
-                cursor.getString(cursor.getColumnIndex(DatabaseHelper.Usuarios.SENHA)),
-                cursor.getString(cursor.getColumnIndex(DatabaseHelper.Usuarios.CREATED_AT))
+                cursor.getString(cursor.getColumnIndex(DatabaseHelper.Usuarios.SENHA))
+              //  cursor.getString(cursor.getColumnIndex(DatabaseHelper.Usuarios.CREATED_AT))
         );
 
         return model;
@@ -58,7 +64,7 @@ public class UsuarioDAO {
         valores.put(DatabaseHelper.Usuarios.NOME, usuario.getNome());
         valores.put(DatabaseHelper.Usuarios.LOGIN, usuario.getLogin());
         valores.put(DatabaseHelper.Usuarios.SENHA, usuario.getSenha());
-        valores.put(DatabaseHelper.Usuarios.CREATED_AT, usuario.getCreated_at());
+        //valores.put(DatabaseHelper.Usuarios.CREATED_AT, usuario.getCreated_at());
 
         if(usuario.get_id() != null){
             return getDatabase().update(DatabaseHelper.Usuarios.TABELA, valores,
@@ -86,15 +92,20 @@ public class UsuarioDAO {
         return null;
     }
 
-    public boolean logar(String usuario, String senha){
-        Cursor cursor = getDatabase().query(DatabaseHelper.Usuarios.TABELA,
-                null, "LOGIN = ? AND SENHA = ?", new String[]{usuario, senha}, null,null,null);
+    public boolean logar(EditText usuario, EditText senha){
 
-        if(cursor.moveToFirst()){
-            return true;
+        try {
+            ClienteGSON cliente = new ClienteGSON();
+
+            Login login = cliente.UsuarioGet(usuario.getText().toString(), senha.getText().toString());
+
+            return login.isLogado();
+
+        } catch (Exception ex) {
+            Log.w("Principal", "Erro", ex);
+
+            return false;
         }
-
-        return false;
     }
 
     public void fechar(){
