@@ -15,6 +15,7 @@ import java.util.List;
 import br.edu.ucpel.bean.Login;
 import br.edu.ucpel.bean.Usuario;
 import br.edu.ucpel.db.DatabaseHelper;
+import br.edu.ucpel.service.UsuarioService;
 import br.edu.ucpel.ws.ClienteGSON;
 
 public class UsuarioDAO {
@@ -95,11 +96,14 @@ public class UsuarioDAO {
     public boolean logar(EditText usuario, EditText senha){
 
         try {
-            ClienteGSON cliente = new ClienteGSON();
+            //ClienteGSON cliente = new ClienteGSON();
 
-            Login login = cliente.UsuarioGet(usuario.getText().toString(), senha.getText().toString());
+            //Login login = cliente.UsuarioGet(usuario.getText().toString(), senha.getText().toString());
 
-            return login.isLogado();
+            //return login.isLogado();
+
+            Intent intent = new Intent(usuario.getText().toString(), senha.getText().toString(), UsuarioService.class);
+
 
         } catch (Exception ex) {
             Log.w("Principal", "Erro", ex);

@@ -53,6 +53,9 @@
             android:name=".AvaliacaoActivity"
             android:label="@string/title_activity_avaliacao" >
         </activity>
+
+        <service android:name="br.edu.ucpel.service.UsuarioService" />
+
     </application>
 
 </manifest>
