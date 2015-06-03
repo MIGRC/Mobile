@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,13 +27,14 @@ public class LoginActivity extends ActionBarActivity {
     private static final String MANTER_CONECTADO = "manter_conectado";
     private static final String PREFERENCE_NAME  = "LoginActivityPreferences";
 
-    private Handler manipulador = new Handler() {
+/*    private Handler manipulador = new Handler() {
+
         @Override
         public void handleMessage(Message msg) {
             atualiza();
         }
     };
-
+*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,23 +61,28 @@ public class LoginActivity extends ActionBarActivity {
         boolean validacao = true;
 
         if(etLogin == null || etLogin.equals("")){
+            System.out.println("errooooo login");
             validacao = false;
             edtUsuario.setError(getString(R.string.login_valUsuario));
         }
-
-        if(edtSenha == null || edtSenha.equals("")){
+        else if(edtSenha == null || edtSenha.equals("")){
+            System.out.println("errooooo senha");
             validacao = false;
             edtSenha.setError(getString(R.string.login_valSenha));
         }
+        else if(validacao){
 
-        if(validacao){
+            boolean resultado = false;
 
-            Thread t = new Thread(new ClienteGSON(etLogin.getText().toString(), etSenha.getText().toString()));
-            t.start();
-
+            try {
+                resultado = new ClienteGSON(etLogin.getText().toString(), etSenha.getText().toString()).execute().get();
+            } catch (Exception ex) {
+                ex.getMessage();
+                resultado = false;
+            }
 
             //logar
-            if(usuarioDAO.logar(etLogin,etSenha)){
+            if(resultado){
                 if(ckbConectado.isChecked()){
                     SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCE_NAME, MODE_PRIVATE);
                     SharedPreferences.Editor editor     = sharedPreferences.edit();

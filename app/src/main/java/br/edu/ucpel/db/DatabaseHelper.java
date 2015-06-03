@@ -35,9 +35,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("create table avalicoes(_id integer primary key autoincrement,"
                 + "disciplina text not null, avaliacao text not null, data text not null);");
 
-        //Cadastro um usuário
-        db.execSQL("insert into usuarios(nome, login, senha) values('Admin', 'admin', '123');");
-
         //Cadastro Horarios
         db.execSQL("insert into horarios(disciplina, sala, horario) values('Estrutura de Dados', 'Sala 233C', 'Terça 19:15');");
         db.execSQL("insert into horarios(disciplina, sala, horario) values('DOO III', 'Sala 232C', 'Terça 20:30');");

@@ -3,20 +3,14 @@ package br.edu.ucpel.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
-import android.widget.EditText;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import br.edu.ucpel.bean.Login;
 import br.edu.ucpel.bean.Usuario;
 import br.edu.ucpel.db.DatabaseHelper;
-import br.edu.ucpel.service.UsuarioService;
-import br.edu.ucpel.ws.ClienteGSON;
 
 public class UsuarioDAO {
 
@@ -93,11 +87,11 @@ public class UsuarioDAO {
         return null;
     }
 
-    public boolean logar(EditText usuario, EditText senha){
+  /*  public boolean logar(EditText usuario, EditText senha){
 
         try {
 
-            Thread t = new Thread(new ClienteGSON(usuario.getText().toString(), senha.getText().toString()));
+           /* Thread t = new Thread(new ClienteGSON(usuario.getText().toString(), senha.getText().toString()));
             t.start();
             return true;
 
@@ -115,7 +109,7 @@ public class UsuarioDAO {
 
             return false;
         }
-    }
+    }*/
 
     public void fechar(){
         databaseHelper.close();

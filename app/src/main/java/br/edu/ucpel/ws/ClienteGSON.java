@@ -1,5 +1,7 @@
 package br.edu.ucpel.ws;
 
+import android.os.AsyncTask;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -23,7 +25,7 @@ import br.edu.ucpel.dao.UsuarioDAO;
 /**
  * Created by Miguel Aguiar Barbosa on 21/05/15.
  */
-public class ClienteGSON implements Runnable {
+public class ClienteGSON extends AsyncTask<String, Void, Boolean> {
 
     private static final String BASE_URI = "http://10.10.100.9:8080/UnimobileWS/webresources/usuario/usuario/get";
     private String login;
@@ -35,35 +37,25 @@ public class ClienteGSON implements Runnable {
     }
 
     @Override
-    public void run() {
+    protected Boolean doInBackground(String... strings) {
+        try {
+            HttpClient httpclient = new DefaultHttpClient();
+            HttpGet request = new HttpGet();
+            request.setURI(new URI(String.format("%s/%s/%s",BASE_URI,login.trim(), senha.trim())));
+            HttpResponse response = httpclient.execute(request);
+            InputStream content = response.getEntity().getContent();
+            Reader reader = new InputStreamReader(content);
 
-        //public Login UsuarioGet(String login, String senha) throws Exception {
-            try {
-                HttpClient httpclient = new DefaultHttpClient();
-                HttpGet request = new HttpGet();
-                request.setURI(new URI(String.format("%s/%s/%s",BASE_URI,login.trim(), senha.trim())));
-                HttpResponse response = httpclient.execute(request);
-                InputStream content = response.getEntity().getContent();
-                Reader reader = new InputStreamReader(content);
+            Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").create();
 
-                Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").create();
+            Login login = gson.fromJson(reader, Login.class);
 
-                Login login = gson.fromJson(reader, null);
+            return login.isLogado();
 
-                this.logado(login);
-
-
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        //}
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
     }
-
-    private void logado(Login login) {
-        UsuarioDAO dao = new UsuarioDAO();
-        dao.
-        return login.isLogado();
-    }
-
 
 }
