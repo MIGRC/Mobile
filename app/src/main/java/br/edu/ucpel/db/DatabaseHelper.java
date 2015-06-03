@@ -24,7 +24,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         //Tabela de Horario
         db.execSQL("create table horarios(_id integer primary key autoincrement, "
-                + "disciplina text not null, sala text not null, horario text not null);");
+                + "curso_aluno_id integer, disciplina_id integer, "
+                + "disciplina_nome text not null, sala text not null, horario text not null);");
 
         //Tabela de Matricula
         db.execSQL("create table matriculas(curso_aluno_id integer, "
@@ -53,9 +54,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-       // db.execSQL("DROP TABLE IF EXISTS matriculas");
-      //  db.execSQL("DROP TABLE IF EXISTS " + TBL_HORARIO);
-        //onCreate(db);
+        //db.execSQL("DROP TABLE IF EXISTS matriculas");
+        db.execSQL("DROP TABLE IF EXISTS " + Horarios.TBL_HORARIO);
+        this.onCreate(db);
     }
 
     public static class Usuarios{
@@ -88,12 +89,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static class Horarios{
         public static final String TBL_HORARIO = "horarios";
         public static final String HORARIO_ID = "_id";
-        public static final String HORARIO_DISCIPLINA = "disciplina";
+        public static final String HORARIO_CURSO_ALUNO_ID = "curso_aluno_id";
+        public static final String HORARIO_DISCIPLINA_ID = "disciplina_id";
+        public static final String HORARIO_DISCIPLINA_NOME = "disciplina_nome";
         public static final String HORARIO_SALA = "sala";
         public static final String HORARIO_HORARIO = "horario";
 
         public static final String[] COLUNAS = new String[]{
-                HORARIO_ID, HORARIO_DISCIPLINA, HORARIO_SALA, HORARIO_HORARIO
+                HORARIO_ID,
+                HORARIO_CURSO_ALUNO_ID,
+                HORARIO_DISCIPLINA_ID,
+                HORARIO_DISCIPLINA_NOME,
+                HORARIO_SALA,
+                HORARIO_HORARIO
         };
     }
 

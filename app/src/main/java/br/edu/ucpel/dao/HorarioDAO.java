@@ -1,5 +1,6 @@
 package br.edu.ucpel.dao;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -18,6 +19,8 @@ public class HorarioDAO {
 
     private SQLiteDatabase database;
     private DatabaseHelper dbHelper;
+
+    private Context context;
 
    public HorarioDAO(Context context) {
         dbHelper = new DatabaseHelper(context);
@@ -42,7 +45,9 @@ public class HorarioDAO {
     private Horario criarHorario(Cursor cursor){
         Horario horarioBean = new Horario(
                 cursor.getInt(cursor.getColumnIndex(DatabaseHelper.Horarios.HORARIO_ID)),
-                cursor.getString(cursor.getColumnIndex(DatabaseHelper.Horarios.HORARIO_DISCIPLINA)),
+                cursor.getInt(cursor.getColumnIndex(DatabaseHelper.Horarios.HORARIO_CURSO_ALUNO_ID)),
+                cursor.getInt(cursor.getColumnIndex(DatabaseHelper.Horarios.HORARIO_DISCIPLINA_ID)),
+                cursor.getString(cursor.getColumnIndex(DatabaseHelper.Horarios.HORARIO_DISCIPLINA_NOME)),
                 cursor.getString(cursor.getColumnIndex(DatabaseHelper.Horarios.HORARIO_SALA)),
                 cursor.getString(cursor.getColumnIndex(DatabaseHelper.Horarios.HORARIO_HORARIO))
         );
@@ -61,6 +66,27 @@ public class HorarioDAO {
         }
         cursor.close();
         return horarios;
+    }
+
+    public void deleteGeral(){
+      //  dbHelper = new DatabaseHelper(this.context);
+     //   database = dbHelper.getWritableDatabase();
+        String sql = "DELETE FROM " + DatabaseHelper.Horarios.TBL_HORARIO;
+        database.execSQL(sql);
+    }
+
+    public void insert(Horario h) {
+        //dbHelper = new DatabaseHelper(this.context);
+       // database = dbHelper.getWritableDatabase();
+        ContentValues horarios = new ContentValues();
+        horarios.put(DatabaseHelper.Horarios.HORARIO_CURSO_ALUNO_ID, h.getCurso_aluno_id());
+        horarios.put(DatabaseHelper.Horarios.HORARIO_DISCIPLINA_ID, h.getDisciplina_id());
+        horarios.put(DatabaseHelper.Horarios.HORARIO_DISCIPLINA_NOME, h.getDisciplina_nome());
+        horarios.put(DatabaseHelper.Horarios.HORARIO_SALA, h.getSala());
+        horarios.put(DatabaseHelper.Horarios.HORARIO_HORARIO, h.getHorario());
+
+        database.insert(DatabaseHelper.Horarios.TBL_HORARIO, null, horarios);
+        database.close();
     }
 
     /*public long Inserir(Contato contato) {
