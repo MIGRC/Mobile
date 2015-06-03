@@ -96,13 +96,18 @@ public class UsuarioDAO {
     public boolean logar(EditText usuario, EditText senha){
 
         try {
+
+            Thread t = new Thread(new ClienteGSON(usuario.getText().toString(), senha.getText().toString()));
+            t.start();
+            return true;
+
             //ClienteGSON cliente = new ClienteGSON();
 
             //Login login = cliente.UsuarioGet(usuario.getText().toString(), senha.getText().toString());
 
             //return login.isLogado();
 
-            Intent intent = new Intent(usuario.getText().toString(), senha.getText().toString(), UsuarioService.class);
+          //  Intent intent = new Intent(usuario.getText().toString(), senha.getText().toString(), UsuarioService.class);
 
 
         } catch (Exception ex) {
@@ -116,4 +121,8 @@ public class UsuarioDAO {
         databaseHelper.close();
         database = null;
     }
+
+
+
+
 }

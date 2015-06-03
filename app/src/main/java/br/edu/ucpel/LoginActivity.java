@@ -3,6 +3,8 @@ package br.edu.ucpel;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +25,13 @@ public class LoginActivity extends ActionBarActivity {
 
     private static final String MANTER_CONECTADO = "manter_conectado";
     private static final String PREFERENCE_NAME  = "LoginActivityPreferences";
+
+    private Handler manipulador = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            atualiza();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +69,11 @@ public class LoginActivity extends ActionBarActivity {
         }
 
         if(validacao){
+
+            Thread t = new Thread(new ClienteGSON(etLogin.getText().toString(), etSenha.getText().toString()));
+            t.start();
+
+
             //logar
             if(usuarioDAO.logar(etLogin,etSenha)){
                 if(ckbConectado.isChecked()){
