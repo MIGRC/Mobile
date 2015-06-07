@@ -27,7 +27,7 @@ import br.edu.ucpel.dao.UsuarioDAO;
  */
 public class ClienteGSON extends AsyncTask<String, Void, Boolean> {
 
-    private static final String BASE_URI = "http://10.10.100.9:8080/UnimobileWS/webresources/usuario/usuario/get";
+    private static final String BASE_URI = "http://192.168.1.30:8080/UnimobileWS/webresources/usuario/usuario/get";
     private String login;
     private String senha;
 

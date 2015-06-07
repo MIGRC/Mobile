@@ -1,6 +1,7 @@
 package br.edu.ucpel.service;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -17,15 +18,17 @@ import java.io.Reader;
 import java.net.URI;
 import java.util.List;
 
+import br.edu.ucpel.HorariosActivity;
 import br.edu.ucpel.bean.Horario;
 import br.edu.ucpel.bean.Login;
+import br.edu.ucpel.dao.HorarioDAO;
 
 /**
  * Created by miguel on 04/06/15.
  */
 public class HorarioService extends AsyncTask<Integer, Void, List<Horario>> {
 
-    private static final String BASE_URI = "http://10.10.100.9:8080/UnimobileWS/webresources/horario/horario/listahorarios";
+    private static final String BASE_URI = "http://192.168.1.30:8080/UnimobileWS/webresources/horario/horario/listahorarios";
     private Integer curso_aluno_id;
 
 
@@ -45,11 +48,29 @@ public class HorarioService extends AsyncTask<Integer, Void, List<Horario>> {
 
             Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").create();
 
-            return gson.fromJson(reader, new TypeToken<List<Horario>>() {}.getType());
+           // return gson.fromJson(reader, new TypeToken<List<Horario>>() {}.getType());
+
+            List<Horario> horarioList = gson.fromJson(reader, new TypeToken<List<Horario>>() {}.getType());
+            HorarioDAO horarioDAO = new HorarioDAO();
+            horarioDAO.deleteGeral();
+            for (Horario h : horarioList) {
+                Horario horario = new Horario();
+                horario.set_id(h.get_id());
+                horario.setCurso_aluno_id(h.getCurso_aluno_id());
+                horario.setDisciplina_id(h.getDisciplina_id());
+                horario.setDisciplina_nome(h.getDisciplina_nome());
+                horario.setSala(h.getSala());
+                horario.setHorario(h.getHorario());
+                horarioDAO.insert(horario);
+                Log.i("HOTARIO LIST", h.getDisciplina_nome());
+            }
+
+            return null;
 
         } catch (Exception ex) {
             ex.printStackTrace();
-            return (List<Horario>) null;
+            //return (List<Horario>) null;
+            return null;
         }
     }
 

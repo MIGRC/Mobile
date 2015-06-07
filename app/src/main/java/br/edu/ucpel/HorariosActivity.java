@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,13 +47,23 @@ public class HorariosActivity extends ActionBarActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_horarios, menu);
+
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
         switch (id){
             case R.id.action_menu_sincronizar_horario:
-                this.dialog = ProgressDialog.show(this, "Sincronizando", "Por favor, aguarde...", false, true);
-                sincronismo();
+               // this.dialog = ProgressDialog.show(this, "Sincronizando", "Por favor, aguarde...", false, true);
+                HorarioService hs = new HorarioService(1);
+                hs.execute();
+                //sincronismo();
                 break;
         }
         return super.onOptionsItemSelected(item);

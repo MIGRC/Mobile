@@ -22,7 +22,10 @@ public class HorarioDAO {
 
     private Context context;
 
-   public HorarioDAO(Context context) {
+    public HorarioDAO() {
+    }
+
+    public HorarioDAO(Context context) {
         dbHelper = new DatabaseHelper(context);
     }
 
