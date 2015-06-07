@@ -7,12 +7,29 @@ import java.io.Serializable;
  */
 
 public class Horario {
+
     private Integer _id;
     private Integer curso_aluno_id;
     private Integer disciplina_id;
     private String disciplina_nome;
     private String sala;
     private String horario;
+
+    public static final String HORARIO_ID = "_id";
+    public static final String HORARIO_CURSO_ALUNO_ID = "curso_aluno_id";
+    public static final String HORARIO_DISCIPLINA_ID = "disciplina_id";
+    public static final String HORARIO_DISCIPLINA_NOME = "disciplina_nome";
+    public static final String HORARIO_SALA = "sala";
+    public static final String HORARIO_HORARIO = "horario";
+
+    public static final String[] COLUNAS = new String[]{
+            HORARIO_ID,
+            HORARIO_CURSO_ALUNO_ID,
+            HORARIO_DISCIPLINA_ID,
+            HORARIO_DISCIPLINA_NOME,
+            HORARIO_SALA,
+            HORARIO_HORARIO
+    };
 
     public Horario() {
     }

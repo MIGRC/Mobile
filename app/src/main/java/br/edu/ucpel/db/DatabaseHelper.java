@@ -55,7 +55,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //db.execSQL("DROP TABLE IF EXISTS matriculas");
-        db.execSQL("DROP TABLE IF EXISTS " + Horarios.TBL_HORARIO);
+       // db.execSQL("DROP TABLE IF EXISTS " + Horarios.TBL_HORARIO);
         this.onCreate(db);
     }
 
@@ -86,24 +86,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }*/
 
     //Tabela Horarios
-    public static class Horarios{
-        public static final String TBL_HORARIO = "horarios";
-        public static final String HORARIO_ID = "_id";
-        public static final String HORARIO_CURSO_ALUNO_ID = "curso_aluno_id";
-        public static final String HORARIO_DISCIPLINA_ID = "disciplina_id";
-        public static final String HORARIO_DISCIPLINA_NOME = "disciplina_nome";
-        public static final String HORARIO_SALA = "sala";
-        public static final String HORARIO_HORARIO = "horario";
+  //  public static class Horarios{
 
-        public static final String[] COLUNAS = new String[]{
-                HORARIO_ID,
-                HORARIO_CURSO_ALUNO_ID,
-                HORARIO_DISCIPLINA_ID,
-                HORARIO_DISCIPLINA_NOME,
-                HORARIO_SALA,
-                HORARIO_HORARIO
-        };
-    }
+
+
+
+    //}
 
     //Tabela Avalição
     public static class Avaliacoes{
