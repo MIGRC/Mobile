@@ -49,7 +49,7 @@ public class LoginActivity extends ActionBarActivity {
         boolean conectado             = preferences.getBoolean(MANTER_CONECTADO, false);
 
         if(conectado){
-            ChamarMatricula();
+            isLogar();
         }
     }
 
@@ -88,7 +88,7 @@ public class LoginActivity extends ActionBarActivity {
                         editor.commit();
                     }
 
-                    ChamarMatricula();
+                    this.isEscolhaMatricula();
                 } else {
                     Mensagem.Msg(this, getString(R.string.msg_login_incorreto));
                 }
@@ -99,8 +99,13 @@ public class LoginActivity extends ActionBarActivity {
         }
     }
 
-    private void ChamarMatricula(){
+    private void isEscolhaMatricula(){
         startActivity(new Intent(this, EscolhaMatriculaActivity.class));
+        finish();
+    }
+
+    private void isLogar(){
+        startActivity(new Intent(this, MenuActivity.class));
         finish();
     }
 
