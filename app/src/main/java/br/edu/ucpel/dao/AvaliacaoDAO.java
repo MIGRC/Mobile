@@ -54,4 +54,5 @@ public class AvaliacaoDAO {
         cursor.close();
         return avaliacoes;
     }
+
 }

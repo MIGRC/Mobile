@@ -29,7 +29,7 @@ public class NotasActivity extends ActionBarActivity {
         buildList();
 
         ExpandableListView expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
-        expandableListView.setAdapter(new ExpandableListAdapter(NotasActivity.this, listGroup, listData));
+       // expandableListView.setAdapter(new ExpandableListAdapter(NotasActivity.this, listGroup, listData));
 
         expandableListView.setOnChildClickListener(new OnChildClickListener(){
             @Override
