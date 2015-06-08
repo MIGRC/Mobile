@@ -1,5 +1,6 @@
 package br.edu.ucpel.service;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -22,25 +23,29 @@ import br.edu.ucpel.HorariosActivity;
 import br.edu.ucpel.bean.Horario;
 import br.edu.ucpel.bean.Login;
 import br.edu.ucpel.dao.HorarioDAO;
+import br.edu.ucpel.util.Conexoes;
 
 /**
  * Created by miguel on 04/06/15.
  */
-public class HorarioService extends AsyncTask<Integer, Void, List<Horario>> {
+public class HorarioService extends AsyncTask<Integer, Void, Boolean> {
 
-    private static final String BASE_URI = "http://192.168.1.30:8080/UnimobileWS/webresources/horario/horario/listahorarios";
+    private static final String BASE_URI = "http://"+Conexoes.getIP()+":8080/UnimobileWS/webresources/horario/horario/listahorarios";
     private Integer curso_aluno_id;
+    private Context context;
 
 
-    public HorarioService(Integer curso_aluno_id) {
+    public HorarioService(Integer curso_aluno_id, Context context) {
         this.curso_aluno_id = curso_aluno_id;
+        this.context = context;
     }
 
     @Override
-    protected List<Horario> doInBackground(Integer... params) {
+    protected Boolean doInBackground(Integer... params) {
         try {
             HttpClient httpclient = new DefaultHttpClient();
             HttpGet request = new HttpGet();
+            System.out.println(String.format("%s/%s",BASE_URI,curso_aluno_id.intValue()));
             request.setURI(new URI(String.format("%s/%s",BASE_URI,curso_aluno_id.intValue())));
             HttpResponse response = httpclient.execute(request);
             InputStream content = response.getEntity().getContent();
@@ -51,7 +56,8 @@ public class HorarioService extends AsyncTask<Integer, Void, List<Horario>> {
            // return gson.fromJson(reader, new TypeToken<List<Horario>>() {}.getType());
 
             List<Horario> horarioList = gson.fromJson(reader, new TypeToken<List<Horario>>() {}.getType());
-            HorarioDAO horarioDAO = new HorarioDAO();
+            HorarioDAO horarioDAO = new HorarioDAO(context);
+            System.out.println(context);
             horarioDAO.deleteGeral();
             for (Horario h : horarioList) {
                 Horario horario = new Horario();
@@ -65,12 +71,12 @@ public class HorarioService extends AsyncTask<Integer, Void, List<Horario>> {
                 Log.i("HOTARIO LIST", h.getDisciplina_nome());
             }
 
-            return null;
+            return true;
 
         } catch (Exception ex) {
             ex.printStackTrace();
             //return (List<Horario>) null;
-            return null;
+            return false;
         }
     }
 

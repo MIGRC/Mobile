@@ -36,6 +36,10 @@
 
     <!-- Mensagens -->
     <string name="msg_login_incorreto">Usuário e/ou senha inválido.</string>
+    <string name="msg_sem_conexao">Sem conexão com a internet.</string>
+    <string name="msg_erro_sincronismo">Erro no sincronismo.</string>
+    <string name="msg_login_em_branco">Usuário obrigatório</string>
+    <string name="msg_senha_em_branco">Senha obrigatório.</string>
     <string name="title_activity_cad_usuario">Cadastro de Usuários</string>
     <string name="hello_world">Hello world!</string>
     <string name="mensagem_cadastro">Registro cadastrado com sucesso!</string>

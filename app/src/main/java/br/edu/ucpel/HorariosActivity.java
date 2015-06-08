@@ -1,20 +1,14 @@
 package br.edu.ucpel;
 
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.List;
 
@@ -22,7 +16,8 @@ import br.edu.ucpel.adapter.HorarioAdapter;
 import br.edu.ucpel.bean.Horario;
 import br.edu.ucpel.dao.HorarioDAO;
 import br.edu.ucpel.service.HorarioService;
-import br.edu.ucpel.ws.ClienteGSON;
+import br.edu.ucpel.util.Conexoes;
+import br.edu.ucpel.util.Mensagem;
 
 public class HorariosActivity extends ActionBarActivity {
 
@@ -33,17 +28,13 @@ public class HorariosActivity extends ActionBarActivity {
     private ProgressDialog dialog;
 
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_horarios);
 
-        horarioDAO = new HorarioDAO(this);
-        horarioList = horarioDAO.listarHorarios();
-        horarioAdapter = new HorarioAdapter(this, horarioList);
-
-        lista = (ListView) findViewById(R.id.lvHorarios);
-        lista.setAdapter(horarioAdapter);
+        this.atualizarLista();
 
     }
 
@@ -60,19 +51,52 @@ public class HorariosActivity extends ActionBarActivity {
 
         switch (id){
             case R.id.action_menu_sincronizar_horario:
-               // this.dialog = ProgressDialog.show(this, "Sincronizando", "Por favor, aguarde...", false, true);
-                HorarioService hs = new HorarioService(1);
-                hs.execute();
-                //sincronismo();
+                this.sincronismo();
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void sincronismo() {
+    private void  sincronismo(){
+        boolean resultado = false;
+
+        if(Conexoes.isOnline(this)) {
+            try {
+                this.dialog = ProgressDialog.show(this, "Sincronizando", "Por favor, aguarde...", false, true);
+                resultado = new HorarioService(1, this).execute().get();
+                //hs.execute();
+
+                if(resultado){
+                    dialog.dismiss();
+                    this.atualizarLista();
+                } else {
+                    Mensagem.Msg(this, getString(R.string.msg_erro_sincronismo));
+                }
+
+            } catch (Exception ex) {
+                ex.getMessage();
+                resultado = false;
+            }
+        }
+        else{
+            Mensagem.Msg(this, getString(R.string.msg_sem_conexao));
+        }
+
+    }
+
+    private void atualizarLista() {
+        horarioDAO = new HorarioDAO(this);
+        horarioList = horarioDAO.listarHorarios();
+        horarioAdapter = new HorarioAdapter(this, horarioList);
+
+        lista = (ListView) findViewById(R.id.lvHorarios);
+        lista.setAdapter(horarioAdapter);
+    }
+
+    /*private void sincronismo() {
 
         try {
-            List<Horario> horarioList = new HorarioService(1).execute().get();
+            List<Horario> horarioList = new HorarioService(1, this).execute().get();
             HorarioDAO horarioDAO = new HorarioDAO(this);
             horarioDAO.deleteGeral();
             for (Horario h : horarioList) {
@@ -89,7 +113,7 @@ public class HorariosActivity extends ActionBarActivity {
         } catch (Exception ex) {
             Log.w("Principal", "Erro", ex);
         }
-    }
+    }*/
 
    /* public class TituloAdapter extends ArrayAdapter<Horario> {
 

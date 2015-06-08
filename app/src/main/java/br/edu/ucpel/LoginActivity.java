@@ -3,10 +3,7 @@ package br.edu.ucpel;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +11,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 
 import br.edu.ucpel.dao.UsuarioDAO;
+import br.edu.ucpel.util.Conexoes;
 import br.edu.ucpel.util.Mensagem;
 import br.edu.ucpel.ws.ClienteGSON;
 
@@ -23,6 +21,7 @@ public class LoginActivity extends ActionBarActivity {
     private EditText edtUsuario, edtSenha;
     private UsuarioDAO usuarioDAO;
     private CheckBox ckbConectado;
+    private Conexoes conexoes;
 
     private static final String MANTER_CONECTADO = "manter_conectado";
     private static final String PREFERENCE_NAME  = "LoginActivityPreferences";
@@ -60,41 +59,43 @@ public class LoginActivity extends ActionBarActivity {
 
         boolean validacao = true;
 
-        if(etLogin == null || etLogin.equals("")){
-            System.out.println("errooooo login");
-            validacao = false;
-            edtUsuario.setError(getString(R.string.login_valUsuario));
-        }
-        else if(edtSenha == null || edtSenha.equals("")){
-            System.out.println("errooooo senha");
-            validacao = false;
-            edtSenha.setError(getString(R.string.login_valSenha));
-        }
-        else if(validacao){
+        if(conexoes.isOnline(this)) {
 
-            boolean resultado = false;
+            if (etLogin == null || etLogin.equals("")) {
+                validacao = false;
+                edtUsuario.setError(getString(R.string.login_valUsuario));
+            } else if (edtSenha == null || edtSenha.equals("")) {
+                validacao = false;
+                edtSenha.setError(getString(R.string.login_valSenha));
+            } else if (validacao) {
 
-            try {
-                resultado = new ClienteGSON(etLogin.getText().toString(), etSenha.getText().toString()).execute().get();
-            } catch (Exception ex) {
-                ex.getMessage();
-                resultado = false;
-            }
+                boolean resultado = false;
 
-            //logar
-            if(resultado){
-                if(ckbConectado.isChecked()){
-                    SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCE_NAME, MODE_PRIVATE);
-                    SharedPreferences.Editor editor     = sharedPreferences.edit();
-
-                    editor.putBoolean(MANTER_CONECTADO, true);
-                    editor.commit();
+                try {
+                    resultado = new ClienteGSON(etLogin.getText().toString(), etSenha.getText().toString()).execute().get();
+                } catch (Exception ex) {
+                    ex.getMessage();
+                    resultado = false;
                 }
 
-                ChamarMatricula();
-            }else{
-                       Mensagem.Msg(this, getString(R.string.msg_login_incorreto));
+                //logar
+                if (resultado) {
+                    if (ckbConectado.isChecked()) {
+                        SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCE_NAME, MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                        editor.putBoolean(MANTER_CONECTADO, true);
+                        editor.commit();
+                    }
+
+                    ChamarMatricula();
+                } else {
+                    Mensagem.Msg(this, getString(R.string.msg_login_incorreto));
+                }
             }
+        }
+        else{
+            Mensagem.Msg(this, getString(R.string.msg_sem_conexao));
         }
     }
 

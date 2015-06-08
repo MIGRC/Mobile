@@ -17,14 +17,14 @@ import br.edu.ucpel.db.DatabaseHelper;
  */
 public class HorarioDAO {
 
-    public static final String TBL_HORARIO = "horarios";
+    public String TBL_HORARIO = "horarios";
     private SQLiteDatabase database;
     private DatabaseHelper dbHelper;
 
     private Context context;
 
-    public HorarioDAO() {
-    }
+   /* public HorarioDAO() {
+    }*/
 
     public HorarioDAO(Context context) {
         dbHelper = new DatabaseHelper(context);
@@ -73,15 +73,16 @@ public class HorarioDAO {
     }
 
     public void deleteGeral(){
-      //  dbHelper = new DatabaseHelper(this.context);
-     //   database = dbHelper.getWritableDatabase();
-        String sql = "DELETE FROM " + TBL_HORARIO;
+        //dbHelper = new DatabaseHelper(this.context);
+        database = dbHelper.getWritableDatabase();
+        String sql = "DELETE FROM "+ TBL_HORARIO +";";
+        System.out.println(sql);
         database.execSQL(sql);
     }
 
     public void insert(Horario h) {
-        //dbHelper = new DatabaseHelper(this.context);
-       // database = dbHelper.getWritableDatabase();
+//        dbHelper = new DatabaseHelper(this.context);
+        database = dbHelper.getWritableDatabase();
         ContentValues horarios = new ContentValues();
         horarios.put(Horario.HORARIO_CURSO_ALUNO_ID, h.getCurso_aluno_id());
         horarios.put(Horario.HORARIO_DISCIPLINA_ID, h.getDisciplina_id());

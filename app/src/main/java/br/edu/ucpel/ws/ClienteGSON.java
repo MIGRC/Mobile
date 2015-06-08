@@ -21,13 +21,14 @@ import br.edu.ucpel.bean.Login;
 import br.edu.ucpel.bean.Matricula;
 import br.edu.ucpel.bean.Usuario;
 import br.edu.ucpel.dao.UsuarioDAO;
+import br.edu.ucpel.util.Conexoes;
 
 /**
  * Created by Miguel Aguiar Barbosa on 21/05/15.
  */
 public class ClienteGSON extends AsyncTask<String, Void, Boolean> {
 
-    private static final String BASE_URI = "http://192.168.1.30:8080/UnimobileWS/webresources/usuario/usuario/get";
+    private static final String BASE_URI = "http://"+ Conexoes.getIP()+":8080/UnimobileWS/webresources/usuario/usuario/get";
     private String login;
     private String senha;
 

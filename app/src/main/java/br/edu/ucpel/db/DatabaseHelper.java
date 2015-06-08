@@ -37,9 +37,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + "disciplina text not null, avaliacao text not null, data text not null);");
 
         //Cadastro Horarios
-        db.execSQL("insert into horarios(curso_aluno_id, disciplina_id, disciplina_nome, sala, horario) values(1, 1, 'Estrutura de Dados', 'Sala 233C', 'Terça 19:15');");
-        db.execSQL("insert into horarios(curso_aluno_id, disciplina_id, disciplina_nome, sala, horario) values(1, 2, 'DOO III', 'Sala 232C', 'Terça 20:30');");
-        db.execSQL("insert into horarios(curso_aluno_id, disciplina_id, disciplina_nome, sala, horario) values(3, 3, 'DOO II', 'Sala 232C', 'Quarta 19:15');");
+        db.execSQL("insert into horarios(curso_aluno_id, disciplina_id, disciplina_nome, sala, horario) values(1, 1, 'teste1', 'Sala 233C', 'Terça 19:15');");
+        db.execSQL("insert into horarios(curso_aluno_id, disciplina_id, disciplina_nome, sala, horario) values(1, 2, 'teste2', 'Sala 232C', 'Terça 20:30');");
+        db.execSQL("insert into horarios(curso_aluno_id, disciplina_id, disciplina_nome, sala, horario) values(3, 3, 'teste3', 'Sala 232C', 'Quarta 19:15');");
 
         //Cadastro Matricula
         db.execSQL("insert into matriculas(curso_aluno_id, disciplina_id, disciplina_nome, situacao, turma) values(1,1,'Estrutura de Dados', 'Matriculado', '133');");
