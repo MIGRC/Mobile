@@ -20,7 +20,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         //Tabela de usuários
         db.execSQL("create table usuarios(_id integer primary key autoincrement, "
-                +"nome text not null, login text not null, senha text not null, created_at text)");
+                +"nome text not null, login text not null, senha text not null, created_at text);");
+
+        //Tabela de Aluno
+        db.execSQL("create table alunos(_id integer primary key autoincrement, "
+                +  "curso_aluno_id integer not null, chave text not null, cpf text, flg_ativo char default 'N');");
 
         //Tabela de Horario
         db.execSQL("create table horarios(_id integer primary key autoincrement, "
