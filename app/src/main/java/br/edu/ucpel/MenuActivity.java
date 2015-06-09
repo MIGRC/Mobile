@@ -26,22 +26,22 @@ public class MenuActivity extends ActionBarActivity {
 
         public void onClickNotas(View view){
             startActivity(new Intent(this, NotasActivity.class));
-            finish();
+            //finish();
         }
 
         public void onClickHorarios(View view){
             startActivity(new Intent(this, HorariosActivity.class));
-            finish();
+            //finish();
         }
 
         public void onClickMatricula(View view){
             startActivity(new Intent(this, MatriculaActivity.class));
-            finish();
+           // finish();
         }
 
         public void onClickAvaliacoes(View view){
             startActivity(new Intent(this, AvaliacaoActivity.class));
-            finish();
+           // finish();
         }
 
         @Override

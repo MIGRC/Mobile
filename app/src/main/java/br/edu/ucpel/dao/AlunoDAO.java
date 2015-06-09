@@ -68,6 +68,16 @@ public class AlunoDAO {
         return alunos;
     }
 
+    /*public int selectCursoAlunoId() {
+        database = dbHelper.getWritableDatabase();
+        String countQuery = "SELECT curso_aluno_id FROM "+ TBL_ALUNO +" WHERE FLG_ATIVO = 'S';";
+        Cursor cursor = database.rawQuery(countQuery, null);
+        cursor.close();
+
+        // return count
+        return cursor.getColumnIndex();
+    }*/
+
     public void deleteGeralAluno(){
         database = dbHelper.getWritableDatabase();
         String sql = "DELETE FROM "+ TBL_ALUNO +";";
@@ -86,12 +96,18 @@ public class AlunoDAO {
         database.close();
     }
 
-    public void updateAluno(Aluno a) {
+    public void updateGeralAluno() {
+        database = dbHelper.getWritableDatabase();
+        String sql = "UPDATE "+ TBL_ALUNO +" SET FLG_ATIVO = 'N';";
+        database.execSQL(sql);
+    }
+
+    public void updateAluno(int id) {
         database = dbHelper.getWritableDatabase();
         ContentValues Alunos = new ContentValues();
         Alunos.put(Aluno.ALUNO_FLG_ATIVO, "S");
 
-        database.update(TBL_ALUNO, Alunos, "_id = ?", new String[]{ a.get_id().toString() });
+        database.update(TBL_ALUNO, Alunos, "_id = ?", new String[]{String.valueOf(id)});
         database.close();
     }
 

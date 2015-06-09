@@ -35,8 +35,7 @@ public class Mensagem {
 
     public static AlertDialog criarAlertDialog(Activity activity){
         final CharSequence[] items = {
-                "Editar",
-                "Excluir"
+                "Sincronizar"
         };
 
         AlertDialog.Builder alert= new AlertDialog.Builder(activity);
