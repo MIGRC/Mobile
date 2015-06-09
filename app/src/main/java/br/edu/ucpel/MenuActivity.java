@@ -1,15 +1,22 @@
 package br.edu.ucpel;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import br.edu.ucpel.adapter.ImageAdapter;
+import br.edu.ucpel.util.Mensagem;
 
-public class MenuActivity extends Activity {
+public class MenuActivity extends ActionBarActivity {
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -35,5 +42,38 @@ public class MenuActivity extends Activity {
         public void onClickAvaliacoes(View view){
             startActivity(new Intent(this, AvaliacaoActivity.class));
             finish();
+        }
+
+        @Override
+        public boolean onCreateOptionsMenu(Menu menu) {
+            getMenuInflater().inflate(R.menu.menu_menu, menu);
+            return true;
+        }
+
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+
+            switch (item.getItemId()){
+                case R.id.action_menu_trocar_matricula:
+                    startActivity(new Intent(this, EscolhaMatriculaActivity.class));
+                    break;
+                case R.id.action_menu_sair:
+                    Mensagem.MsgConfirm(this, "Sair do sistema", "Deseja realmente sair?", R.drawable.ic_action_about, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    });
+                    break;
+                case R.id.action_menu_logout:
+                    SharedPreferences preferences   = getSharedPreferences("LoginActivityPreferences", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.clear();
+                    editor.commit();
+                    finish();
+                    break;
+            }
+
+            return super.onOptionsItemSelected(item);
         }
     }

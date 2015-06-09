@@ -23,6 +23,8 @@
     <string name="matricula_btnMatricula">201113152</string>
 
     <!-- Menu -->
+    <string name="menu_btnTrocarMatricula">Trocar Matrícula</string>
+    <string name="menu_btnLogout">Logout</string>
     <string name="menu_btnMatricula">Matrícula</string>
     <string name="menu_btnAvaliacoes">Avaliações</string>
     <string name="menu_btnDataAvaliacoes">Data Avaliações</string>
