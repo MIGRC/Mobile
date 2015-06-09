@@ -1,9 +1,11 @@
 package br.edu.ucpel;
 
 
+import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -53,6 +55,10 @@ public class HorariosActivity extends ActionBarActivity {
             case R.id.action_menu_sincronizar_horario:
                 this.sincronismo();
                 break;
+
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }

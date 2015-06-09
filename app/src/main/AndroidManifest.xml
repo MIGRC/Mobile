@@ -40,8 +40,9 @@
             android:label="@string/title_activity_notas" >
         </activity>
         <activity
-            android:name=".HorariosActivity"
-            android:label="@string/title_activity_horarios" >
+            android:name="br.edu.ucpel.HorariosActivity"
+            android:label="@string/title_activity_horarios"
+            android:parentActivityName="br.edu.ucpel.MenuActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="br.edu.ucpel.MenuActivity" />
