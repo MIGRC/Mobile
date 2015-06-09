@@ -19,7 +19,7 @@
     <string name="login_ckbConectado">Manter conectado?</string>
 
     <!-- Matricula -->
-    <string name="matricula_txtEscolhaMatricula">Escolha sua matrícula para consulta:</string>
+    <string name="matricula_txtEscolhaMatricula">Escolha sua matrícula:</string>
     <string name="matricula_btnMatricula">201113152</string>
 
     <!-- Menu -->

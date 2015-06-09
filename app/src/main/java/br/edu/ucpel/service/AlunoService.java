@@ -20,7 +20,6 @@ import java.net.URI;
 import java.util.List;
 
 import br.edu.ucpel.bean.Aluno;
-import br.edu.ucpel.bean.Horario;
 import br.edu.ucpel.dao.AlunoDAO;
 import br.edu.ucpel.util.Conexoes;
 
@@ -57,7 +56,7 @@ public class AlunoService extends AsyncTask<String, Void, Boolean> {
             alunoDAO.deleteGeralAluno();
             for (Aluno a : alunoList) {
                 Aluno aluno = new Aluno();
-                //aluno.set_id(a.get_id());
+                aluno.set_id(a.get_id());
                 aluno.setCurso_aluno_id(a.getCurso_aluno_id());
                 aluno.setChave(a.getChave());
                 aluno.setCpf(a.getCpf());

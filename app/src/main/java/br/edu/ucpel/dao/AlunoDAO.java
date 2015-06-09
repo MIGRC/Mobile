@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.edu.ucpel.bean.Aluno;
-import br.edu.ucpel.bean.Horario;
 import br.edu.ucpel.db.DatabaseHelper;
 
 /**
@@ -58,7 +57,7 @@ public class AlunoDAO {
 
     public List<Aluno> listarAlunos(){
         Cursor cursor = getDatabase().query(TBL_ALUNO,
-                Horario.COLUNAS, null, null, null, null, null);
+                Aluno.COLUNAS, null, null, null, null, null);
 
         List<Aluno> alunos = new ArrayList<Aluno>();
         while(cursor.moveToNext()){

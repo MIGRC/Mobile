@@ -11,30 +11,29 @@ import android.widget.TextView;
 import java.util.List;
 
 import br.edu.ucpel.R;
-import br.edu.ucpel.bean.Horario;
+import br.edu.ucpel.bean.Aluno;
 
 /**
- *
- * @author Miguel Aguiar Barbosa
+ * Created by Miguel Aguiar Barbosa on 09/06/15.
  */
-public class HorarioAdapter extends BaseAdapter {
+public class AlunoAdapter extends BaseAdapter {
 
     private Context context;
-    private List<Horario> listaHorario;
+    private List<Aluno> listaAluno;
 
-    public HorarioAdapter(Context ctx, List<Horario> horarios) {
+    public AlunoAdapter(Context ctx, List<Aluno> alunos) {
         this.context = ctx;
-        this.listaHorario = horarios;
+        this.listaAluno = alunos;
     }
 
     @Override
     public int getCount() {
-        return listaHorario.size();
+        return listaAluno.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return listaHorario.get(position);
+        return listaAluno.get(position);
     }
 
     @Override
@@ -44,22 +43,19 @@ public class HorarioAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View view, ViewGroup parent) {
-        Horario horario = listaHorario.get(position);
+        Aluno aluno = listaAluno.get(position);
 
         if(view == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.item_tree_list_view, null);
+            view = inflater.inflate(R.layout.item_one_list_view, null);
 
         }
 
         TextView txtTitulo = (TextView) view.findViewById(R.id.txtTitulo);
-        txtTitulo.setText(horario.getDisciplina_nome());
+        txtTitulo.setText(aluno.getChave());
 
         TextView txtSubTitulo1 = (TextView) view.findViewById(R.id.txtSubTitulo1);
-        txtSubTitulo1.setText(horario.getSala());
-
-        TextView txtSubTitulo2 = (TextView) view.findViewById(R.id.txtSubTitulo2);
-        txtSubTitulo2.setText(horario.getHorario());
+        txtSubTitulo1.setText(aluno.getFlg_ativo());
 
         return view;
     }

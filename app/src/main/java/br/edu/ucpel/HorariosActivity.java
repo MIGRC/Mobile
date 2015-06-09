@@ -127,14 +127,14 @@ public class HorariosActivity extends ActionBarActivity {
 
         public TituloAdapter(Activity context) {
 
-            super(context, R.layout.item_list_view, dados);
+            super(context, R.layout.item_tree_list_view, dados);
             this.context = context;
         }
 
         public View getView(int posicao, View view, ViewGroup group) {
 
             LayoutInflater inflater = context.getLayoutInflater();
-            View item = inflater.inflate(R.layout.item_list_view, null);
+            View item = inflater.inflate(R.layout.item_tree_list_view, null);
 
             TextView titulo = (TextView) item.findViewById(R.id.txtTitulo);
             titulo.setText(dados[posicao].getDisciplina());

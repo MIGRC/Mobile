@@ -12,7 +12,6 @@ import java.util.List;
 
 import br.edu.ucpel.R;
 import br.edu.ucpel.bean.Avaliacoes;
-import br.edu.ucpel.bean.Matricula;
 
 /**
  * Created by miguel on 11/05/15.
@@ -48,7 +47,7 @@ public class AvaliacaoAdapter extends BaseAdapter{
 
         if(view == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.item_list_view, null);
+            view = inflater.inflate(R.layout.item_tree_list_view, null);
         }
 
         TextView txtTitulo = (TextView) view.findViewById(R.id.txtTitulo);
