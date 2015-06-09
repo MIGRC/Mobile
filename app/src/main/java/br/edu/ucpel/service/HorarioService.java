@@ -26,7 +26,7 @@ import br.edu.ucpel.dao.HorarioDAO;
 import br.edu.ucpel.util.Conexoes;
 
 /**
- * Created by miguel on 04/06/15.
+ * Created by Miguel Aguiar Barbosa on 04/06/15.
  */
 public class HorarioService extends AsyncTask<Integer, Void, Boolean> {
 
@@ -57,7 +57,6 @@ public class HorarioService extends AsyncTask<Integer, Void, Boolean> {
 
             List<Horario> horarioList = gson.fromJson(reader, new TypeToken<List<Horario>>() {}.getType());
             HorarioDAO horarioDAO = new HorarioDAO(context);
-            System.out.println(context);
             horarioDAO.deleteGeral();
             for (Horario h : horarioList) {
                 Horario horario = new Horario();

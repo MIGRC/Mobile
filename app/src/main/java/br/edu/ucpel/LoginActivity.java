@@ -1,5 +1,6 @@
 package br.edu.ucpel;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,6 +12,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 
 import br.edu.ucpel.dao.UsuarioDAO;
+import br.edu.ucpel.service.AlunoService;
+import br.edu.ucpel.service.HorarioService;
 import br.edu.ucpel.util.Conexoes;
 import br.edu.ucpel.util.Mensagem;
 import br.edu.ucpel.ws.ClienteGSON;
@@ -22,6 +25,7 @@ public class LoginActivity extends ActionBarActivity {
     private UsuarioDAO usuarioDAO;
     private CheckBox ckbConectado;
     private Conexoes conexoes;
+    private ProgressDialog dialog;
 
     private static final String MANTER_CONECTADO = "manter_conectado";
     private static final String PREFERENCE_NAME  = "LoginActivityPreferences";
@@ -88,7 +92,25 @@ public class LoginActivity extends ActionBarActivity {
                         editor.commit();
                     }
 
-                    this.isEscolhaMatricula();
+                    boolean insertAlunos = false;
+
+                    try {
+                        this.dialog = ProgressDialog.show(this, "Sincronizando", "Por favor, aguarde...", false, true);
+                        insertAlunos = new AlunoService(etLogin.getText().toString(), this).execute().get();
+
+                        if(insertAlunos){
+                            dialog.dismiss();
+                            this.isEscolhaMatricula();
+                        } else {
+                            dialog.dismiss();
+                            Mensagem.Msg(this, getString(R.string.msg_erro_sincronismo));
+                        }
+
+                    } catch (Exception ex) {
+                        ex.getMessage();
+                        insertAlunos = false;
+                    }
+
                 } else {
                     Mensagem.Msg(this, getString(R.string.msg_login_incorreto));
                 }
