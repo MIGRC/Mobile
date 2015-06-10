@@ -56,6 +56,7 @@ public class MenuActivity extends ActionBarActivity {
             switch (item.getItemId()){
                 case R.id.action_menu_trocar_matricula:
                     startActivity(new Intent(this, EscolhaMatriculaActivity.class));
+                    finish();
                     break;
                 case R.id.action_menu_sair:
                     Mensagem.MsgConfirm(this, "Sair do sistema", "Deseja realmente sair?", R.drawable.ic_action_about, new DialogInterface.OnClickListener() {

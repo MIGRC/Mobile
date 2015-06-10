@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import br.edu.ucpel.R;
-import br.edu.ucpel.bean.Avaliacoes;
+import br.edu.ucpel.bean.Avaliacao;
 
 /**
  * Created by miguel on 11/05/15.
@@ -19,9 +19,9 @@ import br.edu.ucpel.bean.Avaliacoes;
 public class AvaliacaoAdapter extends BaseAdapter{
 
     private Context context;
-    private List<Avaliacoes> listaAvalicao;
+    private List<Avaliacao> listaAvalicao;
 
-    public AvaliacaoAdapter(Context ctx, List<Avaliacoes> avaliacoes) {
+    public AvaliacaoAdapter(Context ctx, List<Avaliacao> avaliacoes) {
         this.context = ctx;
         this.listaAvalicao = avaliacoes;
     }
@@ -43,7 +43,7 @@ public class AvaliacaoAdapter extends BaseAdapter{
 
     @Override
     public View getView(int position, View view, ViewGroup parent) {
-        Avaliacoes avaliacoes = listaAvalicao.get(position);
+        Avaliacao avaliacao = listaAvalicao.get(position);
 
         if(view == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
@@ -51,13 +51,13 @@ public class AvaliacaoAdapter extends BaseAdapter{
         }
 
         TextView txtTitulo = (TextView) view.findViewById(R.id.txtTitulo);
-        txtTitulo.setText(avaliacoes.getDisciplina());
+        txtTitulo.setText(avaliacao.getDisciplina_nome());
 
         TextView txtSubTitulo1 = (TextView) view.findViewById(R.id.txtSubTitulo1);
-        txtSubTitulo1.setText(avaliacoes.getAvaliacao());
+        txtSubTitulo1.setText(avaliacao.getAvaliacao());
 
         TextView txtSubTitulo2 = (TextView) view.findViewById(R.id.txtSubTitulo2);
-        txtSubTitulo2.setText(avaliacoes.getData());
+        txtSubTitulo2.setText(avaliacao.getData());
 
         return  view;
     }

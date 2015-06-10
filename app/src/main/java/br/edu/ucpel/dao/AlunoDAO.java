@@ -68,15 +68,19 @@ public class AlunoDAO {
         return alunos;
     }
 
-    /*public int selectCursoAlunoId() {
+    public int selectCursoAlunoId() {
         database = dbHelper.getWritableDatabase();
         String countQuery = "SELECT curso_aluno_id FROM "+ TBL_ALUNO +" WHERE FLG_ATIVO = 'S';";
         Cursor cursor = database.rawQuery(countQuery, null);
+        int ret=0;
+        if (cursor.moveToNext()){
+           ret= cursor.getInt(0);
+        }
         cursor.close();
 
         // return count
-        return cursor.getColumnIndex();
-    }*/
+        return ret;
+    }
 
     public void deleteGeralAluno(){
         database = dbHelper.getWritableDatabase();
