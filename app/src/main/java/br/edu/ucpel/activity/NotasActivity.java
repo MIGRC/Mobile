@@ -1,4 +1,4 @@
-package br.edu.ucpel;
+package br.edu.ucpel.activity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,7 +13,7 @@ import android.widget.ExpandableListView.OnGroupCollapseListener;
 import android.widget.ExpandableListView.OnGroupExpandListener;
 import android.widget.Toast;
 
-import br.edu.ucpel.adapter.ExpandableListAdapter;
+import br.edu.ucpel.R;
 
 public class NotasActivity extends ActionBarActivity {
     private List<String> listGroup;

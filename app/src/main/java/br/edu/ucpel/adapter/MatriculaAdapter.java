@@ -47,7 +47,7 @@ public class MatriculaAdapter extends BaseAdapter {
 
         if(view == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.item_tree_list_view, null);
+            view = inflater.inflate(R.layout.item_list_three_view, null);
         }
 
         TextView txtTitulo = (TextView) view.findViewById(R.id.txtTitulo);

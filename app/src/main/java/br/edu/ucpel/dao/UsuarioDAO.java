@@ -29,7 +29,7 @@ public class UsuarioDAO {
         return database;
     }
 
-    private Usuario criarUsuario(Cursor cursor){
+    /*private Usuario criarUsuario(Cursor cursor){
         Usuario model = new Usuario(
                 cursor.getInt(cursor.getColumnIndex(DatabaseHelper.Usuarios._ID)),
                 cursor.getString(cursor.getColumnIndex(DatabaseHelper.Usuarios.NOME)),
@@ -85,7 +85,7 @@ public class UsuarioDAO {
         }
 
         return null;
-    }
+    }*/
 
   /*  public boolean logar(EditText usuario, EditText senha){
 

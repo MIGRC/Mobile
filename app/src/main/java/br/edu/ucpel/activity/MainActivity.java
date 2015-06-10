@@ -1,8 +1,6 @@
-package br.edu.ucpel;
+package br.edu.ucpel.activity;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import br.edu.ucpel.R;
 import br.edu.ucpel.adapter.ImageAdapter;
 
 

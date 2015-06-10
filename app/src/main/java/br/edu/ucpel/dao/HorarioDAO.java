@@ -73,7 +73,6 @@ public class HorarioDAO {
     }
 
     public void deleteGeral(){
-        //dbHelper = new DatabaseHelper(this.context);
         database = dbHelper.getWritableDatabase();
         String sql = "DELETE FROM "+ TBL_HORARIO +";";
         System.out.println(sql);
@@ -81,7 +80,6 @@ public class HorarioDAO {
     }
 
     public void insert(Horario h) {
-//        dbHelper = new DatabaseHelper(this.context);
         database = dbHelper.getWritableDatabase();
         ContentValues horarios = new ContentValues();
         horarios.put(Horario.HORARIO_CURSO_ALUNO_ID, h.getCurso_aluno_id());
@@ -93,55 +91,4 @@ public class HorarioDAO {
         database.insert(TBL_HORARIO, null, horarios);
         database.close();
     }
-
-    /*public long Inserir(Contato contato) {
-        ContentValues cv = new ContentValues();
-        cv.put(dbHelper.AGENDA_NOME, contato.getNome());
-        cv.put(dbHelper.AGENDA_ENDERECO, contato.getEndereco());
-        cv.put(dbHelper.AGENDA_TELEFONE, contato.getTelefone());
-
-        return database.insert(dbHelper.TBL_AGENDA, null, cv);
-    }
-
-    public int Alterar(Contato contato) {
-        long id = contato.getId();
-        ContentValues values = new ContentValues();
-
-        values.put(dbHelper.AGENDA_NOME, contato.getNome());
-        values.put(dbHelper.AGENDA_ENDERECO, contato.getEndereco());
-        values.put(dbHelper.AGENDA_TELEFONE, contato.getTelefone());
-
-        return database.update(dbHelper.TBL_AGENDA, values, dbHelper.AGENDA_ID + " = " + id, null);
-    }
-
-    public void Excluir(Contato pValue) {
-        long id = pValue.getId();
-
-        database.delete(dbHelper.TBL_AGENDA, dbHelper.AGENDA_ID + " = " + id, null);
-    }*/
-
-   /* public List<Horario> Consultar() {
-        List<Horario> lstHorarios = new ArrayList<Horario>();
-
-        Cursor cursor = database.query(dbHelper.TBL_HORARIO, colunas, null, null,
-                null, null, dbHelper.HORARIO_DISCIPLINA);
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            Horario lHorarioVO = cursorToHorario(cursor);
-            lstHorarios.add(lHorarioVO);
-            cursor.moveToNext();
-        }
-
-        cursor.close();
-        return lstHorarios;
-    }*/
-
-   /* private Horario cursorToHorario(Cursor cursor) {
-        Horario lHorarioVO = new Horario();
-        lHorarioVO.setId(cursor.getInt(0));
-        lHorarioVO.setDisciplina(cursor.getString(1));
-        lHorarioVO.setSala(cursor.getString(2));
-        lHorarioVO.setHorario(cursor.getString(3));
-        return lHorarioVO;
-    }*/
 }

@@ -1,22 +1,20 @@
-package br.edu.ucpel;
+package br.edu.ucpel.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
+import br.edu.ucpel.R;
 import br.edu.ucpel.dao.UsuarioDAO;
 import br.edu.ucpel.service.AlunoService;
-import br.edu.ucpel.service.HorarioService;
+import br.edu.ucpel.service.LoginService;
 import br.edu.ucpel.util.Conexoes;
 import br.edu.ucpel.util.Mensagem;
-import br.edu.ucpel.ws.ClienteGSON;
 
 
 public class LoginActivity extends ActionBarActivity {
@@ -76,7 +74,7 @@ public class LoginActivity extends ActionBarActivity {
                 boolean resultado = false;
 
                 try {
-                    resultado = new ClienteGSON(etLogin.getText().toString(), etSenha.getText().toString()).execute().get();
+                    resultado = new LoginService(etLogin.getText().toString(), etSenha.getText().toString()).execute().get();
                 } catch (Exception ex) {
                     ex.getMessage();
                     resultado = false;

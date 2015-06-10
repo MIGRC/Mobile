@@ -1,4 +1,4 @@
-package br.edu.ucpel;
+package br.edu.ucpel.activity;
 
 
 import android.app.ActionBar;
@@ -14,6 +14,7 @@ import android.widget.ListView;
 
 import java.util.List;
 
+import br.edu.ucpel.R;
 import br.edu.ucpel.adapter.HorarioAdapter;
 import br.edu.ucpel.bean.Horario;
 import br.edu.ucpel.dao.HorarioDAO;
@@ -98,54 +99,4 @@ public class HorariosActivity extends ActionBarActivity {
         lista = (ListView) findViewById(R.id.lvHorarios);
         lista.setAdapter(horarioAdapter);
     }
-
-    /*private void sincronismo() {
-
-        try {
-            List<Horario> horarioList = new HorarioService(1, this).execute().get();
-            HorarioDAO horarioDAO = new HorarioDAO(this);
-            horarioDAO.deleteGeral();
-            for (Horario h : horarioList) {
-                Horario horario = new Horario();
-                horario.set_id(h.get_id());
-                horario.setCurso_aluno_id(h.getCurso_aluno_id());
-                horario.setDisciplina_id(h.getDisciplina_id());
-                horario.setDisciplina_nome(h.getDisciplina_nome());
-                horario.setSala(h.getSala());
-                horario.setHorario(h.getHorario());
-                horarioDAO.insert(horario);
-                Log.i("HOTARIO LIST", h.getDisciplina_nome());
-            }
-        } catch (Exception ex) {
-            Log.w("Principal", "Erro", ex);
-        }
-    }*/
-
-   /* public class TituloAdapter extends ArrayAdapter<Horario> {
-
-        private final Activity context;
-
-        public TituloAdapter(Activity context) {
-
-            super(context, R.layout.item_tree_list_view, dados);
-            this.context = context;
-        }
-
-        public View getView(int posicao, View view, ViewGroup group) {
-
-            LayoutInflater inflater = context.getLayoutInflater();
-            View item = inflater.inflate(R.layout.item_tree_list_view, null);
-
-            TextView titulo = (TextView) item.findViewById(R.id.txtTitulo);
-            titulo.setText(dados[posicao].getDisciplina());
-
-            TextView subTitulo1 = (TextView) item.findViewById(R.id.txtSubTitulo1);
-            subTitulo1.setText(dados[posicao].getSala());
-
-            TextView subTitulo2 = (TextView) item.findViewById(R.id.txtSubTitulo2);
-            subTitulo2.setText(dados[posicao].getHorario());
-
-            return item;
-        }
-    }*/
 }

@@ -4,13 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="8dp"
-    android:background="#89A4C6" >
+    android:background="#ffa5c2cc" >
 
     <TextView
-        android:id="@+id/tvItem"
+        android:id="@+id/lblListItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="25dp"
-        android:textColor="#fff0f0f0" />
+        android:textColor="#000000" />
 
 </LinearLayout>

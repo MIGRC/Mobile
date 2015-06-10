@@ -1,4 +1,4 @@
-package br.edu.ucpel.ws;
+package br.edu.ucpel.service;
 
 import android.os.AsyncTask;
 
@@ -26,13 +26,13 @@ import br.edu.ucpel.util.Conexoes;
 /**
  * Created by Miguel Aguiar Barbosa on 21/05/15.
  */
-public class ClienteGSON extends AsyncTask<String, Void, Boolean> {
+public class LoginService extends AsyncTask<String, Void, Boolean> {
 
     private static final String BASE_URI = "http://"+ Conexoes.getIP()+":8080/UnimobileWS/webresources/usuario/usuario/get";
     private String login;
     private String senha;
 
-    public ClienteGSON(String login, String senha) {
+    public LoginService(String login, String senha) {
         this.login = login;
         this.senha = senha;
     }

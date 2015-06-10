@@ -1,4 +1,4 @@
-package br.edu.ucpel;
+package br.edu.ucpel.activity;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -15,6 +15,7 @@ import android.widget.ListView;
 
 import java.util.List;
 
+import br.edu.ucpel.R;
 import br.edu.ucpel.adapter.AlunoAdapter;
 import br.edu.ucpel.bean.Aluno;
 import br.edu.ucpel.dao.AlunoDAO;

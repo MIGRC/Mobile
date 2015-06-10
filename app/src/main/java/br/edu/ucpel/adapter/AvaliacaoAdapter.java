@@ -1,64 +1,106 @@
 package br.edu.ucpel.adapter;
 
-import android.app.Activity;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
+import java.util.HashMap;
 import java.util.List;
 
 import br.edu.ucpel.R;
-import br.edu.ucpel.bean.Avaliacao;
 
 /**
  * Created by miguel on 11/05/15.
  */
-public class AvaliacaoAdapter extends BaseAdapter{
+public class AvaliacaoAdapter extends BaseExpandableListAdapter {
 
-    private Context context;
-    private List<Avaliacao> listaAvalicao;
+    private Context _context;
+    private List<String> listGrupo;
+    private HashMap<String, List<String>> listItensGrupo;
 
-    public AvaliacaoAdapter(Context ctx, List<Avaliacao> avaliacoes) {
-        this.context = ctx;
-        this.listaAvalicao = avaliacoes;
+    public AvaliacaoAdapter(Context context, List<String> listDataHeader,
+                                 HashMap<String, List<String>> listChildData) {
+        this._context = context;
+        this.listGrupo = listDataHeader;
+        this.listItensGrupo = listChildData;
     }
 
     @Override
-    public int getCount() {
-        return listaAvalicao.size();
+    public Object getChild(int groupPosition, int childPosititon) {
+        return this.listItensGrupo.get(this.listGrupo.get(groupPosition))
+                .get(childPosititon);
     }
 
     @Override
-    public Object getItem(int position) {
-        return listaAvalicao.get(position);
+    public long getChildId(int groupPosition, int childPosition) {
+        return childPosition;
     }
 
     @Override
-    public long getItemId(int position) {
-        return position;
-    }
+    public View getChildView(int groupPosition, final int childPosition,
+                             boolean isLastChild, View convertView, ViewGroup parent) {
 
-    @Override
-    public View getView(int position, View view, ViewGroup parent) {
-        Avaliacao avaliacao = listaAvalicao.get(position);
+        final String childText = (String) getChild(groupPosition, childPosition);
 
-        if(view == null) {
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.item_tree_list_view, null);
+        if (convertView == null) {
+            LayoutInflater infalInflater = (LayoutInflater) this._context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = infalInflater.inflate(R.layout.item_expandable_list_view, null);
         }
 
-        TextView txtTitulo = (TextView) view.findViewById(R.id.txtTitulo);
-        txtTitulo.setText(avaliacao.getDisciplina_nome());
+        TextView txtListChild = (TextView) convertView.findViewById(R.id.lblListItem);
 
-        TextView txtSubTitulo1 = (TextView) view.findViewById(R.id.txtSubTitulo1);
-        txtSubTitulo1.setText(avaliacao.getAvaliacao());
+        txtListChild.setText(childText);
+        return convertView;
+    }
 
-        TextView txtSubTitulo2 = (TextView) view.findViewById(R.id.txtSubTitulo2);
-        txtSubTitulo2.setText(avaliacao.getData());
+    @Override
+    public int getChildrenCount(int groupPosition) {
+        return listItensGrupo.get(this.listGrupo.get(groupPosition)).size();
+    }
 
-        return  view;
+    @Override
+    public Object getGroup(int groupPosition) {
+        return this.listGrupo.get(groupPosition);
+    }
+
+    @Override
+    public int getGroupCount() {
+        return this.listGrupo.size();
+    }
+
+    @Override
+    public long getGroupId(int groupPosition) {
+        return groupPosition;
+    }
+
+    @Override
+    public View getGroupView(int groupPosition, boolean isExpanded,
+                             View convertView, ViewGroup parent) {
+        String headerTitle = (String) getGroup(groupPosition);
+        if (convertView == null) {
+            LayoutInflater infalInflater = (LayoutInflater) this._context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = infalInflater.inflate(R.layout.group_expandable_list_view, null);
+        }
+
+        TextView lblListHeader = (TextView) convertView.findViewById(R.id.lblListHeader);
+        lblListHeader.setTypeface(null, Typeface.BOLD);
+        lblListHeader.setText(headerTitle);
+
+        return convertView;
+    }
+
+    @Override
+    public boolean hasStableIds() {
+        return false;
+    }
+
+    @Override
+    public boolean isChildSelectable(int groupPosition, int childPosition) {
+        return true;
     }
 }

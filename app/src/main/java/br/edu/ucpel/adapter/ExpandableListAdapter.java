@@ -47,7 +47,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this._context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = infalInflater.inflate(R.layout.list_item, null);
+            convertView = infalInflater.inflate(R.layout.item_expandable_list_view, null);
         }
 
         TextView txtListChild = (TextView) convertView.findViewById(R.id.lblListItem);
@@ -58,8 +58,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return this._listDataChild.get(this._listDataHeader.get(groupPosition))
-                .size();
+        return _listDataChild.get(this._listDataHeader.get(groupPosition)).size();
     }
 
     @Override
@@ -84,7 +83,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this._context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = infalInflater.inflate(R.layout.list_group, null);
+            convertView = infalInflater.inflate(R.layout.group_expandable_list_view, null);
         }
 
         TextView lblListHeader = (TextView) convertView

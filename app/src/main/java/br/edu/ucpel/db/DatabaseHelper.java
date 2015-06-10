@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String BANCO_DADOS = "unimobile";
-    private static final int VERSAO = 2;
+    private static final int VERSAO = 3;
 
     public DatabaseHelper(Context context) {
         super(context, BANCO_DADOS, null, VERSAO);
@@ -19,9 +19,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         //Tabela de usuários
-        db.execSQL("create table usuarios(_id integer primary key autoincrement, "
+/*        db.execSQL("create table usuarios(_id integer primary key autoincrement, "
                 +"nome text not null, login text not null, senha text not null, created_at text);");
-
+*/
         //Tabela de Aluno
         db.execSQL("create table alunos(_id integer primary key autoincrement, "
                 +  "curso_aluno_id integer not null, chave text not null, cpf text, flg_ativo char default 'N');");
@@ -47,15 +47,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("insert into horarios(curso_aluno_id, disciplina_id, disciplina_nome, sala, horario) values(3, 3, 'teste3', 'Sala 232C', 'Quarta 19:15');");
 
         //Cadastro Matricula
-        db.execSQL("insert into matriculas(curso_aluno_id, disciplina_id, disciplina_nome, situacao, turma) values(1,1,'Estrutura de Dados', 'Matriculado', '133');");
-        db.execSQL("insert into matriculas(curso_aluno_id, disciplina_id, disciplina_nome, situacao, turma) values(1,2,'DOO III', 'Matriculado', '135');");
-        db.execSQL("insert into matriculas(curso_aluno_id, disciplina_id, disciplina_nome, situacao, turma) values(1,3,'DOO II', 'Matriculado', '200');");
+        db.execSQL("insert into matriculas(curso_aluno_id, disciplina_id, disciplina_nome, situacao, turma) values(1, 1,'Estrutura de Dados', 'Matriculado', '133');");
+        db.execSQL("insert into matriculas(curso_aluno_id, disciplina_id, disciplina_nome, situacao, turma) values(1, 2,'DOO III', 'Matriculado', '135');");
+        db.execSQL("insert into matriculas(curso_aluno_id, disciplina_id, disciplina_nome, situacao, turma) values(1, 3,'DOO II', 'Matriculado', '200');");
 
         //Cadastro Matricula
-        db.execSQL("insert into avalicoes(curso_aluno_id, disciplina_id, disciplina_nome, avaliacao, data) values(1, 1, 'DOO III', '1 avaliação', '13/06/2015');");
-        db.execSQL("insert into avalicoes(curso_aluno_id, disciplina_id, disciplina_nome, avaliacao, data) values(1, 2, 'Estrutura de Dados', '1 avaliação', '12/06/2015');");
-        db.execSQL("insert into avalicoes(curso_aluno_id, disciplina_id, disciplina_nome, avaliacao, data) values(1, 2, 'Estrutura de Dados', '2 avaliação', '22/08/2015');");
-        db.execSQL("insert into avalicoes(curso_aluno_id, disciplina_id, disciplina_nome, avaliacao, data) values(1, 2, 'Estrutura de Dados', 'Trabalho 1', '22/06/2015');");
+        db.execSQL("insert into avalicoes(curso_aluno_id, disciplina_id, disciplina_nome, avaliacao, data) values(1, 1, 'DOO III', 'DOO AV1', '13/06/2015');");
+        db.execSQL("insert into avalicoes(curso_aluno_id, disciplina_id, disciplina_nome, avaliacao, data) values(1, 2, 'Estrutura de Dados', 'ED AV1', '12/06/2015');");
+        db.execSQL("insert into avalicoes(curso_aluno_id, disciplina_id, disciplina_nome, avaliacao, data) values(1, 2, 'Estrutura de Dados', 'ED AV2', '22/08/2015');");
+        db.execSQL("insert into avalicoes(curso_aluno_id, disciplina_id, disciplina_nome, avaliacao, data) values(1, 2, 'Estrutura de Dados', 'ED T1', '22/06/2015');");
     }
 
     @Override
@@ -63,52 +63,5 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         //db.execSQL("DROP TABLE IF EXISTS matriculas");
        // db.execSQL("DROP TABLE IF EXISTS " + Horarios.TBL_HORARIO);
         this.onCreate(db);
-    }
-
-    public static class Usuarios{
-        public static final String TABELA = "usuarios";
-        public static final String _ID = "_id";
-        public static final String NOME = "nome";
-        public static final String LOGIN = "login";
-        public static final String SENHA = "senha";
-        public static final String CREATED_AT = "created_at";
-
-        public static final String[] COLUNAS = new String[]{
-                _ID, NOME, LOGIN, SENHA, CREATED_AT
-        };
-    }
-
-    //Tabela Matricula
-    /*public static class Matriculas{
-        public static final String TBL_MATRICULA = "matriculas";
-        public static final String MATRICULA_ID = "_id";
-        public static final String MATRICULA_DISCIPLINA = "disciplina";
-        public static final String MATRICULA_SITUACAO = "situacao";
-        public static final String MATRICULA_TURMA = "turma";
-
-        public static final String[] COLUNAS = new String[]{
-                MATRICULA_ID, MATRICULA_DISCIPLINA, MATRICULA_SITUACAO, MATRICULA_TURMA
-        };
-    }*/
-
-    //Tabela Horarios
-  //  public static class Horarios{
-
-
-
-
-    //}
-
-    //Tabela Avalição
-    public static class Avaliacoes{
-        public static final String TBL_AVALIACOES = "avalicoes";
-        public static final String AVALIACOES_ID = "_id";
-        public static final String AVALIACOES_DISCIPLINA = "disciplina";
-        public static final String AVALIACOES_AVALIACAO = "avaliacao";
-        public static final String AVALIACOES_DATA = "data";
-
-        public static final String[] COLUNAS = new String[]{
-                AVALIACOES_ID, AVALIACOES_DISCIPLINA, AVALIACOES_AVALIACAO, AVALIACOES_DATA
-        };
     }
 }

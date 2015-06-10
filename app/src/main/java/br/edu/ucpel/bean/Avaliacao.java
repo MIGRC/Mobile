@@ -24,10 +24,15 @@ public class Avaliacao {
             AVALIACAO_DISCIPLINA_ID,
             AVALIACAO_DISCIPLINA_NOME,
             AVALIACAO_AVALIACAO,
-            AVALIACAO_AVALIACAO
+            AVALIACAO_DATA
     };
 
     public Avaliacao() {
+    }
+
+    public Avaliacao(Integer disciplina_id, String avaliacao) {
+        this.disciplina_id = disciplina_id;
+        this.avaliacao = avaliacao;
     }
 
     public Avaliacao(Integer _id, Integer disciplina_id, Integer curso_aluno_id, String disciplina_nome, String avaliacao, String data) {

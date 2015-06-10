@@ -47,7 +47,7 @@ public class AlunoAdapter extends BaseAdapter {
 
         if(view == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.item_one_list_view, null);
+            view = inflater.inflate(R.layout.item_list_one_view, null);
 
         }
 

@@ -19,9 +19,7 @@ import java.io.Reader;
 import java.net.URI;
 import java.util.List;
 
-import br.edu.ucpel.HorariosActivity;
 import br.edu.ucpel.bean.Horario;
-import br.edu.ucpel.bean.Login;
 import br.edu.ucpel.dao.HorarioDAO;
 import br.edu.ucpel.util.Conexoes;
 

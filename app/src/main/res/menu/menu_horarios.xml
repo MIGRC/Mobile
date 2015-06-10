@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="br.edu.ucpel.HorariosActivity">
+    tools:context="br.edu.ucpel.activity.HorariosActivity">
 
     <item android:id="@+id/action_menu_sincronizar_horario"
         android:title="@string/sincronizar"

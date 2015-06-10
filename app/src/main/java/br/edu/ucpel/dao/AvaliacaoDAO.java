@@ -55,12 +55,46 @@ public class AvaliacaoDAO {
     }
 
     public List<Avaliacao> listarAvaliacoes(){
-        Cursor cursor = getDatabase().query(DatabaseHelper.Avaliacoes.TBL_AVALIACOES,
-                DatabaseHelper.Avaliacoes.COLUNAS, null, null, null,null,null);
+        Cursor cursor = getDatabase().query(TBL_AVALIACAO,
+                Avaliacao.COLUNAS, null, null, null,null,null);
 
         List<Avaliacao> avaliacoes = new ArrayList<Avaliacao>();
         while (cursor.moveToNext()){
             Avaliacao avaliacaoBean = criarAvaliacao(cursor);
+            avaliacoes.add(avaliacaoBean);
+        }
+
+        cursor.close();
+        return avaliacoes;
+    }
+
+    public List<Avaliacao> listarDisciplina(){
+        database = dbHelper.getWritableDatabase();
+        String countQuery = "SELECT "+Avaliacao.AVALIACAO_DISCIPLINA_ID+","+Avaliacao.AVALIACAO_DISCIPLINA_NOME+" FROM "+ TBL_AVALIACAO +" GROUP BY "+Avaliacao.AVALIACAO_DISCIPLINA_ID+","+Avaliacao.AVALIACAO_DISCIPLINA_NOME+";";
+        Cursor cursor = database.rawQuery(countQuery, null);
+
+        List<Avaliacao> avaliacoes = new ArrayList<Avaliacao>();
+        while (cursor.moveToNext()){
+            Avaliacao avaliacaoBean = new Avaliacao();//criarAvaliacaoPorDisciplina(cursor);
+            avaliacaoBean.setDisciplina_id(cursor.getInt(0));
+            avaliacaoBean.setDisciplina_nome(cursor.getString(1));
+            avaliacoes.add(avaliacaoBean);
+        }
+
+        cursor.close();
+        return avaliacoes;
+    }
+
+    public List<Avaliacao> listarAvaliacoesPorDisciplina(int disciplina_id){
+        database = dbHelper.getWritableDatabase();
+        String countQuery = "SELECT "+Avaliacao.AVALIACAO_DISCIPLINA_ID+","+Avaliacao.AVALIACAO_AVALIACAO+" FROM "+ TBL_AVALIACAO +" WHERE "+Avaliacao.AVALIACAO_DISCIPLINA_ID+" = "+disciplina_id+";";
+        Cursor cursor = database.rawQuery(countQuery, null);
+
+        List<Avaliacao> avaliacoes = new ArrayList<Avaliacao>();
+        while (cursor.moveToNext()){
+            Avaliacao avaliacaoBean = new Avaliacao();//criarAvaliacaoPorDisciplina(cursor);
+            avaliacaoBean.setDisciplina_id(cursor.getInt(0));
+            avaliacaoBean.setAvaliacao(cursor.getString(1));
             avaliacoes.add(avaliacaoBean);
         }
 

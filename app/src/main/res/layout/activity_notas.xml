@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/gradient"
-    tools:context="br.edu.ucpel.NotasActivity">
+    tools:context="br.edu.ucpel.activity.NotasActivity">
 
     <View
         android:layout_width="match_parent"

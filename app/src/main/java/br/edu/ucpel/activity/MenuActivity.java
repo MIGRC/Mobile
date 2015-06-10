@@ -1,6 +1,5 @@
-package br.edu.ucpel;
+package br.edu.ucpel.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,10 +9,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.GridView;
-import br.edu.ucpel.adapter.ImageAdapter;
+
+import br.edu.ucpel.R;
 import br.edu.ucpel.util.Mensagem;
 
 public class MenuActivity extends ActionBarActivity {
