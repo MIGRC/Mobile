@@ -41,24 +41,28 @@ public class AvaliacaoActivity extends ActionBarActivity {
     }
 
     private void montaListAvaliacao() {
-        listGrupo = new ArrayList<String>();
-        listItensGrupo = new HashMap<String, List<String>>();
-        AvaliacaoDAO avaliacaoDAO = new AvaliacaoDAO(this);
+        try {
+            listGrupo = new ArrayList<String>();
+            listItensGrupo = new HashMap<String, List<String>>();
+            AvaliacaoDAO avaliacaoDAO = new AvaliacaoDAO(this);
 
-        int i = 0;
-        for (Avaliacao a : avaliacaoDAO.listarDisciplina()) {
+            int i = 0;
+            for (Avaliacao a : avaliacaoDAO.listarDisciplina()) {
 
-            listGrupo.add(a.getDisciplina_nome());
+                listGrupo.add(a.getDisciplina_nome());
 
-            List<String> avaliacoeslist = new ArrayList<String>();
+                List<String> avaliacoeslist = new ArrayList<String>();
 
-            for (Avaliacao a2 : avaliacaoDAO.listarAvaliacoesPorDisciplina(a.getDisciplina_id())) {
-                avaliacoeslist.add(a2.getAvaliacao());
+                for (Avaliacao a2 : avaliacaoDAO.listarAvaliacoesPorDisciplina(a.getDisciplina_id())) {
+                    avaliacoeslist.add(a2.getAvaliacao());
+                }
+
+                listItensGrupo.put(listGrupo.get(i), avaliacoeslist);
+
+                i++;
             }
-
-            listItensGrupo.put(listGrupo.get(i), avaliacoeslist);
-
-            i++;
+        } catch (Exception e){
+            e.printStackTrace();
         }
     }
 }

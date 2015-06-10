@@ -13,7 +13,7 @@ import br.edu.ucpel.R;
 import br.edu.ucpel.dao.UsuarioDAO;
 import br.edu.ucpel.service.AlunoService;
 import br.edu.ucpel.service.LoginService;
-import br.edu.ucpel.util.Conexoes;
+import br.edu.ucpel.db.Conexoes;
 import br.edu.ucpel.util.Mensagem;
 
 

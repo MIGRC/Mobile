@@ -1,101 +1,184 @@
 package br.edu.ucpel.activity;
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.os.Bundle;
+import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.ListView;
+
 import java.util.List;
 
-import android.app.Activity;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ExpandableListView;
-import android.widget.ExpandableListView.OnChildClickListener;
-import android.widget.ExpandableListView.OnGroupCollapseListener;
-import android.widget.ExpandableListView.OnGroupExpandListener;
-import android.widget.Toast;
-
 import br.edu.ucpel.R;
-import br.edu.ucpel.adapter.AvaliacaoAdapter;
-import br.edu.ucpel.bean.Avaliacao;
-import br.edu.ucpel.dao.AvaliacaoDAO;
+import br.edu.ucpel.adapter.HorarioAdapter;
+import br.edu.ucpel.adapter.MatriculaAdapter;
+import br.edu.ucpel.bean.Horario;
+import br.edu.ucpel.bean.Matricula;
+import br.edu.ucpel.dao.HorarioDAO;
+import br.edu.ucpel.dao.MatriculaDAO;
+import br.edu.ucpel.db.Conexoes;
+import br.edu.ucpel.service.HorarioService;
+import br.edu.ucpel.service.MatriculaService;
+import br.edu.ucpel.util.Mensagem;
 
-public class MatriculaActivity extends Activity {
-    private List<String> listGroup;
-    private HashMap<String, List<String>> listData;
+public class MatriculaActivity extends ActionBarActivity {
+
+    private ListView lista;
+    private List<Horario> horarioList;
+    private HorarioAdapter horarioAdapter;
+    private HorarioDAO horarioDAO;
+    private ProgressDialog dialog;
+
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_horarios);
+
+        this.atualizarLista();
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_horarios, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id){
+            case R.id.action_menu_sincronizar_horario:
+                this.sincronismo();
+                break;
+
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void  sincronismo(){
+        boolean resultado = false;
+
+        if(Conexoes.isOnline(this)) {
+            try {
+                this.dialog = ProgressDialog.show(this, "Sincronizando", "Por favor, aguarde...", false, true);
+                resultado = new HorarioService(1, this).execute().get();
+                //hs.execute();
+
+                if(resultado){
+                    dialog.dismiss();
+                    this.atualizarLista();
+                } else {
+                    Mensagem.Msg(this, getString(R.string.msg_erro_sincronismo));
+                }
+
+            } catch (Exception ex) {
+                ex.getMessage();
+                resultado = false;
+            }
+        }
+        else{
+            Mensagem.Msg(this, getString(R.string.msg_sem_conexao));
+        }
+
+    }
+
+    private void atualizarLista() {
+        horarioDAO = new HorarioDAO(this);
+        horarioList = horarioDAO.listarHorarios();
+        System.out.println(horarioList.size());
+        if(horarioList.size() > 0){
+            horarioAdapter = new HorarioAdapter(this, horarioList);
+        }
+        else{
+            horarioAdapter = new HorarioAdapter(this, null);
+        }
+
+        lista = (ListView) findViewById(R.id.lvHorarios);
+        lista.setAdapter(horarioAdapter);
+    }
+}
+
+
+        /*extends Activity {
+    private ListView lista;
+    private List<Matricula> matriculaList;
+    private MatriculaAdapter matriculaAdapter;
+    private MatriculaDAO matriculaDAO;
+    private ProgressDialog dialog;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_matricula);
 
-
-        buildList();
-
-        ExpandableListView expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
-        expandableListView.setAdapter(new AvaliacaoAdapter(MatriculaActivity.this, listGroup, listData));
-
-        expandableListView.setOnChildClickListener(new OnChildClickListener(){
-            @Override
-            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                Toast.makeText(MatriculaActivity.this, "Group: "+groupPosition+"| Item: "+childPosition, Toast.LENGTH_SHORT).show();
-                return false;
-            }
-        });
-
-        expandableListView.setOnGroupExpandListener(new OnGroupExpandListener(){
-            @Override
-            public void onGroupExpand(int groupPosition) {
-                Toast.makeText(MatriculaActivity.this, "Group (Expand): "+groupPosition, Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        expandableListView.setOnGroupCollapseListener(new OnGroupCollapseListener(){
-            @Override
-            public void onGroupCollapse(int groupPosition) {
-                Toast.makeText(MatriculaActivity.this, "Group (Collapse): "+groupPosition, Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        //expandableListView.setGroupIndicator(getResources());
+        this.atualizarListaMatriculas();
     }
 
-    public void buildList(){
-        listGroup = new ArrayList<String>();
-        listData = new HashMap<String, List<String>>();
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_matricula, menu);
 
-        AvaliacaoDAO disciplinaDAO = new AvaliacaoDAO(this);
-        List<String> avaliacaolist = new ArrayList<String>();
-        //List<Horario> horarioList = horarioDAO.listarHorarios();
+        return true;
+    }
 
-        int i = 0;
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
 
-        for (Avaliacao a : disciplinaDAO.listarDisciplina()) {
+        switch (item.getItemId()){
+            case R.id.action_menu_sincronizar_matricula:
+                this.sincronismoMatricula();
+                break;
 
-            listGroup.add(a.getDisciplina_nome());
+            /*case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;*/
+     //   }
+   /*     return super.onOptionsItemSelected(item);
+    }
 
+    private void  sincronismoMatricula(){
+        boolean resultado = false;
 
+        if(Conexoes.isOnline(this)) {
+            try {
+                this.dialog = ProgressDialog.show(this, "Sincronizando", "Por favor, aguarde...", false, true);
+                resultado = new MatriculaService(1, this).execute().get();
 
-            AvaliacaoDAO disciplinaDAO2 = new AvaliacaoDAO(this);
+                if(resultado){
+                    dialog.dismiss();
+                    this.atualizarListaMatriculas();
+                } else {
+                    Mensagem.Msg(this, getString(R.string.msg_erro_sincronismo));
+                }
 
-
-
-            for (Avaliacao a2 : disciplinaDAO2.listarAvaliacoesPorDisciplina(a.getDisciplina_id())) {
-                avaliacaolist.add(a2.getAvaliacao());
+            } catch (Exception ex) {
+                ex.getMessage();
+                resultado = false;
             }
-
-
-
-            listData.put(listGroup.get(i), avaliacaolist);
-
-            i ++;
+        }
+        else{
+            Mensagem.Msg(this, getString(R.string.msg_sem_conexao));
         }
 
-        /*for (int e = 0; e <=i2; e++) {
-            listData.put(listGroup.get(e), avaliacaolist);
-        }*/
-
-
-
     }
-}
+
+    private void atualizarListaMatriculas() {
+        matriculaDAO = new MatriculaDAO(this);
+        matriculaList = matriculaDAO.listarMatriculas();
+        matriculaAdapter = new MatriculaAdapter(this, matriculaList);
+
+        lista = (ListView) findViewById(R.id.lvHorarios);
+        lista.setAdapter(matriculaAdapter);
+    }
+}*/

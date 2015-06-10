@@ -15,11 +15,11 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".activity.MainActivity"
+            android:name="br.edu.ucpel.activity.MainActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name=".activity.LoginActivity"
+            android:name="br.edu.ucpel.activity.LoginActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,44 +28,44 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.MenuActivity"
+            android:name="br.edu.ucpel.activity.MenuActivity"
             android:label="@string/title_activity_menu" >
         </activity>
         <activity
-            android:name=".activity.EscolhaMatriculaActivity"
+            android:name="br.edu.ucpel.activity.EscolhaMatriculaActivity"
             android:label="@string/title_activity_matricula" >
         </activity>
         <activity
-            android:name=".activity.NotasActivity"
+            android:name="br.edu.ucpel.activity.NotasActivity"
             android:label="@string/title_activity_notas"
-            android:parentActivityName=".activity.MenuActivity">
+            android:parentActivityName="br.edu.ucpel.activity.MenuActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.MenuActivity" />
+                android:value="br.edu.ucpel.activity.MenuActivity" />
         </activity>
         <activity
-            android:name=".activity.HorariosActivity"
+            android:name="br.edu.ucpel.activity.HorariosActivity"
             android:label="@string/title_activity_horarios"
-            android:parentActivityName=".activity.MenuActivity">
+            android:parentActivityName="br.edu.ucpel.activity.MenuActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.MenuActivity" />
+                android:value="br.edu.ucpel.activity.MenuActivity" />
         </activity>
         <activity
-            android:name=".activity.MatriculaActivity"
+            android:name="br.edu.ucpel.activity.MatriculaActivity"
             android:label="@string/title_activity_matricula"
-            android:parentActivityName=".activity.MenuActivity">
+            android:parentActivityName="br.edu.ucpel.activity.MenuActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.MenuActivity" />
+                android:value="br.edu.ucpel.activity.MenuActivity" />
         </activity>
         <activity
-            android:name=".activity.AvaliacaoActivity"
+            android:name="br.edu.ucpel.activity.AvaliacaoActivity"
             android:label="@string/title_activity_avaliacao"
-            android:parentActivityName=".activity.MenuActivity">
+            android:parentActivityName="br.edu.ucpel.activity.MenuActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.MenuActivity" />
+                android:value="br.edu.ucpel.activity.MenuActivity" />
         </activity>
 
     </application>

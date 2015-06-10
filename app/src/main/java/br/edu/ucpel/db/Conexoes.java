@@ -1,4 +1,4 @@
-package br.edu.ucpel.util;
+package br.edu.ucpel.db;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

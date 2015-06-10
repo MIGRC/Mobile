@@ -19,21 +19,21 @@ import java.io.Reader;
 import java.net.URI;
 import java.util.List;
 
-import br.edu.ucpel.bean.Horario;
-import br.edu.ucpel.dao.HorarioDAO;
+import br.edu.ucpel.bean.Matricula;
+import br.edu.ucpel.dao.MatriculaDAO;
 import br.edu.ucpel.db.Conexoes;
 
 /**
- * Created by Miguel Aguiar Barbosa on 04/06/15.
+ * Created by Miguel Aguiar Barbosa on 10/06/15.
  */
-public class HorarioService extends AsyncTask<Integer, Void, Boolean> {
+public class MatriculaService extends AsyncTask<Integer, Void, Boolean> {
 
-    private static final String BASE_URI = "http://"+Conexoes.getIP()+":8080/UnimobileWS/webresources/horario/horario/listahorarios";
+    private static final String BASE_URI = "http://"+Conexoes.getIP()+":8080/UnimobileWS/webresources/matricula/matricula/listamatriculas";
     private Integer curso_aluno_id;
     private Context context;
 
 
-    public HorarioService(Integer curso_aluno_id, Context context) {
+    public MatriculaService(Integer curso_aluno_id, Context context) {
         this.curso_aluno_id = curso_aluno_id;
         this.context = context;
     }
@@ -51,28 +51,25 @@ public class HorarioService extends AsyncTask<Integer, Void, Boolean> {
 
             Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").create();
 
-           // return gson.fromJson(reader, new TypeToken<List<Horario>>() {}.getType());
-
-            List<Horario> horarioList = gson.fromJson(reader, new TypeToken<List<Horario>>() {}.getType());
-            HorarioDAO horarioDAO = new HorarioDAO(context);
-            horarioDAO.deleteGeral();
-            for (Horario h : horarioList) {
-                Horario horario = new Horario();
-                horario.set_id(h.get_id());
-                horario.setCurso_aluno_id(h.getCurso_aluno_id());
-                horario.setDisciplina_id(h.getDisciplina_id());
-                horario.setDisciplina_nome(h.getDisciplina_nome());
-                horario.setSala(h.getSala());
-                horario.setHorario(h.getHorario());
-                horarioDAO.insert(horario);
-                Log.i("HOTARIO LIST", h.getDisciplina_nome());
+            List<Matricula> horarioList = gson.fromJson(reader, new TypeToken<List<Matricula>>() {}.getType());
+            MatriculaDAO matriculaDAO = new MatriculaDAO(context);
+            matriculaDAO.deleteGeralMatricula();
+            for (Matricula m : horarioList) {
+                Matricula matricula = new Matricula();
+                matricula.set_id(m.get_id());
+                matricula.setCurso_aluno_id(m.getCurso_aluno_id());
+                matricula.setDisciplina_id(m.getDisciplina_id());
+                matricula.setDisciplina_nome(m.getDisciplina_nome());
+                matricula.setSituacao(m.getSituacao());
+                matricula.setTurma(m.getTurma());
+                matriculaDAO.insert(matricula);
+                Log.i("Matricula LIST", m.getDisciplina_nome());
             }
 
             return true;
 
         } catch (Exception ex) {
             ex.printStackTrace();
-            //return (List<Horario>) null;
             return false;
         }
     }

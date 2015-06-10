@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String BANCO_DADOS = "unimobile";
-    private static final int VERSAO = 3;
+    private static final int VERSAO = 4;
 
     public DatabaseHelper(Context context) {
         super(context, BANCO_DADOS, null, VERSAO);
@@ -32,9 +32,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + "disciplina_nome text not null, sala text not null, horario text not null);");
 
         //Tabela de Matricula
-        db.execSQL("create table matriculas(curso_aluno_id integer, "
-                + "disciplina_id integer, disciplina_nome text not null, "
-                + "situacao text not null, turma text not null);");
+        db.execSQL("create table matriculas(_id integer primary key autoincrement, "
+                + "curso_aluno_id integer, disciplina_id integer, "
+                + "disciplina_nome text not null, situacao text not null, turma text not null);");
 
         //Tabela de Avaliações
         db.execSQL("create table avalicoes(_id integer primary key autoincrement,"
@@ -47,9 +47,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("insert into horarios(curso_aluno_id, disciplina_id, disciplina_nome, sala, horario) values(3, 3, 'teste3', 'Sala 232C', 'Quarta 19:15');");
 
         //Cadastro Matricula
-        db.execSQL("insert into matriculas(curso_aluno_id, disciplina_id, disciplina_nome, situacao, turma) values(1, 1,'Estrutura de Dados', 'Matriculado', '133');");
-        db.execSQL("insert into matriculas(curso_aluno_id, disciplina_id, disciplina_nome, situacao, turma) values(1, 2,'DOO III', 'Matriculado', '135');");
-        db.execSQL("insert into matriculas(curso_aluno_id, disciplina_id, disciplina_nome, situacao, turma) values(1, 3,'DOO II', 'Matriculado', '200');");
+        db.execSQL("insert into matriculas(curso_aluno_id, disciplina_id, disciplina_nome, situacao, turma) values(1, 1, 'teste1', 'Matriculado', '133');");
+        db.execSQL("insert into matriculas(curso_aluno_id, disciplina_id, disciplina_nome, situacao, turma) values(1, 2, 'teste2', 'Matriculado', '135');");
+        db.execSQL("insert into matriculas(curso_aluno_id, disciplina_id, disciplina_nome, situacao, turma) values(1, 3, 'teste2', 'Matriculado', '200');");
 
         //Cadastro Matricula
         db.execSQL("insert into avalicoes(curso_aluno_id, disciplina_id, disciplina_nome, avaliacao, data) values(1, 1, 'DOO III', 'DOO AV1', '13/06/2015');");

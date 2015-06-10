@@ -4,7 +4,6 @@ import android.os.AsyncTask;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -15,13 +14,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URI;
-import java.util.List;
 
 import br.edu.ucpel.bean.Login;
-import br.edu.ucpel.bean.Matricula;
-import br.edu.ucpel.bean.Usuario;
-import br.edu.ucpel.dao.UsuarioDAO;
-import br.edu.ucpel.util.Conexoes;
+import br.edu.ucpel.db.Conexoes;
 
 /**
  * Created by Miguel Aguiar Barbosa on 21/05/15.

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import br.edu.ucpel.bean.Horario;
 import br.edu.ucpel.bean.Matricula;
 import br.edu.ucpel.db.DatabaseHelper;
 
@@ -43,78 +44,75 @@ public class MatriculaDAO {
         dbHelper.close();
     }
 
-   /* private Matricula criarMatricula(Cursor cursor){
-        Matricula matriculaBean = new Matricula(
-                cursor.getInt(cursor.getColumnIndex(matriculaBean.MATRICULA_CURSO_ALUNO_ID)),
-                cursor.getInt(cursor.getColumnIndex(MATRICULA_DISCIPLINA_ID)),
-                cursor.getString(cursor.getColumnIndex(MATRICULA_DISCIPLINA_NOME)),
-                cursor.getString(cursor.getColumnIndex(MATRICULA_SITUACAO)),
-                cursor.getString(cursor.getColumnIndex(MATRICULA_DISCIPLINA_ID))
+    private Matricula criarMatricula(Cursor cursor){
+        Matricula MatriculaBean = new Matricula (
+                cursor.getInt(cursor.getColumnIndex(Matricula.MATRICULA_ID)),
+                cursor.getInt(cursor.getColumnIndex(Matricula.MATRICULA_CURSO_ALUNO_ID)),
+                cursor.getInt(cursor.getColumnIndex(Matricula.MATRICULA_DISCIPLINA_ID)),
+                cursor.getString(cursor.getColumnIndex(Matricula.MATRICULA_DISCIPLINA_NOME)),
+                cursor.getString(cursor.getColumnIndex(Matricula.MATRICULA_SITUACAO)),
+                cursor.getString(cursor.getColumnIndex(Matricula.MATRICULA_TURMA))
         );
 
-        return matriculaBean;
-    }*/
+        return MatriculaBean;
+    }
 
-    public List<Matricula> listarMatriculas(String curso_aluno_id){
-        Cursor cursor = getDatabase().query(TBL_MATRICULA, Matricula.COLUNAS, null, null, null, null, null);
+    private Horario criarHorario(Cursor cursor){
+        Horario horarioBean = new Horario(
+                cursor.getInt(cursor.getColumnIndex(Horario.HORARIO_ID)),
+                cursor.getInt(cursor.getColumnIndex(Horario.HORARIO_CURSO_ALUNO_ID)),
+                cursor.getInt(cursor.getColumnIndex(Horario.HORARIO_DISCIPLINA_ID)),
+                cursor.getString(cursor.getColumnIndex(Horario.HORARIO_DISCIPLINA_NOME)),
+                cursor.getString(cursor.getColumnIndex(Horario.HORARIO_SALA)),
+                cursor.getString(cursor.getColumnIndex(Horario.HORARIO_HORARIO))
+        );
 
-        List<Matricula> listMatricula = new ArrayList<Matricula>();
-        while(cursor.moveToFirst()) {
-            int idxCursoAlunoId = cursor.getColumnIndex(Matricula.MATRICULA_CURSO_ALUNO_ID);
-            int idxDisciplinaId = cursor.getColumnIndex(Matricula.MATRICULA_DISCIPLINA_ID);
-            int idxDisciplinaNome = cursor.getColumnIndex(Matricula.MATRICULA_DISCIPLINA_NOME);
-            int idxSituacao = cursor.getColumnIndex(Matricula.MATRICULA_SITUACAO);
-            int idxTurma = cursor.getColumnIndex(Matricula.MATRICULA_DISCIPLINA_ID);
+        return horarioBean;
+    }
 
-            do {
-                Matricula matricula = new Matricula();
-                listMatricula.add(matricula);
-                matricula.setCursoAlunoId(cursor.getInt(idxCursoAlunoId));
-                matricula.setDisciplinaId(cursor.getInt(idxDisciplinaId));
-                matricula.setDisciplinaNome(cursor.getString(idxDisciplinaNome));
-                matricula.setSituacao(cursor.getString(idxSituacao));
-                matricula.setTurma(cursor.getString(idxTurma));
-            } while (cursor.moveToNext());
+    public List<Matricula> listarMatriculas(){
+        Cursor cursor = getDatabase().query(TBL_MATRICULA,
+                Horario.COLUNAS, null, null, null, null, null);
+
+        List<Matricula> matriculas = new ArrayList<Matricula>();
+        while(cursor.moveToNext()){
+            Matricula matriculaBean = criarMatricula(cursor);
+            matriculas.add(matriculaBean);
         }
-        //Collections.sort(listMatricula);
-        return listMatricula;
-
+        cursor.close();
+        return matriculas;
     }
 
-    private Matricula cursorToMatricula(Cursor cursor) {
-        Matricula matriculaBean = new Matricula();
-        matriculaBean.setCursoAlunoId(cursor.getInt(0));
-        matriculaBean.setDisciplinaId(cursor.getInt(1));
-        matriculaBean.setDisciplinaNome(cursor.getString(2));
-        matriculaBean.setSituacao(cursor.getString(3));
-        matriculaBean.setTurma(cursor.getString(4));
-        return matriculaBean;
+    public List<Horario> listarHorarios(){
+        Cursor cursor = getDatabase().query("horarios",
+                Horario.COLUNAS, null, null, null, null, null);
+
+        List<Horario> horarios = new ArrayList<Horario>();
+        while(cursor.moveToNext()){
+            Horario horarioBean = criarHorario(cursor);
+            horarios.add(horarioBean);
+        }
+        cursor.close();
+        return horarios;
     }
 
-    public void onInsert(Matricula m) {
-        ContentValues v = new ContentValues();
-        v.put(Matricula.MATRICULA_CURSO_ALUNO_ID, m.getCursoAlunoId());
-        v.put(Matricula.MATRICULA_DISCIPLINA_ID, m.getDisciplinaId());
-        v.put(Matricula.MATRICULA_DISCIPLINA_NOME, m.getDisciplinaNome());
-        v.put(Matricula.MATRICULA_SITUACAO, m.getSituacao());
-        v.put(Matricula.MATRICULA_TURMA, m.getTurma());
-        //insert(values);
+    public void deleteGeralMatricula(){
+        database = dbHelper.getWritableDatabase();
+        String sql = "DELETE FROM "+ TBL_MATRICULA +";";
+        System.out.println(sql);
+        database.execSQL(sql);
     }
 
-    /*public void insert(ContentValues valores) {
-        dbHelper.inserir(TBL_MATRICULA, "", valores);
-        Log.i(TBL_MATRICULA, "Inseriu o registro");
-    }
+    public void insert(Matricula h) {
+        database = dbHelper.getWritableDatabase();
+        ContentValues MATRICULAs = new ContentValues();
+        MATRICULAs.put(Matricula.MATRICULA_CURSO_ALUNO_ID, h.getCurso_aluno_id());
+        MATRICULAs.put(Matricula.MATRICULA_DISCIPLINA_ID, h.getDisciplina_id());
+        MATRICULAs.put(Matricula.MATRICULA_DISCIPLINA_NOME, h.getDisciplina_nome());
+        MATRICULAs.put(Matricula.MATRICULA_SITUACAO, h.getSituacao());
+        MATRICULAs.put(Matricula.MATRICULA_TURMA, h.getTurma());
 
-    public int onDelete(Integer curso_aluno_id) {
-        String where = Matricula.MATRICULA_CURSO_ALUNO_ID + "=?";
-        Integer whereArg = curso_aluno_id;
-        int count = delete(where, whereArg);
-        return count;
+        database.insert(TBL_MATRICULA, null, MATRICULAs);
+        database.close();
     }
-
-    public int delete(String where, Integer whereArg) {
-        int count = dbHelper.delete(TBL_MATRICULA, where, whereArg);
-        Log.i(TBL_MATRICULA, "Deletou (" + count + ") registros;");
-    }*/
 }

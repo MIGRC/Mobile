@@ -1,15 +1,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="br.edu.ucpel.activity.MatriculaActivity">
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+tools:context="br.edu.ucpel.activity.MatriculaActivity" >
 
-    <item android:id="@+id/action_menu_sincronizar"
+    <item android:id="@+id/action_menu_sincronizar_matricula"
         android:title="@string/sincronizar"
-        android:orderInCategory="100"
-        app:showAsAction="ifRoom|withText" />
-
-    <item android:id="@+id/action_menu_sair"
-        android:title="@string/sair"
         android:orderInCategory="100"
         app:showAsAction="never" />
 </menu>

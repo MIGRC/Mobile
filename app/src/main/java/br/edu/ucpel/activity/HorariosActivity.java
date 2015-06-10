@@ -1,13 +1,10 @@
 package br.edu.ucpel.activity;
 
 
-import android.app.ActionBar;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -19,7 +16,7 @@ import br.edu.ucpel.adapter.HorarioAdapter;
 import br.edu.ucpel.bean.Horario;
 import br.edu.ucpel.dao.HorarioDAO;
 import br.edu.ucpel.service.HorarioService;
-import br.edu.ucpel.util.Conexoes;
+import br.edu.ucpel.db.Conexoes;
 import br.edu.ucpel.util.Mensagem;
 
 public class HorariosActivity extends ActionBarActivity {
@@ -94,7 +91,13 @@ public class HorariosActivity extends ActionBarActivity {
     private void atualizarLista() {
         horarioDAO = new HorarioDAO(this);
         horarioList = horarioDAO.listarHorarios();
-        horarioAdapter = new HorarioAdapter(this, horarioList);
+        System.out.println(horarioList.size());
+        if(horarioList.size() > 0){
+            horarioAdapter = new HorarioAdapter(this, horarioList);
+        }
+        else{
+            horarioAdapter = new HorarioAdapter(this, null);
+        }
 
         lista = (ListView) findViewById(R.id.lvHorarios);
         lista.setAdapter(horarioAdapter);

@@ -21,7 +21,7 @@ import java.util.List;
 
 import br.edu.ucpel.bean.Aluno;
 import br.edu.ucpel.dao.AlunoDAO;
-import br.edu.ucpel.util.Conexoes;
+import br.edu.ucpel.db.Conexoes;
 
 /**
  * Created by Miguel Aguiar Barbosa on 09/06/15.
