@@ -39,6 +39,8 @@ public class MatriculaActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_horarios);
 
+        lista = (ListView) findViewById(R.id.lvHorarios);
+
         this.atualizarLista();
 
     }
@@ -72,7 +74,7 @@ public class MatriculaActivity extends ActionBarActivity {
         if(Conexoes.isOnline(this)) {
             try {
                 this.dialog = ProgressDialog.show(this, "Sincronizando", "Por favor, aguarde...", false, true);
-                resultado = new HorarioService(1, this).execute().get();
+                resultado = new MatriculaService(1, this).execute().get();
                 //hs.execute();
 
                 if(resultado){
@@ -96,15 +98,10 @@ public class MatriculaActivity extends ActionBarActivity {
     private void atualizarLista() {
         horarioDAO = new MatriculaDAO(this);
         horarioList = horarioDAO.listarMatriculas();
-        System.out.println(horarioList.size());
-        if(horarioList.size() > 0){
-            horarioAdapter = new MatriculaAdapter(this, horarioList);
-        }
-        else{
-            horarioAdapter = new MatriculaAdapter(this, null);
-        }
 
-        lista = (ListView) findViewById(R.id.lvHorarios);
+        horarioAdapter = new MatriculaAdapter(this, horarioList);
+
+
         lista.setAdapter(horarioAdapter);
     }
 }

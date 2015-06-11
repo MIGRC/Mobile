@@ -10,6 +10,9 @@ public class Avaliacao {
     private String disciplina_nome;
     private String avaliacao;
     private String data;
+    private double peso;
+    private double nota;
+    private double peso_nota;
 
     public static final String AVALIACAO_ID = "_id";
     public static final String AVALIACAO_CURSO_ALUNO_ID = "curso_aluno_id";
@@ -17,6 +20,9 @@ public class Avaliacao {
     public static final String AVALIACAO_DISCIPLINA_NOME = "disciplina_nome";
     public static final String AVALIACAO_AVALIACAO = "avaliacao";
     public static final String AVALIACAO_DATA = "data";
+    public static final String AVALIACAO_PESO = "peso";
+    public static final String AVALIACAO_NOTA = "nota";
+    public static final String AVALIACAO_PESO_NOTA = "peso_nota";
 
     public static final String[] COLUNAS = new String[]{
             AVALIACAO_ID,
@@ -24,7 +30,10 @@ public class Avaliacao {
             AVALIACAO_DISCIPLINA_ID,
             AVALIACAO_DISCIPLINA_NOME,
             AVALIACAO_AVALIACAO,
-            AVALIACAO_DATA
+            AVALIACAO_DATA,
+            String.valueOf(AVALIACAO_PESO),
+            String.valueOf(AVALIACAO_NOTA),
+            String.valueOf(AVALIACAO_PESO_NOTA)
     };
 
     public Avaliacao() {
@@ -35,13 +44,16 @@ public class Avaliacao {
         this.avaliacao = avaliacao;
     }
 
-    public Avaliacao(Integer _id, Integer disciplina_id, Integer curso_aluno_id, String disciplina_nome, String avaliacao, String data) {
+    public Avaliacao(Integer _id, Integer curso_aluno_id, Integer disciplina_id, String disciplina_nome, String avaliacao, String data, String peso, String nota, String peso_nota) {
         this._id = _id;
-        this.disciplina_id = disciplina_id;
         this.curso_aluno_id = curso_aluno_id;
+        this.disciplina_id = disciplina_id;
         this.disciplina_nome = disciplina_nome;
         this.avaliacao = avaliacao;
         this.data = data;
+        this.peso = Double.parseDouble(peso);
+        this.nota = Double.parseDouble(nota);
+        this.peso_nota = Double.parseDouble(peso_nota);
     }
 
     public Integer get_id() {
@@ -90,5 +102,44 @@ public class Avaliacao {
 
     public void setData(String data) {
         this.data = data;
+    }
+
+    public double getPeso() {
+        return peso;
+    }
+
+    public void setPeso(double peso) {
+        this.peso = peso;
+    }
+
+    public double getNota() {
+        return nota;
+    }
+
+    public void setNota(double nota) {
+        this.nota = nota;
+    }
+
+    public double getPeso_nota() {
+        return peso_nota;
+    }
+
+    public void setPeso_nota(double peso_nota) {
+        this.peso_nota = peso_nota;
+    }
+
+    @Override
+    public String toString() {
+        return "Avaliacao{" +
+                "_id=" + _id +
+                ", curso_aluno_id=" + curso_aluno_id +
+                ", disciplina_id=" + disciplina_id +
+                ", disciplina_nome='" + disciplina_nome + '\'' +
+                ", avaliacao='" + avaliacao + '\'' +
+                ", data='" + data + '\'' +
+                ", peso=" + peso +
+                ", nota=" + nota +
+                ", peso_nota=" + peso_nota +
+                '}';
     }
 }

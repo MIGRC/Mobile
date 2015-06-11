@@ -34,6 +34,8 @@ public class HorariosActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_horarios);
 
+        lista = (ListView) findViewById(R.id.lvHorarios);
+
         this.atualizarLista();
 
     }
@@ -91,15 +93,9 @@ public class HorariosActivity extends ActionBarActivity {
     private void atualizarLista() {
         horarioDAO = new HorarioDAO(this);
         horarioList = horarioDAO.listarHorarios();
-        System.out.println(horarioList.size());
-        if(horarioList.size() > 0){
-            horarioAdapter = new HorarioAdapter(this, horarioList);
-        }
-        else{
-            horarioAdapter = new HorarioAdapter(this, null);
-        }
 
-        lista = (ListView) findViewById(R.id.lvHorarios);
+        horarioAdapter = new HorarioAdapter(this, horarioList);
+
         lista.setAdapter(horarioAdapter);
     }
 }

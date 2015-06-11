@@ -6,5 +6,6 @@ tools:context="br.edu.ucpel.activity.MatriculaActivity" >
     <item android:id="@+id/action_menu_sincronizar_matricula"
         android:title="@string/sincronizar"
         android:orderInCategory="100"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom|withText"
+        android:icon="@drawable/ic_refresh" />
 </menu>

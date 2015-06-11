@@ -6,5 +6,6 @@
     <item android:id="@+id/action_menu_sincronizar_horario"
         android:title="@string/sincronizar"
         android:orderInCategory="100"
-        app:showAsAction="ifRoom|withText" />
+        app:showAsAction="ifRoom|withText"
+        android:icon="@drawable/ic_refresh" />
 </menu>

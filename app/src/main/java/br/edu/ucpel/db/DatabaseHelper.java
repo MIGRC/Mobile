@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String BANCO_DADOS = "unimobile";
-    private static final int VERSAO = 7;
+    private static final int VERSAO = 10;
 
     public DatabaseHelper(Context context) {
         super(context, BANCO_DADOS, null, VERSAO);
@@ -39,10 +39,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         //Tabela de Avaliações
         db.execSQL("create table avalicoes(_id integer primary key autoincrement,"
                 + "curso_aluno_id integer, disciplina_id integer, "
-                + "disciplina_nome text not null, avaliacao text not null, data text not null);");
+                + "disciplina_nome text not null, avaliacao text not null, data text not null, "
+                + "peso float, nota float, peso_nota float);");
 
         //Cadastro Horarios
-        db.execSQL("insert into horarios(curso_aluno_id, disciplina_id, disciplina_nome, sala, horario) values(1, 1, 'teste1', 'Sala 233C', 'Terça 19:15');");
+       /* db.execSQL("insert into horarios(curso_aluno_id, disciplina_id, disciplina_nome, sala, horario) values(1, 1, 'teste1', 'Sala 233C', 'Terça 19:15');");
         db.execSQL("insert into horarios(curso_aluno_id, disciplina_id, disciplina_nome, sala, horario) values(1, 2, 'teste2', 'Sala 232C', 'Terça 20:30');");
         db.execSQL("insert into horarios(curso_aluno_id, disciplina_id, disciplina_nome, sala, horario) values(3, 3, 'teste3', 'Sala 232C', 'Quarta 19:15');");
 
@@ -51,11 +52,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("insert into matriculas(curso_aluno_id, disciplina_id, disciplina_nome, situacao, turma) values(1, 2, 'teste2', 'Matriculado', '135');");
         db.execSQL("insert into matriculas(curso_aluno_id, disciplina_id, disciplina_nome, situacao, turma) values(1, 3, 'teste2', 'Matriculado', '200');");
 
-        //Cadastro Matricula
-        db.execSQL("insert into avalicoes(curso_aluno_id, disciplina_id, disciplina_nome, avaliacao, data) values(1, 1, 'DOO III', 'DOO AV1', '13/06/2015');");
-        db.execSQL("insert into avalicoes(curso_aluno_id, disciplina_id, disciplina_nome, avaliacao, data) values(1, 2, 'Estrutura de Dados', 'ED AV1', '12/06/2015');");
-        db.execSQL("insert into avalicoes(curso_aluno_id, disciplina_id, disciplina_nome, avaliacao, data) values(1, 2, 'Estrutura de Dados', 'ED AV2', '22/08/2015');");
-        db.execSQL("insert into avalicoes(curso_aluno_id, disciplina_id, disciplina_nome, avaliacao, data) values(1, 2, 'Estrutura de Dados', 'ED T1', '22/06/2015');");
+        //Cadastro Avalicões
+        db.execSQL("insert into avalicoes(curso_aluno_id, disciplina_id, disciplina_nome, avaliacao, data, peso, nota, peso_nota) values(1, 1, 'DOO III', 'DOO AV1', '13/06/2015', 6, 10, 6);");
+        db.execSQL("insert into avalicoes(curso_aluno_id, disciplina_id, disciplina_nome, avaliacao, data, peso, nota, peso_nota) values(1, 2, 'Estrutura de Dados', 'ED AV1', '12/06/2015', 4, 6, 2.4);");
+        db.execSQL("insert into avalicoes(curso_aluno_id, disciplina_id, disciplina_nome, avaliacao, data, peso, nota, peso_nota) values(1, 2, 'Estrutura de Dados', 'ED AV2', '22/08/2015', 6, 8, 4.8);");
+        db.execSQL("insert into avalicoes(curso_aluno_id, disciplina_id, disciplina_nome, avaliacao, data, peso, nota, peso_nota) values(1, 2, 'Estrutura de Dados', 'ED T1', '22/06/2015', 4, 10, 4);");
+*/
     }
 
     @Override

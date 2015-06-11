@@ -48,7 +48,10 @@ public class AvaliacaoDAO {
                 cursor.getInt(cursor.getColumnIndex(Avaliacao.AVALIACAO_DISCIPLINA_ID)),
                 cursor.getString(cursor.getColumnIndex(Avaliacao.AVALIACAO_DISCIPLINA_NOME)),
                 cursor.getString(cursor.getColumnIndex(Avaliacao.AVALIACAO_AVALIACAO)),
-                cursor.getString(cursor.getColumnIndex(Avaliacao.AVALIACAO_DATA))
+                cursor.getString(cursor.getColumnIndex(Avaliacao.AVALIACAO_DATA)),
+                cursor.getString(cursor.getColumnIndex(String.valueOf(Avaliacao.AVALIACAO_PESO))),
+                cursor.getString(cursor.getColumnIndex(String.valueOf(Avaliacao.AVALIACAO_NOTA))),
+                cursor.getString(cursor.getColumnIndex(String.valueOf(Avaliacao.AVALIACAO_PESO_NOTA)))
         );
 
         return  avaliacaoBean;
@@ -75,7 +78,7 @@ public class AvaliacaoDAO {
 
         List<Avaliacao> avaliacoes = new ArrayList<Avaliacao>();
         while (cursor.moveToNext()){
-            Avaliacao avaliacaoBean = new Avaliacao();//criarAvaliacaoPorDisciplina(cursor);
+            Avaliacao avaliacaoBean = new Avaliacao();
             avaliacaoBean.setDisciplina_id(cursor.getInt(0));
             avaliacaoBean.setDisciplina_nome(cursor.getString(1));
             avaliacoes.add(avaliacaoBean);
@@ -103,7 +106,7 @@ public class AvaliacaoDAO {
         return avaliacoes;
     }
 
-    public void deleteGeral(){
+    public void deleteGeralAvaliacoes(){
         database = dbHelper.getWritableDatabase();
         String sql = "DELETE FROM "+ TBL_AVALIACAO +";";
         database.execSQL(sql);
@@ -118,6 +121,9 @@ public class AvaliacaoDAO {
         avaliacoes.put(Avaliacao.AVALIACAO_DISCIPLINA_NOME, a.getDisciplina_nome());
         avaliacoes.put(Avaliacao.AVALIACAO_AVALIACAO, a.getAvaliacao());
         avaliacoes.put(Avaliacao.AVALIACAO_DATA, a.getData());
+        avaliacoes.put(String.valueOf(Avaliacao.AVALIACAO_PESO), a.getPeso());
+        avaliacoes.put(String.valueOf(Avaliacao.AVALIACAO_NOTA), a.getNota());
+        avaliacoes.put(String.valueOf(Avaliacao.AVALIACAO_PESO_NOTA), a.getPeso_nota());
 
         database.insert(TBL_AVALIACAO, null, avaliacoes);
         database.close();
