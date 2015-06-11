@@ -27,9 +27,9 @@ import br.edu.ucpel.util.Mensagem;
 public class MatriculaActivity extends ActionBarActivity {
 
     private ListView lista;
-    private List<Horario> horarioList;
-    private HorarioAdapter horarioAdapter;
-    private HorarioDAO horarioDAO;
+    private List<Matricula> horarioList;
+    private MatriculaAdapter horarioAdapter;
+    private MatriculaDAO horarioDAO;
     private ProgressDialog dialog;
 
 
@@ -94,14 +94,14 @@ public class MatriculaActivity extends ActionBarActivity {
     }
 
     private void atualizarLista() {
-        horarioDAO = new HorarioDAO(this);
-        horarioList = horarioDAO.listarHorarios();
+        horarioDAO = new MatriculaDAO(this);
+        horarioList = horarioDAO.listarMatriculas();
         System.out.println(horarioList.size());
         if(horarioList.size() > 0){
-            horarioAdapter = new HorarioAdapter(this, horarioList);
+            horarioAdapter = new MatriculaAdapter(this, horarioList);
         }
         else{
-            horarioAdapter = new HorarioAdapter(this, null);
+            horarioAdapter = new MatriculaAdapter(this, null);
         }
 
         lista = (ListView) findViewById(R.id.lvHorarios);

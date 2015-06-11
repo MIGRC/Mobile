@@ -72,7 +72,7 @@ public class MatriculaDAO {
 
     public List<Matricula> listarMatriculas(){
         Cursor cursor = getDatabase().query(TBL_MATRICULA,
-                Horario.COLUNAS, null, null, null, null, null);
+                Matricula.COLUNAS, null, null, null, null, null);
 
         List<Matricula> matriculas = new ArrayList<Matricula>();
         while(cursor.moveToNext()){
@@ -81,19 +81,6 @@ public class MatriculaDAO {
         }
         cursor.close();
         return matriculas;
-    }
-
-    public List<Horario> listarHorarios(){
-        Cursor cursor = getDatabase().query("horarios",
-                Horario.COLUNAS, null, null, null, null, null);
-
-        List<Horario> horarios = new ArrayList<Horario>();
-        while(cursor.moveToNext()){
-            Horario horarioBean = criarHorario(cursor);
-            horarios.add(horarioBean);
-        }
-        cursor.close();
-        return horarios;
     }
 
     public void deleteGeralMatricula(){
