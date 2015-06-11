@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String BANCO_DADOS = "unimobile";
-    private static final int VERSAO = 4;
+    private static final int VERSAO = 7;
 
     public DatabaseHelper(Context context) {
         super(context, BANCO_DADOS, null, VERSAO);
@@ -60,8 +60,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        //db.execSQL("DROP TABLE IF EXISTS matriculas");
-       // db.execSQL("DROP TABLE IF EXISTS " + Horarios.TBL_HORARIO);
+        db.execSQL("DROP TABLE IF EXISTS alunos;");
+        db.execSQL("DROP TABLE IF EXISTS horarios;");
+        db.execSQL("DROP TABLE IF EXISTS matriculas;");
+        db.execSQL("DROP TABLE IF EXISTS avalicoes;");
         this.onCreate(db);
     }
 }

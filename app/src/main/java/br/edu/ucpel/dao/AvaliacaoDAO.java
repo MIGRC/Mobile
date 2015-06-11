@@ -87,7 +87,7 @@ public class AvaliacaoDAO {
 
     public List<Avaliacao> listarAvaliacoesPorDisciplina(int disciplina_id){
         database = dbHelper.getWritableDatabase();
-        String countQuery = "SELECT "+Avaliacao.AVALIACAO_DISCIPLINA_ID+","+Avaliacao.AVALIACAO_AVALIACAO+" FROM "+ TBL_AVALIACAO +" WHERE "+Avaliacao.AVALIACAO_DISCIPLINA_ID+" = "+disciplina_id+";";
+        String countQuery = "SELECT "+Avaliacao.AVALIACAO_DISCIPLINA_ID+","+Avaliacao.AVALIACAO_AVALIACAO+","+Avaliacao.AVALIACAO_DATA+" FROM "+ TBL_AVALIACAO +" WHERE "+Avaliacao.AVALIACAO_DISCIPLINA_ID+" = "+disciplina_id+";";
         Cursor cursor = database.rawQuery(countQuery, null);
 
         List<Avaliacao> avaliacoes = new ArrayList<Avaliacao>();
@@ -95,6 +95,7 @@ public class AvaliacaoDAO {
             Avaliacao avaliacaoBean = new Avaliacao();//criarAvaliacaoPorDisciplina(cursor);
             avaliacaoBean.setDisciplina_id(cursor.getInt(0));
             avaliacaoBean.setAvaliacao(cursor.getString(1));
+            avaliacaoBean.setData(cursor.getString(2));
             avaliacoes.add(avaliacaoBean);
         }
 

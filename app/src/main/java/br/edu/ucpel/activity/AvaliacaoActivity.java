@@ -21,6 +21,7 @@ public class AvaliacaoActivity extends ActionBarActivity {
     private  ExpandableListView expListView;
     private List<String> listGrupo;
     private HashMap<String, List<String>> listItensGrupo;
+    private HashMap<String, List<String>> listItensGrupo2;
 
     private List<String> listGroup;
     private HashMap<String, List<String>> listData;
@@ -35,7 +36,7 @@ public class AvaliacaoActivity extends ActionBarActivity {
 
         montaListAvaliacao();
 
-        listAdapter = new AvaliacaoAdapter(this, listGrupo, listItensGrupo);
+        listAdapter = new AvaliacaoAdapter(this, listGrupo, listItensGrupo, listItensGrupo2);
 
         expListView.setAdapter(listAdapter);
     }
@@ -44,6 +45,7 @@ public class AvaliacaoActivity extends ActionBarActivity {
         try {
             listGrupo = new ArrayList<String>();
             listItensGrupo = new HashMap<String, List<String>>();
+            listItensGrupo2 = new HashMap<String, List<String>>();
             AvaliacaoDAO avaliacaoDAO = new AvaliacaoDAO(this);
 
             int i = 0;
@@ -57,7 +59,14 @@ public class AvaliacaoActivity extends ActionBarActivity {
                     avaliacoeslist.add(a2.getAvaliacao());
                 }
 
+                List<String> avaliacoeslist2 = new ArrayList<String>();
+
+                for (Avaliacao a3 : avaliacaoDAO.listarAvaliacoesPorDisciplina(a.getDisciplina_id())) {
+                    avaliacoeslist2.add(a3.getData());
+                }
+
                 listItensGrupo.put(listGrupo.get(i), avaliacoeslist);
+                listItensGrupo2.put(listGrupo.get(i), avaliacoeslist2);
 
                 i++;
             }

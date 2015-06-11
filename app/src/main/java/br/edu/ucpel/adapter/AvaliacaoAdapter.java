@@ -21,17 +21,25 @@ public class AvaliacaoAdapter extends BaseExpandableListAdapter {
     private Context _context;
     private List<String> listGrupo;
     private HashMap<String, List<String>> listItensGrupo;
+    private HashMap<String, List<String>> listItensGrupo2;
 
     public AvaliacaoAdapter(Context context, List<String> listDataHeader,
-                                 HashMap<String, List<String>> listChildData) {
+                                 HashMap<String, List<String>> listChildData,
+                                 HashMap<String, List<String>> listChildData2) {
         this._context = context;
         this.listGrupo = listDataHeader;
         this.listItensGrupo = listChildData;
+        this.listItensGrupo2 = listChildData2;
     }
 
     @Override
     public Object getChild(int groupPosition, int childPosititon) {
         return this.listItensGrupo.get(this.listGrupo.get(groupPosition))
+                .get(childPosititon);
+    }
+
+    public Object getChild2(int groupPosition, int childPosititon) {
+        return this.listItensGrupo2.get(this.listGrupo.get(groupPosition))
                 .get(childPosititon);
     }
 
@@ -45,6 +53,7 @@ public class AvaliacaoAdapter extends BaseExpandableListAdapter {
                              boolean isLastChild, View convertView, ViewGroup parent) {
 
         final String childText = (String) getChild(groupPosition, childPosition);
+        final String childText2 = (String) getChild2(groupPosition, childPosition);
 
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this._context
@@ -52,9 +61,12 @@ public class AvaliacaoAdapter extends BaseExpandableListAdapter {
             convertView = infalInflater.inflate(R.layout.item_expandable_list_view, null);
         }
 
-        TextView txtListChild = (TextView) convertView.findViewById(R.id.lblListItem);
+        TextView txtListChild = (TextView) convertView.findViewById(R.id.lblListItem1);
+
+        TextView txtListChild2 = (TextView) convertView.findViewById(R.id.lblListItem2);
 
         txtListChild.setText(childText);
+        txtListChild2.setText(childText2);
         return convertView;
     }
 

@@ -9,7 +9,7 @@ import android.net.NetworkInfo;
  */
 public class Conexoes {
 
-    private static final String IP = "10.10.100.9";
+    private static final String IP = "192.168.2.35";
 
     public static String getIP(){
         return IP;
