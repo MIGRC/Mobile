@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
@@ -14,82 +17,120 @@ import android.widget.ExpandableListView.OnGroupExpandListener;
 import android.widget.Toast;
 
 import br.edu.ucpel.R;
+import br.edu.ucpel.adapter.AvaliacaoAdapter;
+import br.edu.ucpel.bean.Avaliacao;
+import br.edu.ucpel.dao.AvaliacaoDAO;
+import br.edu.ucpel.db.Conexoes;
+import br.edu.ucpel.service.AvaliacaoService;
+import br.edu.ucpel.util.Mensagem;
 
 public class NotasActivity extends ActionBarActivity {
-    private List<String> listGroup;
-    private HashMap<String, List<String>> listData;
 
+    private AvaliacaoAdapter listAdapter;
+    private ExpandableListView expListView;
+    private List<String> listGrupo;
+    private HashMap<String, List<String>> listItensGrupo;
+    private HashMap<String, List<String>> listItensGrupo2;
+    private ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notas);
 
+        expListView = (ExpandableListView) findViewById(R.id.elvNotas);
 
-        buildList();
-
-        ExpandableListView expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
-       // expandableListView.setAdapter(new ExpandableListAdapter(NotasActivity.this, listGroup, listData));
-
-        expandableListView.setOnChildClickListener(new OnChildClickListener(){
-            @Override
-            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                Toast.makeText(NotasActivity.this, "Group: "+groupPosition+"| Item: "+childPosition, Toast.LENGTH_SHORT).show();
-                return false;
-            }
-        });
-
-        expandableListView.setOnGroupExpandListener(new OnGroupExpandListener(){
-            @Override
-            public void onGroupExpand(int groupPosition) {
-                Toast.makeText(NotasActivity.this, "Group (Expand): "+groupPosition, Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        expandableListView.setOnGroupCollapseListener(new OnGroupCollapseListener(){
-            @Override
-            public void onGroupCollapse(int groupPosition) {
-                Toast.makeText(NotasActivity.this, "Group (Collapse): "+groupPosition, Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        //expandableListView.setGroupIndicator(getResources().getDrawable(R.drawable.icon_group));
+        this.atualizarListaAvaliacoes();
     }
 
-    public void buildList(){
-        listGroup = new ArrayList<String>();
-        listData = new HashMap<String, List<String>>();
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_notas, menu);
 
-        // GROUP
-        listGroup.add("Estrutura de Dados / Média 9.0");
-        listGroup.add("DOO III / Média 8.5");
-        listGroup.add("DOO II / Média 7.7");
-        listGroup.add("Grupo 4");
+        return true;
+    }
 
-        // CHILDREN
-        List<String> auxList = new ArrayList<String>();
-        auxList.add("1ª avaliação - 25/03/2014 - 10/8.5 = 8.5");
-        auxList.add("2ª avaliação - 25/05/2014 - 6/10 = 6");
-        auxList.add("Trabalho II - 25/05/2014 - 4/10 = 3.48");
-        listData.put(listGroup.get(0), auxList);
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
 
-        auxList = new ArrayList<String>();
-        auxList.add("3ª avaliação - 25/03/2014 - 10/8.5 = 8.5");
-        auxList.add("4ª avaliação - 25/05/2014 - 6/10 = 6");
-        auxList.add("Trabalho III - 25/05/2014 - 4/10 = 3.48");
-        listData.put(listGroup.get(1), auxList);
+        switch (id){
+            case R.id.action_menu_sincronizar_avaliacao:
+                this.sincronismo();
+                break;
 
-        auxList = new ArrayList<String>();
-        auxList.add("3ª avaliação - 25/03/2014 - 10/8.5 = 8.5");
-        auxList.add("4ª avaliação - 25/05/2014 - 6/10 = 6");
-        auxList.add("Trabalho III - 25/05/2014 - 4/10 = 3.48");
-        listData.put(listGroup.get(2), auxList);
+            /*case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;*/
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
-        auxList = new ArrayList<String>();
-        auxList.add("3ª avaliação - 25/03/2014 - 10/8.5 = 8.5");
-        auxList.add("4ª avaliação - 25/05/2014 - 6/10 = 6");
-        auxList.add("Trabalho III - 25/05/2014 - 4/10 = 3.48");
-        listData.put(listGroup.get(3), auxList);
+    private void  sincronismo(){
+        boolean resultado = false;
 
+        if(Conexoes.isOnline(this)) {
+            try {
+                this.dialog = ProgressDialog.show(this, "Sincronizando", "Por favor, aguarde...", false, true);
+                resultado = new AvaliacaoService(1, this).execute().get();
+
+                if(resultado){
+                    dialog.dismiss();
+                    this.atualizarListaAvaliacoes();
+                } else {
+                    Mensagem.Msg(this, getString(R.string.msg_erro_sincronismo));
+                }
+
+            } catch (Exception ex) {
+                ex.getMessage();
+                resultado = false;
+            }
+        }
+        else{
+            Mensagem.Msg(this, getString(R.string.msg_sem_conexao));
+        }
+
+    }
+
+    private void atualizarListaAvaliacoes() {
+        montaListAvaliacao();
+
+        listAdapter = new AvaliacaoAdapter(this, listGrupo, listItensGrupo, listItensGrupo2);
+
+        expListView.setAdapter(listAdapter);
+    }
+
+    private void montaListAvaliacao() {
+        try {
+            listGrupo = new ArrayList<String>();
+            listItensGrupo = new HashMap<String, List<String>>();
+            listItensGrupo2 = new HashMap<String, List<String>>();
+            AvaliacaoDAO avaliacaoDAO = new AvaliacaoDAO(this);
+
+            int i = 0;
+            for (Avaliacao a : avaliacaoDAO.listarDisciplinaNota()) {
+
+                listGrupo.add(a.getDisciplina_nome()+" / "+a.getMedia());
+
+                List<String> avaliacoeslist = new ArrayList<String>();
+
+                for (Avaliacao a2 : avaliacaoDAO.listarAvaliacoesPorDisciplina(a.getDisciplina_id())) {
+                    avaliacoeslist.add(a2.getAvaliacao());
+                }
+
+                List<String> avaliacoeslist2 = new ArrayList<String>();
+
+                for (Avaliacao a3 : avaliacaoDAO.listarNotasPorDisciplina(a.getDisciplina_id())) {
+                    avaliacoeslist2.add(a3.getNota()+"/"+a3.getPeso()+" = "+a3.getPeso_nota());
+                }
+
+                listItensGrupo.put(listGrupo.get(i), avaliacoeslist);
+                listItensGrupo2.put(listGrupo.get(i), avaliacoeslist2);
+
+                i++;
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

@@ -88,6 +88,25 @@ public class AvaliacaoDAO {
         return avaliacoes;
     }
 
+    public List<Avaliacao> listarDisciplinaNota(){
+        database = dbHelper.getWritableDatabase();
+        String countQuery = "SELECT "+Avaliacao.AVALIACAO_DISCIPLINA_ID+","+Avaliacao.AVALIACAO_DISCIPLINA_NOME+",SUM("+Avaliacao.AVALIACAO_PESO_NOTA+")/2 FROM "+ TBL_AVALIACAO +" GROUP BY "+Avaliacao.AVALIACAO_DISCIPLINA_ID+","+Avaliacao.AVALIACAO_DISCIPLINA_NOME+";";
+        Cursor cursor = database.rawQuery(countQuery, null);
+
+        List<Avaliacao> avaliacoes = new ArrayList<Avaliacao>();
+        while (cursor.moveToNext()){
+            Avaliacao avaliacaoBean = new Avaliacao();
+            avaliacaoBean.setDisciplina_id(cursor.getInt(0));
+            avaliacaoBean.setDisciplina_nome(cursor.getString(1));
+            avaliacaoBean.setMedia(cursor.getDouble(2));
+
+            avaliacoes.add(avaliacaoBean);
+        }
+
+        cursor.close();
+        return avaliacoes;
+    }
+
     public List<Avaliacao> listarAvaliacoesPorDisciplina(int disciplina_id){
         database = dbHelper.getWritableDatabase();
         String countQuery = "SELECT "+Avaliacao.AVALIACAO_DISCIPLINA_ID+","+Avaliacao.AVALIACAO_AVALIACAO+","+Avaliacao.AVALIACAO_DATA+" FROM "+ TBL_AVALIACAO +" WHERE "+Avaliacao.AVALIACAO_DISCIPLINA_ID+" = "+disciplina_id+";";
@@ -99,6 +118,26 @@ public class AvaliacaoDAO {
             avaliacaoBean.setDisciplina_id(cursor.getInt(0));
             avaliacaoBean.setAvaliacao(cursor.getString(1));
             avaliacaoBean.setData(cursor.getString(2));
+            avaliacoes.add(avaliacaoBean);
+        }
+
+        cursor.close();
+        return avaliacoes;
+    }
+
+    public List<Avaliacao> listarNotasPorDisciplina(int disciplina_id){
+        database = dbHelper.getWritableDatabase();
+        String countQuery = "SELECT "+Avaliacao.AVALIACAO_DISCIPLINA_ID+","+Avaliacao.AVALIACAO_AVALIACAO+","+Avaliacao.AVALIACAO_NOTA+","+Avaliacao.AVALIACAO_PESO+","+Avaliacao.AVALIACAO_PESO_NOTA+" FROM "+ TBL_AVALIACAO +" WHERE "+Avaliacao.AVALIACAO_DISCIPLINA_ID+" = "+disciplina_id+";";
+        Cursor cursor = database.rawQuery(countQuery, null);
+
+        List<Avaliacao> avaliacoes = new ArrayList<Avaliacao>();
+        while (cursor.moveToNext()){
+            Avaliacao avaliacaoBean = new Avaliacao();
+            avaliacaoBean.setDisciplina_id(cursor.getInt(0));
+            avaliacaoBean.setAvaliacao(cursor.getString(1));
+            avaliacaoBean.setNota(cursor.getDouble(2));
+            avaliacaoBean.setPeso(cursor.getDouble(3));
+            avaliacaoBean.setPeso_nota(cursor.getDouble(4));
             avaliacoes.add(avaliacaoBean);
         }
 

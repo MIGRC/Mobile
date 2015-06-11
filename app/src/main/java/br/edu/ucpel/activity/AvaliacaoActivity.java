@@ -37,7 +37,7 @@ public class AvaliacaoActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_avaliacao);
 
-        expListView = (ExpandableListView) findViewById(R.id.lvExp);
+        expListView = (ExpandableListView) findViewById(R.id.elvAvaliacoes);
 
         this.atualizarListaAvaliacoes();
        /* montaListAvaliacao();

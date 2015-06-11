@@ -13,6 +13,7 @@ public class Avaliacao {
     private double peso;
     private double nota;
     private double peso_nota;
+    private double media;
 
     public static final String AVALIACAO_ID = "_id";
     public static final String AVALIACAO_CURSO_ALUNO_ID = "curso_aluno_id";
@@ -126,6 +127,14 @@ public class Avaliacao {
 
     public void setPeso_nota(double peso_nota) {
         this.peso_nota = peso_nota;
+    }
+
+    public double getMedia() {
+        return media;
+    }
+
+    public void setMedia(double media) {
+        this.media = media;
     }
 
     @Override

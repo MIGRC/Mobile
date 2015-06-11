@@ -26,7 +26,7 @@
     <string name="menu_btnTrocarMatricula">Trocar Matrícula</string>
     <string name="menu_btnLogout">Logout</string>
     <string name="menu_btnMatricula">Matrícula</string>
-    <string name="menu_btnAvaliacoes">Avaliações</string>
+    <string name="menu_btnAvaliacoes">Notas</string>
     <string name="menu_btnDataAvaliacoes">Data Avaliações</string>
     <string name="menu_btnFrequencia">Frequencia</string>
     <string name="menu_btnHorario">Horário</string>

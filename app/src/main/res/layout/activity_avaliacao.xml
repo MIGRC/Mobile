@@ -6,7 +6,7 @@
     android:background="@drawable/gradient" >
 
     <ExpandableListView
-        android:id="@+id/lvExp"
+        android:id="@+id/elvAvaliacoes"
         android:layout_height="match_parent"
         android:layout_width="match_parent" />
 
