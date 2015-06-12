@@ -114,7 +114,7 @@ public class AvaliacaoDAO {
 
         List<Avaliacao> avaliacoes = new ArrayList<Avaliacao>();
         while (cursor.moveToNext()){
-            Avaliacao avaliacaoBean = new Avaliacao();//criarAvaliacaoPorDisciplina(cursor);
+            Avaliacao avaliacaoBean = new Avaliacao();
             avaliacaoBean.setDisciplina_id(cursor.getInt(0));
             avaliacaoBean.setAvaliacao(cursor.getString(1));
             avaliacaoBean.setData(cursor.getString(2));

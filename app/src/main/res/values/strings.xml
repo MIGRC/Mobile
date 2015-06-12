@@ -39,6 +39,7 @@
     <!-- Mensagens -->
     <string name="msg_login_incorreto">Usuário e/ou senha inválido.</string>
     <string name="msg_sem_conexao">Sem conexão com a internet.</string>
+    <string name="msg_sem_webservice">Sem conexão com o servidor.</string>
     <string name="msg_erro_sincronismo">Erro no sincronismo.</string>
     <string name="msg_login_em_branco">Usuário obrigatório</string>
     <string name="msg_senha_em_branco">Senha obrigatório.</string>
@@ -60,7 +61,12 @@
 
     <!-- Horários -->
     <string name="title_activity_horarios">Horários</string>
+
+    <!-- Avaliações -->
     <string name="title_activity_avaliacao">Avaliações</string>
+
+    <!-- Frequencias -->
+    <string name="title_activity_frequencia">Frequência</string>
 
 
     </resources>

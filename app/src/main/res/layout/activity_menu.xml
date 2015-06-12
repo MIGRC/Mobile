@@ -65,7 +65,7 @@
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
             android:background="@drawable/botaologin"
-            android:onClick="onClickEscolha"
+            android:onClick="onClickFrequencia"
             android:text="@string/menu_btnFrequencia"
             android:textColor="#FFF"
             android:textSize="15sp"

@@ -12,19 +12,21 @@ import java.util.HashMap;
 import java.util.List;
 
 import br.edu.ucpel.R;
-import br.edu.ucpel.adapter.AvaliacaoAdapter;
-import br.edu.ucpel.bean.Aluno;
-import br.edu.ucpel.bean.Avaliacao;
+import br.edu.ucpel.adapter.FrequenciaAdapter;
+import br.edu.ucpel.bean.Frequencia;
 import br.edu.ucpel.dao.AlunoDAO;
-import br.edu.ucpel.dao.AvaliacaoDAO;
+import br.edu.ucpel.dao.FrequenciaDAO;
 import br.edu.ucpel.db.Conexoes;
-import br.edu.ucpel.service.AvaliacaoService;
+import br.edu.ucpel.service.FrequenciaService;
 import br.edu.ucpel.service.ServicoService;
 import br.edu.ucpel.util.Mensagem;
 
-public class NotasActivity extends ActionBarActivity {
+/**
+ * Created by Miguel Aguiar Barbosa on 12/06/15.
+ */
+public class FrequenciaActivity extends ActionBarActivity {
 
-    private AvaliacaoAdapter listAdapter;
+    private FrequenciaAdapter listAdapter;
     private ExpandableListView expListView;
     private List<String> listGrupo;
     private HashMap<String, List<String>> listItensGrupo;
@@ -35,16 +37,16 @@ public class NotasActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notas);
+        setContentView(R.layout.activity_frequencia);
 
-        expListView = (ExpandableListView) findViewById(R.id.elvNotas);
+        expListView = (ExpandableListView) findViewById(R.id.elvFrequencia);
 
-        this.atualizarListaAvaliacoes();
+        this.atualizarListaFrequencias();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_notas, menu);
+        getMenuInflater().inflate(R.menu.menu_frequencia, menu);
 
         return true;
     }
@@ -54,7 +56,7 @@ public class NotasActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         switch (id){
-            case R.id.action_menu_sincronizar_avaliacao:
+            case R.id.action_menu_sincronizar_frequencia:
                 this.sincronismo();
                 break;
         }
@@ -77,11 +79,11 @@ public class NotasActivity extends ActionBarActivity {
                 try {
                     this.dialog = ProgressDialog.show(this, "Sincronizando", "Por favor, aguarde...", false, true);
                     alunoDAO = new AlunoDAO(this);
-                    resultado = new AvaliacaoService(alunoDAO.selectCursoAlunoId(), this).execute().get();
+                    resultado = new FrequenciaService(alunoDAO.selectCursoAlunoId(), this).execute().get();
 
                     if(resultado){
                         dialog.dismiss();
-                        this.atualizarListaAvaliacoes();
+                        this.atualizarListaFrequencias();
                     } else {
                         Mensagem.Msg(this, getString(R.string.msg_erro_sincronismo));
                     }
@@ -101,40 +103,40 @@ public class NotasActivity extends ActionBarActivity {
 
     }
 
-    public void atualizarListaAvaliacoes() {
-        montaListAvaliacao();
+    public void atualizarListaFrequencias() {
+        montaListFrequencia();
 
-        listAdapter = new AvaliacaoAdapter(this, listGrupo, listItensGrupo, listItensGrupo2);
+        listAdapter = new FrequenciaAdapter(this, listGrupo, listItensGrupo, listItensGrupo2);
 
         expListView.setAdapter(listAdapter);
     }
 
-    private void montaListAvaliacao() {
+    private void montaListFrequencia() {
         try {
             listGrupo = new ArrayList<String>();
             listItensGrupo = new HashMap<String, List<String>>();
             listItensGrupo2 = new HashMap<String, List<String>>();
-            AvaliacaoDAO avaliacaoDAO = new AvaliacaoDAO(this);
+            FrequenciaDAO frequenciaDAO = new FrequenciaDAO(this);
 
             int i = 0;
-            for (Avaliacao a : avaliacaoDAO.listarDisciplinaNota()) {
+            for (Frequencia f : frequenciaDAO.listarDisciplina()) {
 
-                listGrupo.add(a.getDisciplina_nome()+" / "+a.getMedia());
+                listGrupo.add(f.getDisciplina_nome());
 
-                List<String> avaliacoeslist = new ArrayList<String>();
+                List<String> frequencialist = new ArrayList<String>();
 
-                for (Avaliacao a2 : avaliacaoDAO.listarAvaliacoesPorDisciplina(a.getDisciplina_id())) {
-                    avaliacoeslist.add(a2.getAvaliacao());
+                for (Frequencia f2 : frequenciaDAO.listarFrequenciaPorDisciplina(f.getDisciplina_id())) {
+                    frequencialist.add(f2.getDt_falta());
                 }
 
-                List<String> avaliacoeslist2 = new ArrayList<String>();
+                List<String> frequencialist2 = new ArrayList<String>();
 
-                for (Avaliacao a3 : avaliacaoDAO.listarNotasPorDisciplina(a.getDisciplina_id())) {
-                    avaliacoeslist2.add(a3.getNota()+"/"+a3.getPeso()+" = "+a3.getPeso_nota());
+                for (Frequencia f3 : frequenciaDAO.listarFrequenciaPorDisciplina(f.getDisciplina_id())) {
+                    frequencialist2.add(f3.getHr_falta());
                 }
 
-                listItensGrupo.put(listGrupo.get(i), avaliacoeslist);
-                listItensGrupo2.put(listGrupo.get(i), avaliacoeslist2);
+                listItensGrupo.put(listGrupo.get(i), frequencialist);
+                listItensGrupo2.put(listGrupo.get(i), frequencialist2);
 
                 i++;
             }

@@ -13,10 +13,13 @@ import java.util.List;
 
 import br.edu.ucpel.R;
 import br.edu.ucpel.adapter.HorarioAdapter;
+import br.edu.ucpel.bean.Aluno;
 import br.edu.ucpel.bean.Horario;
+import br.edu.ucpel.dao.AlunoDAO;
 import br.edu.ucpel.dao.HorarioDAO;
 import br.edu.ucpel.service.HorarioService;
 import br.edu.ucpel.db.Conexoes;
+import br.edu.ucpel.service.ServicoService;
 import br.edu.ucpel.util.Mensagem;
 
 public class HorariosActivity extends ActionBarActivity {
@@ -26,8 +29,7 @@ public class HorariosActivity extends ActionBarActivity {
     private HorarioAdapter horarioAdapter;
     private HorarioDAO horarioDAO;
     private ProgressDialog dialog;
-
-
+    private AlunoDAO alunoDAO;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,7 +38,7 @@ public class HorariosActivity extends ActionBarActivity {
 
         lista = (ListView) findViewById(R.id.lvHorarios);
 
-        this.atualizarLista();
+        this.atualizarListaHorarios();
 
     }
 
@@ -65,23 +67,36 @@ public class HorariosActivity extends ActionBarActivity {
 
     private void  sincronismo(){
         boolean resultado = false;
+        boolean servico = false;
 
         if(Conexoes.isOnline(this)) {
-            try {
-                this.dialog = ProgressDialog.show(this, "Sincronizando", "Por favor, aguarde...", false, true);
-                resultado = new HorarioService(1, this).execute().get();
-                //hs.execute();
+            try{
+                servico = new ServicoService().execute().get();
 
-                if(resultado){
-                    dialog.dismiss();
-                    this.atualizarLista();
-                } else {
-                    Mensagem.Msg(this, getString(R.string.msg_erro_sincronismo));
+            }catch (Exception ex){
+                servico = false;
+            }
+
+            if(servico) {
+                try {
+                    this.dialog = ProgressDialog.show(this, "Sincronizando", "Por favor, aguarde...", false, true);
+                    alunoDAO = new AlunoDAO(this);
+                    resultado = new HorarioService(alunoDAO.selectCursoAlunoId(), this).execute().get();
+
+                    if (resultado) {
+                        dialog.dismiss();
+                        this.atualizarListaHorarios();
+                    } else {
+                        Mensagem.Msg(this, getString(R.string.msg_erro_sincronismo));
+                    }
+
+                } catch (Exception ex) {
+                    ex.getMessage();
+                    resultado = false;
                 }
-
-            } catch (Exception ex) {
-                ex.getMessage();
-                resultado = false;
+            }
+            else{
+                Mensagem.Msg(this, getString(R.string.msg_sem_webservice));
             }
         }
         else{
@@ -90,7 +105,7 @@ public class HorariosActivity extends ActionBarActivity {
 
     }
 
-    private void atualizarLista() {
+    public void atualizarListaHorarios() {
         horarioDAO = new HorarioDAO(this);
         horarioList = horarioDAO.listarHorarios();
 

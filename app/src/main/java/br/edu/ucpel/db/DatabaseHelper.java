@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String BANCO_DADOS = "unimobile";
-    private static final int VERSAO = 10;
+    private static final int VERSAO = 1;
 
     public DatabaseHelper(Context context) {
         super(context, BANCO_DADOS, null, VERSAO);
@@ -41,6 +41,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + "curso_aluno_id integer, disciplina_id integer, "
                 + "disciplina_nome text not null, avaliacao text not null, data text not null, "
                 + "peso float, nota float, peso_nota float);");
+
+        //Tabela de Frequencias
+        db.execSQL("create table frequencias(_id integer primary key autoincrement, "
+                + "curso_aluno_id integer, disciplina_id integer, "
+                + "disciplina_nome text not null, dt_falta text, hr_falta text);");
 
         //Cadastro Horarios
        /* db.execSQL("insert into horarios(curso_aluno_id, disciplina_id, disciplina_nome, sala, horario) values(1, 1, 'teste1', 'Sala 233C', 'Terça 19:15');");

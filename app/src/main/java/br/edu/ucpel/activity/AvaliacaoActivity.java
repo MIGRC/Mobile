@@ -2,7 +2,6 @@ package br.edu.ucpel.activity;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,12 +13,12 @@ import java.util.List;
 
 import br.edu.ucpel.R;
 import br.edu.ucpel.adapter.AvaliacaoAdapter;
-import br.edu.ucpel.adapter.ExpandableListAdapter;
 import br.edu.ucpel.bean.Avaliacao;
+import br.edu.ucpel.dao.AlunoDAO;
 import br.edu.ucpel.dao.AvaliacaoDAO;
 import br.edu.ucpel.db.Conexoes;
 import br.edu.ucpel.service.AvaliacaoService;
-import br.edu.ucpel.service.HorarioService;
+import br.edu.ucpel.service.ServicoService;
 import br.edu.ucpel.util.Mensagem;
 
 
@@ -31,6 +30,7 @@ public class AvaliacaoActivity extends ActionBarActivity {
     private HashMap<String, List<String>> listItensGrupo;
     private HashMap<String, List<String>> listItensGrupo2;
     private ProgressDialog dialog;
+    AlunoDAO alunoDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +40,6 @@ public class AvaliacaoActivity extends ActionBarActivity {
         expListView = (ExpandableListView) findViewById(R.id.elvAvaliacoes);
 
         this.atualizarListaAvaliacoes();
-       /* montaListAvaliacao();
-
-        listAdapter = new AvaliacaoAdapter(this, listGrupo, listItensGrupo, listItensGrupo2);
-
-        expListView.setAdapter(listAdapter);*/
     }
 
     @Override
@@ -62,32 +57,42 @@ public class AvaliacaoActivity extends ActionBarActivity {
             case R.id.action_menu_sincronizar_avaliacao:
                 this.sincronismo();
                 break;
-
-            /*case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
-                return true;*/
         }
         return super.onOptionsItemSelected(item);
     }
 
     private void  sincronismo(){
         boolean resultado = false;
+        boolean servico = false;
 
         if(Conexoes.isOnline(this)) {
-            try {
-                this.dialog = ProgressDialog.show(this, "Sincronizando", "Por favor, aguarde...", false, true);
-                resultado = new AvaliacaoService(1, this).execute().get();
+            try{
+                servico = new ServicoService().execute().get();
 
-                if(resultado){
-                    dialog.dismiss();
-                    this.atualizarListaAvaliacoes();
-                } else {
-                    Mensagem.Msg(this, getString(R.string.msg_erro_sincronismo));
+            }catch (Exception ex){
+                servico = false;
+            }
+
+            if(servico) {
+                try {
+                    this.dialog = ProgressDialog.show(this, "Sincronizando", "Por favor, aguarde...", false, true);
+                    alunoDAO = new AlunoDAO(this);
+                    resultado = new AvaliacaoService(alunoDAO.selectCursoAlunoId(), this).execute().get();
+
+                    if(resultado){
+                        dialog.dismiss();
+                        this.atualizarListaAvaliacoes();
+                    } else {
+                        Mensagem.Msg(this, getString(R.string.msg_erro_sincronismo));
+                    }
+
+                } catch (Exception ex) {
+                    ex.getMessage();
+                    resultado = false;
                 }
-
-            } catch (Exception ex) {
-                ex.getMessage();
-                resultado = false;
+            }
+            else{
+                Mensagem.Msg(this, getString(R.string.msg_sem_webservice));
             }
         }
         else{
@@ -96,7 +101,7 @@ public class AvaliacaoActivity extends ActionBarActivity {
 
     }
 
-    private void atualizarListaAvaliacoes() {
+    public void atualizarListaAvaliacoes() {
         montaListAvaliacao();
 
         listAdapter = new AvaliacaoAdapter(this, listGrupo, listItensGrupo, listItensGrupo2);

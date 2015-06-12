@@ -11,9 +11,10 @@ import android.widget.EditText;
 
 import br.edu.ucpel.R;
 import br.edu.ucpel.dao.UsuarioDAO;
+import br.edu.ucpel.db.Conexoes;
 import br.edu.ucpel.service.AlunoService;
 import br.edu.ucpel.service.LoginService;
-import br.edu.ucpel.db.Conexoes;
+import br.edu.ucpel.service.ServicoService;
 import br.edu.ucpel.util.Mensagem;
 
 
@@ -28,14 +29,6 @@ public class LoginActivity extends ActionBarActivity {
     private static final String MANTER_CONECTADO = "manter_conectado";
     private static final String PREFERENCE_NAME  = "LoginActivityPreferences";
 
-/*    private Handler manipulador = new Handler() {
-
-        @Override
-        public void handleMessage(Message msg) {
-            atualiza();
-        }
-    };
-*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,50 +65,62 @@ public class LoginActivity extends ActionBarActivity {
             } else if (validacao) {
 
                 boolean resultado = false;
+                boolean servico = false;
 
                 try {
-                    resultado = new LoginService(etLogin.getText().toString(), etSenha.getText().toString()).execute().get();
+                    servico = new ServicoService().execute().get();
+
                 } catch (Exception ex) {
-                    ex.getMessage();
-                    resultado = false;
+                    servico = false;
                 }
 
-                //logar
-                if (resultado) {
-                    if (ckbConectado.isChecked()) {
-                        SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCE_NAME, MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
 
-                        editor.putBoolean(MANTER_CONECTADO, true);
-                        editor.commit();
-                    }
-
-                    boolean insertAlunos = false;
-
+                if (servico) {
                     try {
-                        this.dialog = ProgressDialog.show(this, "Sincronizando", "Por favor, aguarde...", false, true);
-                        insertAlunos = new AlunoService(etLogin.getText().toString(), this).execute().get();
-
-                        if(insertAlunos){
-                            dialog.dismiss();
-                            this.isEscolhaMatricula();
-                        } else {
-                            dialog.dismiss();
-                            Mensagem.Msg(this, getString(R.string.msg_erro_sincronismo));
-                        }
-
+                        resultado = new LoginService(etLogin.getText().toString(), etSenha.getText().toString()).execute().get();
                     } catch (Exception ex) {
                         ex.getMessage();
-                        insertAlunos = false;
+                        resultado = false;
                     }
 
+                    //logar
+                    if (resultado) {
+                        if (ckbConectado.isChecked()) {
+                            SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCE_NAME, MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                            editor.putBoolean(MANTER_CONECTADO, true);
+                            editor.commit();
+                        }
+
+                        boolean insertAlunos = false;
+
+                        try {
+                            this.dialog = ProgressDialog.show(this, "Sincronizando", "Por favor, aguarde...", false, true);
+                            insertAlunos = new AlunoService(etLogin.getText().toString(), this).execute().get();
+
+                            if (insertAlunos) {
+                                dialog.dismiss();
+                                this.isEscolhaMatricula();
+                            } else {
+                                dialog.dismiss();
+                                Mensagem.Msg(this, getString(R.string.msg_erro_sincronismo));
+                            }
+
+                        } catch (Exception ex) {
+                            ex.getMessage();
+                            insertAlunos = false;
+                        }
+
+                    } else {
+                        Mensagem.Msg(this, getString(R.string.msg_login_incorreto));
+                    }
                 } else {
-                    Mensagem.Msg(this, getString(R.string.msg_login_incorreto));
+                    Mensagem.Msg(this, getString(R.string.msg_sem_webservice));
                 }
+            } else {
+                Mensagem.Msg(this, getString(R.string.msg_sem_conexao));
             }
-        }
-        else{
-            Mensagem.Msg(this, getString(R.string.msg_sem_conexao));
         }
     }
 

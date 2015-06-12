@@ -77,8 +77,6 @@ public class AlunoDAO {
            ret= cursor.getInt(0);
         }
         cursor.close();
-
-        // return count
         return ret;
     }
 
