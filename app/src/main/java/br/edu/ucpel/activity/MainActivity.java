@@ -23,11 +23,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         int[] lista = new int[]{
-                R.drawable.grande,
-                R.drawable.grande,
-                R.drawable.grande,
-                R.drawable.grande,
-                R.drawable.grande
+
         };
 
         gridView = (GridView) findViewById(R.id.gridView);
