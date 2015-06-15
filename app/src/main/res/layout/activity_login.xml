@@ -28,15 +28,16 @@
             android:textSize="18dp"
             android:textStyle="bold"/>
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/login_edtUsuario"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginBottom="10dp"
             android:textSize="18dp"
             android:textColor="#ff6e6e6e"
-            android:text="CPF"
+            android:hint="CPF"
             android:padding="8dp"
+            android:inputType="number"
             android:background="@drawable/edittextstyle" />
 
         <TextView
@@ -47,16 +48,17 @@
             android:textSize="18dp"
             android:textStyle="bold"/>
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/login_edtSenha"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginBottom="10dp"
             android:textColor="#ff6e6e6e"
             android:padding="8dp"
-            android:text="senha"
             android:textSize="25dp"
             android:inputType="textPassword"
+            android:password="true"
+            android:hint="*****"
             android:background="@drawable/edittextstyle" />
 
         <CheckBox

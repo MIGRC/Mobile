@@ -1,42 +1,34 @@
 package br.edu.ucpel.adapter;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import br.edu.ucpel.R;
 
-public class ImageAdapter extends BaseAdapter {
+public class ImageAdapter extends BaseAdapter{
     private Context mContext;
+    private final String[] web;
+    private final int[] Imageid;
 
-    // Keep all Images in array
-    public Integer[] mThumbIds = {
-            /*R.drawable.pic_1, R.drawable.pic_2,
-            R.drawable.pic_3, R.drawable.pic_4,
-            R.drawable.pic_5, R.drawable.pic_6,
-            R.drawable.pic_7, R.drawable.pic_8,
-            R.drawable.pic_9, R.drawable.pic_10,
-            R.drawable.pic_11, R.drawable.pic_12,
-            R.drawable.pic_13, R.drawable.pic_14,
-            R.drawable.pic_15*/
-    };
-
-    // Constructor
-    public ImageAdapter(Context c){
+    public ImageAdapter(Context c,String[] web,int[] Imageid ) {
         mContext = c;
+        this.Imageid = Imageid;
+        this.web = web;
     }
 
     @Override
     public int getCount() {
-        return mThumbIds.length;
+        return web.length;
     }
 
     @Override
     public Object getItem(int position) {
-        return mThumbIds[position];
+        return null;
     }
 
     @Override
@@ -46,11 +38,22 @@ public class ImageAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ImageView imageView = new ImageView(mContext);
-        imageView.setImageResource(mThumbIds[position]);
-        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        imageView.setLayoutParams(new GridView.LayoutParams(300, 300));
-        return imageView;
-    }
+        View grid;
+        LayoutInflater inflater = (LayoutInflater) mContext
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
+        if (convertView == null) {
+
+            grid = new View(mContext);
+            grid = inflater.inflate(R.layout.grid_single, null);
+            TextView textView = (TextView) grid.findViewById(R.id.grid_text);
+            ImageView imageView = (ImageView)grid.findViewById(R.id.grid_image);
+            textView.setText(web[position]);
+            imageView.setImageResource(Imageid[position]);
+        } else {
+            grid = (View) convertView;
+        }
+
+        return grid;
+    }
 }

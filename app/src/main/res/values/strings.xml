@@ -67,6 +67,7 @@
 
     <!-- Frequencias -->
     <string name="title_activity_frequencia">Frequência</string>
+    <string name="title_activity_teste_main">TesteMain</string>
 
 
     </resources>

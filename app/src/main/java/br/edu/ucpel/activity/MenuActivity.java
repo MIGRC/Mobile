@@ -26,7 +26,8 @@ public class MenuActivity extends ActionBarActivity {
         }
 
         public void onClickHorarios(View view){
-            startActivity(new Intent(this, HorariosActivity.class));
+            //startActivity(new Intent(this, HorariosActivity.class));
+            startActivity(new Intent(this, TesteMain.class));
         }
 
         public void onClickMatricula(View view){
