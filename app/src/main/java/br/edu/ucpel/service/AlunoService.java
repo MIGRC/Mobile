@@ -28,7 +28,7 @@ import br.edu.ucpel.db.Conexoes;
  */
 public class AlunoService extends AsyncTask<String, Void, Boolean> {
 
-    private static final String BASE_URI = "http://"+ Conexoes.getIP()+":8080/UnimobileWS/webresources/aluno/aluno/listaalunos";
+    private static final String BASE_URI = "http://"+ Conexoes.getIP()+":8080/EIMobileWS/webresources/aluno/aluno/listaalunos";
     private String cpf;
     private Context context;
 

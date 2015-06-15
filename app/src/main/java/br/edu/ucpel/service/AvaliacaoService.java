@@ -30,7 +30,7 @@ import br.edu.ucpel.db.Conexoes;
  */
 public class AvaliacaoService extends AsyncTask<Integer, Void, Boolean> {
 
-    private static final String BASE_URI = "http://"+ Conexoes.getIP()+":8080/UnimobileWS/webresources/avaliacoes/avaliacoes/listaavaliacoes";
+    private static final String BASE_URI = "http://"+ Conexoes.getIP()+":8080/EIMobileWS/webresources/avaliacoes/avaliacoes/listaavaliacoes";
     private Integer curso_aluno_id;
     private Context context;
 

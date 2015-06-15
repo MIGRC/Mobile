@@ -28,7 +28,7 @@ import br.edu.ucpel.db.Conexoes;
  */
 public class MatriculaService extends AsyncTask<Integer, Void, Boolean> {
 
-    private static final String BASE_URI = "http://"+Conexoes.getIP()+":8080/UnimobileWS/webresources/matricula/matricula/listamatriculas";
+    private static final String BASE_URI = "http://"+Conexoes.getIP()+":8080/EIMobileWS/webresources/matricula/matricula/listamatriculas";
     private Integer curso_aluno_id;
     private Context context;
 

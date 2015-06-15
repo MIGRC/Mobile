@@ -23,7 +23,7 @@ import br.edu.ucpel.db.Conexoes;
  */
 public class LoginService extends AsyncTask<String, Void, Boolean> {
 
-    private static final String BASE_URI = "http://"+ Conexoes.getIP()+":8080/UnimobileWS/webresources/usuario/usuario/get";
+    private static final String BASE_URI = "http://"+ Conexoes.getIP()+":8080/EIMobileWS/webresources/usuario/usuario/get";
     private String login;
     private String senha;
 

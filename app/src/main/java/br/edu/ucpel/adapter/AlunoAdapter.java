@@ -54,9 +54,6 @@ public class AlunoAdapter extends BaseAdapter {
         TextView txtTitulo = (TextView) view.findViewById(R.id.txtTitulo);
         txtTitulo.setText(aluno.getChave());
 
-        TextView txtSubTitulo1 = (TextView) view.findViewById(R.id.txtSubTitulo1);
-        txtSubTitulo1.setText(aluno.getFlg_ativo());
-
         return view;
     }
 }

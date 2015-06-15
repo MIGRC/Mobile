@@ -25,7 +25,7 @@ import br.edu.ucpel.db.Conexoes;
  */
 public class ServicoService extends AsyncTask<String, Void, Boolean> {
 
-    private static final String BASE_URI = "http://"+ Conexoes.getIP()+":8080/UnimobileWS/webresources/servico";
+    private static final String BASE_URI = "http://"+ Conexoes.getIP()+":8080/EIMobileWS/webresources/servico";
 
     public ServicoService() {
     }

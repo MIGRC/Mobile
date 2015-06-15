@@ -28,7 +28,7 @@ import br.edu.ucpel.db.Conexoes;
  */
 public class HorarioService extends AsyncTask<Integer, Void, Boolean> {
 
-    private static final String BASE_URI = "http://"+Conexoes.getIP()+":8080/UnimobileWS/webresources/horario/horario/listahorarios";
+    private static final String BASE_URI = "http://"+Conexoes.getIP()+":8080/EIMobileWS/webresources/horario/horario/listahorarios";
     private Integer curso_aluno_id;
     private Context context;
 
