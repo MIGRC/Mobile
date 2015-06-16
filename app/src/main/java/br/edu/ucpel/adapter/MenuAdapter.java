@@ -10,12 +10,12 @@ import android.widget.TextView;
 
 import br.edu.ucpel.R;
 
-public class ImageAdapter extends BaseAdapter{
+public class MenuAdapter extends BaseAdapter{
     private Context mContext;
     private final String[] web;
     private final int[] Imageid;
 
-    public ImageAdapter(Context c,String[] web,int[] Imageid ) {
+    public MenuAdapter(Context c, String[] web, int[] Imageid) {
         mContext = c;
         this.Imageid = Imageid;
         this.web = web;
@@ -45,7 +45,7 @@ public class ImageAdapter extends BaseAdapter{
         if (convertView == null) {
 
             grid = new View(mContext);
-            grid = inflater.inflate(R.layout.grid_single, null);
+            grid = inflater.inflate(R.layout.item_grid_view, null);
             TextView textView = (TextView) grid.findViewById(R.id.grid_text);
             ImageView imageView = (ImageView)grid.findViewById(R.id.grid_image);
             textView.setText(web[position]);

@@ -20,7 +20,7 @@
         android:layout_height="match_parent"
         android:textColor="#fff0f0f0"
         android:layout_marginLeft="20dp"
-        android:textSize="10dp" />
+        android:textSize="12dp" />
 
     <TextView
         android:id="@+id/txtSubTitulo2"
@@ -28,6 +28,6 @@
         android:layout_height="match_parent"
         android:textColor="#fff0f0f0"
         android:layout_marginLeft="20dp"
-        android:textSize="10dp" />
+        android:textSize="12dp" />
 
 </LinearLayout>
