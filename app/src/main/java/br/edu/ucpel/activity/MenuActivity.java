@@ -95,6 +95,7 @@ public class MenuActivity extends ActionBarActivity {
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.clear();
                 editor.commit();
+                startActivity(new Intent(this, LoginActivity.class));
                 finish();
                 break;
         }

@@ -112,6 +112,7 @@ public class EscolhaMatriculaActivity extends ActionBarActivity implements
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.clear();
                 editor.commit();
+                startActivity(new Intent(this, LoginActivity.class));
                 finish();
                 break;
         }
